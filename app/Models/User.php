@@ -45,4 +45,29 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function childminderprofile()
+    {
+        return $this->hasOne(ChildminderProfile::class);
+    }
+    
+    public function clientprofile()
+    {
+        return $this->hasOne(ClientProfile::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }
