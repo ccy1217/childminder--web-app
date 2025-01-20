@@ -8,6 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class ChildminderProfile extends Model
 {
     use HasFactory;
+    // Make sure to add user_id to the fillable array
+    protected $fillable = [
+        'user_id',
+        'first_name',
+        'last_name',
+        'profile_picture',
+        'about_me',
+        'city',
+        'town',
+        'postcode',
+        'hourly_rate',
+        'service_scope_description',
+        'age_groups',
+        'geographical_area',
+        'experience_years',
+        'my_document',
+        'is_verified',
+    ];
+
+    // You can also use $casts if needed to cast the 'age_groups' and 'my_document' attributes
+    protected $casts = [
+        'age_groups' => 'array',
+        'my_document' => 'array',
+    ];
 
     public function user()
     {
