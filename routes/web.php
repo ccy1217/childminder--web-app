@@ -2,6 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\ChildminderProfileShow;
+//use App\Http\Livewire\BookingActions;
+
+//@livewire('booking-actions', ['booking' => $booking])
+
+//Route::get('/booking/{booking}', BookingActions::class)->name('booking.actions');
+// routes/web.php
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,3 +26,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/childminder-profile', ChildminderProfileShow::class)->name('childminder-profile-show');
+});
+
