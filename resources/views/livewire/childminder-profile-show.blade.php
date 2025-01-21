@@ -6,16 +6,17 @@
                 <li class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-start border border-gray-200">
                     <!-- Left Section: Profile Image -->
                     <div class="relative w-full" style="max-width: 200px;">
-                        <div class="aspect-ratio-box">
-                            @if ($profile->profile_picture)
-                                <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full" />
-                            @else
-                                <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-full h-full">
-                                    No Image
-                                </div>
-                            @endif
-                        </div>
-                    </div>
+    <div class="aspect-ratio-box">
+        @if ($profile->profile_picture && file_exists(storage_path('app/public/' . $profile->profile_picture)) && is_readable(storage_path('app/public/' . $profile->profile_picture)))
+            <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full rounded-full p-2" />
+        @else
+            <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-full h-full rounded-full p-2">
+                No Image
+            </div>
+        @endif
+    </div>
+</div>
+
 
                     <!-- Right Section: Profile Details -->
                     <div class="flex-grow p-8">
@@ -69,6 +70,11 @@
                                 @else
                                     <p>Not provided</p>
                                 @endif
+                            </div>
+                            <!-- Add test.txt file content display -->
+                            <div class="mt-4">
+                                <b>File Content (test.txt):</b>
+                                <a href="{{ asset('storage/br4f9Yx6G7j0g4fKtYcecrOgAlVjH2TcoYyXZf3h.pdf') }}" target="_blank" class="text-blue-500 hover:underline">Download/View PDF</a>
                             </div>
 
                             <button wire:click="backToList" class="mt-6 bg-gray-300 text-black px-4 py-2 rounded underline">
