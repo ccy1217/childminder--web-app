@@ -28,7 +28,7 @@
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         
                     <div class="flex lg:justify-center lg:col-start-2">
-                         <img class="h-12 w-12 lg:h-16 lg:w-16 rounded-full object-cover" src="{{ asset('storage/profile_pictures/0QuINGAxNHLX4dQjWkJumc6DFfXXk0ZReOod9lNp.jpg') }}" alt="Profile Picture" />
+                         <img class="h-12 w-12 lg:h-16 lg:w-16 rounded-full object-cover" src="{{ asset('storage/profile_pictures/logo.jpg') }}" alt="Profile Picture" />
                     </div>
 
 

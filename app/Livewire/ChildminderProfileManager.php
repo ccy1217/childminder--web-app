@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\ChildminderProfile;
@@ -18,12 +19,24 @@ class ChildminderProfileManager extends Component
     public $hourly_rate;
     public $about_me;
     public $postcode;
-    public $service_scope_description;
     public $geographical_area;
     public $experience_years;
-    public $age_groups = [];
+    public $age_group_fields = [];
     public $my_document = [];
     public $profile_picture;
+
+    // Define service options
+    public $serviceOptions = [
+        'childcare_services' => 'Childcare Services',
+        'special_care' => 'Special Care',
+        'meal_preparation' => 'Meal Preparation',
+        'transportation' => 'Transportation (pick-up and drop-off services)',
+        'educational_support' => 'Educational and developmental support',
+        'sleep_support' => 'Sleep and routine support',
+    ];
+
+    // Dynamically handled service scope
+    public $service_scope = []; // This holds the selected options
 
     public $profile;
 
@@ -40,14 +53,25 @@ class ChildminderProfileManager extends Component
                 'hourly_rate' => $this->profile->hourly_rate,
                 'about_me' => $this->profile->about_me,
                 'postcode' => $this->profile->postcode,
-                'service_scope_description' => $this->profile->service_scope_description,
                 'geographical_area' => $this->profile->geographical_area,
                 'experience_years' => $this->profile->experience_years,
-                'age_groups' => json_decode($this->profile->age_groups, true) ?? [],
+                'age_group_fields' => json_decode($this->profile->age_groups, true) ?? [],
                 'my_document' => json_decode($this->profile->my_document, true) ?? [],
                 'profile_picture' => $this->profile->profile_picture,
+                'service_scope' => json_decode($this->profile->service_scope_description, true) ?? [],
             ]);
         }
+    }
+
+    public function addAgeGroupField()
+    {
+        $this->age_group_fields[] = null;
+    }
+
+    public function removeAgeGroupField($index)
+    {
+        unset($this->age_group_fields[$index]);
+        $this->age_group_fields = array_values($this->age_group_fields);
     }
 
     public function saveProfile()
@@ -60,27 +84,27 @@ class ChildminderProfileManager extends Component
             'hourly_rate' => 'required|numeric',
             'about_me' => 'nullable|string',
             'postcode' => 'nullable|string',
-            'service_scope_description' => 'nullable|string',
             'geographical_area' => 'nullable|string',
             'experience_years' => 'nullable|integer',
-            'age_groups' => 'nullable|array',
+            'age_group_fields' => 'nullable|array',
+            'age_group_fields.*' => 'nullable|string',
             'my_document.*' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'service_scope' => 'array',
         ]);
 
-        // Handling Profile Picture Upload
-        if ($this->profile_picture) {
-            // Delete old profile picture from storage if it exists
-            if ($this->profile && $this->profile->profile_picture) {
-                Storage::disk('public')->delete($this->profile->profile_picture);
-            }
-            $profilePicturePath = $this->profile_picture->store('profile_pictures', 'public');
-        } else {
-            // Fallback to existing profile picture
-            $profilePicturePath = $this->profile ? $this->profile->profile_picture : null;
+        // Convert selected service scope options to an associative array
+        $serviceScope = [];
+        foreach ($this->service_scope as $service) {
+            $serviceScope[$service] = true;
         }
 
-        // Handling Document Uploads
+        // Profile Picture Handling
+        $profilePicturePath = $this->profile_picture 
+            ? $this->profile_picture->store('profile_pictures', 'public') 
+            : ($this->profile->profile_picture ?? null);
+
+        // Document Uploads
         $uploadedDocuments = [];
         if ($this->my_document) {
             foreach ($this->my_document as $document) {
@@ -96,12 +120,12 @@ class ChildminderProfileManager extends Component
             'hourly_rate' => $this->hourly_rate,
             'about_me' => $this->about_me,
             'postcode' => $this->postcode,
-            'service_scope_description' => $this->service_scope_description,
             'geographical_area' => $this->geographical_area,
             'experience_years' => $this->experience_years,
-            'age_groups' => json_encode($this->age_groups),
+            'age_groups' => json_encode($this->age_group_fields),
             'my_document' => json_encode($uploadedDocuments),
             'profile_picture' => $profilePicturePath,
+            'service_scope_description' => json_encode($serviceScope),
         ];
 
         if ($this->profile) {
@@ -114,7 +138,10 @@ class ChildminderProfileManager extends Component
     }
 
     public function render()
-    {
-        return view('livewire.childminder-profile-manager')->layout('layouts.app');
-    }
+{
+    return view('livewire.childminder-profile-manager', [
+        'service_scope_options' => $this->serviceOptions,
+    ])->layout('layouts.app');
+}
+
 }

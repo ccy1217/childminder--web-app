@@ -10,7 +10,7 @@
                             @if ($profile->profile_picture && file_exists(storage_path('app/public/' . $profile->profile_picture)) && is_readable(storage_path('app/public/' . $profile->profile_picture)))
                                 <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full rounded-full p-2" />
                             @else
-                                <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-full h-full rounded-full p-2">
+                                <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-32 h-32 border-2 border-blue-500 shadow-lg">
                                     No Image
                                 </div>
                             @endif
@@ -43,11 +43,48 @@
                             <h2 class="text-2xl font-bold text-blue-500">
                                 {{ $currentProfile->first_name }} {{ $currentProfile->last_name }}
                             </h2>
+                            <div class="mt-4">
+                                @if ($currentProfile->profile_picture && file_exists(storage_path('app/public/' . $currentProfile->profile_picture)) && is_readable(storage_path('app/public/' . $currentProfile->profile_picture)))
+                                    <img src="{{ asset('storage/' . $currentProfile->profile_picture) }}" alt="Profile Picture" class="object-cover w-32 h-32 rounded-full border-2 border-blue-500">
+                                @else
+                                    <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-32 h-32 rounded-full border-2 border-blue-500">
+                                        No Image
+                                    </div>
+                                @endif
+                            </div>
                             <p class="text-sm text-gray-600 mt-2">Location: {{ $currentProfile->city }}, {{ $currentProfile->town ?? 'N/A' }}</p>
                             <p class="text-sm text-gray-600 mt-2">Hourly Rate: £{{ $currentProfile->hourly_rate }}</p>
                             <p class="mt-4"><b>About Me:</b> {{ $currentProfile->about_me ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Postcode:</b> {{ $currentProfile->postcode ?? 'Not provided' }}</p>
-                            <p class="mt-2"><b>Service Scope:</b> {{ $currentProfile->service_scope_description ?? 'Not provided' }}</p>
+                            
+                            <p class="mt-2"><b>Service Scope:</b>
+                                @php
+                                    $serviceScope = json_decode($currentProfile->service_scope_description, true) ?? [];
+                                    $serviceScopeNames = [];
+
+                                    if ($serviceScope['childcare_services'] ?? false) {
+                                        $serviceScopeNames[] = 'Childcare Services';
+                                    }
+                                    if ($serviceScope['special_care'] ?? false) {
+                                        $serviceScopeNames[] = 'Special Care for Children with Disabilities or Medical Needs';
+                                    }
+                                    if ($serviceScope['meal_preparation'] ?? false) {
+                                        $serviceScopeNames[] = 'Meal Preparation and Nutrition';
+                                    }
+                                    if ($serviceScope['transportation'] ?? false) {
+                                        $serviceScopeNames[] = 'Transportation (pick-up and drop-off services)';
+                                    }
+                                    if ($serviceScope['educational_support'] ?? false) {
+                                        $serviceScopeNames[] = 'Educational and Developmental Support';
+                                    }
+                                    if ($serviceScope['sleep_support'] ?? false) {
+                                        $serviceScopeNames[] = 'Sleep and Routine Support';
+                                    }
+                                @endphp
+
+                                {{ !empty($serviceScopeNames) ? implode(', ', $serviceScopeNames) : 'Not provided' }}
+                            </p>
+
                             <p class="mt-2"><b>Geographical Area:</b> {{ $currentProfile->geographical_area ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Experience (Years):</b> {{ $currentProfile->experience_years ?? 'Not specified' }}</p>
 

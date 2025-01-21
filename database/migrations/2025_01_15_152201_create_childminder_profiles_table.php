@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('town')->nullable();
             $table->string('postcode')->nullable();
             $table->decimal('hourly_rate', 6, 2);
-            $table->text('service_scope_description')->nullable();
+            $table->json('service_scope');
             $table->json('age_groups')->nullable();
             $table->string('geographical_area')->nullable();
             $table->integer('experience_years')->nullable();

@@ -82,11 +82,23 @@
                     @enderror
                 </div>
 
-                <!-- Service Scope Description -->
+                <!-- Service Scope Description (Checkboxes) -->
                 <div>
-                    <label for="service_scope_description" class="block text-sm font-medium text-gray-700">Service Scope Description</label>
-                    <textarea id="service_scope_description" wire:model="service_scope_description" class="mt-1 p-2 block w-full border rounded-md"></textarea>
-                    @error('service_scope_description') 
+                    <label class="block text-sm font-medium text-gray-700">Service Scope</label>
+                    <div class="space-y-2">
+                        @foreach ($service_scope_options as $key => $label)
+                            <div class="flex items-center">
+                                <input 
+                                    type="checkbox" 
+                                    id="service_scope_{{ $key }}" 
+                                    wire:model="service_scope.{{ $key }}" 
+                                    class="h-5 w-5"
+                                >
+                                <label for="service_scope_{{ $key }}" class="ml-2 text-sm">{{ $label }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('service_scope') 
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
@@ -111,17 +123,31 @@
 
                 <!-- Age Groups -->
                 <div>
-                    <label for="age_groups" class="block text-sm font-medium text-gray-700">Age Groups</label>
-                    <select id="age_groups" wire:model="age_groups" multiple class="mt-1 p-2 block w-full border rounded-md">
-                        <option value="0-2">0-2</option>
-                        <option value="3-5">3-5</option>
-                        <option value="6-12">6-12</option>
-                        <option value="13-18">13-18</option>
-                    </select>
-                    @error('age_groups') 
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+                    <label class="block text-sm font-medium text-gray-700">Age Groups</label>
+                    <div class="space-y-4">
+                        @foreach ($age_group_fields as $index => $age_group)
+                            <div class="flex items-center space-x-4">
+                                <select wire:model="age_group_fields.{{ $index }}" class="mt-1 p-2 block w-full border rounded-md">
+                                    <option value="" disabled>Select Age Group</option>
+                                    <option value="0-2">0-2</option>
+                                    <option value="3-5">3-5</option>
+                                    <option value="6-12">6-12</option>
+                                    <option value="13-18">13-18</option>
+                                </select>
+                                <button type="button" wire:click="removeAgeGroupField({{ $index }})" class="text-red-500 hover:underline">
+                                    Remove
+                                </button>
+                            </div>
+                            @error("age_group_fields.{$index}")
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        @endforeach
+                    </div>
+                    <button type="button" wire:click="addAgeGroupField" class="text-blue-500 hover:underline">
+                        Add Age Group
+                    </button>
                 </div>
+
 
                 <!-- Documents -->
                 <div>
@@ -148,8 +174,20 @@
 
                 <!-- Submit Button -->
                 <div class="mt-4">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save Profile</button>
-                </div>
+                <button 
+    type="submit" 
+    class="mt-1 block w-full font-bold py-3 rounded-md border-2 border-blue-500 shadow-lg hover:bg-blue-500 hover:text-white hover:shadow-xl transition-all duration-200" 
+    style="background-color: #6B8E23; color: white;"
+>
+    Save Profile
+</button>
+
+
+
+
+</div>
+
+
             </form>
         </div>
     </div>
