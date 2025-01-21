@@ -16,17 +16,7 @@
                 <div>
                     <label for="profile_picture" class="block text-sm font-medium text-gray-700">Profile Picture</label>
                     <input type="file" id="profile_picture" wire:model="profile_picture" accept="image/*" class="mt-1 block w-full">
-                    
-                    <!-- Display Preview if File is Uploaded -->
-                    @if ($profile_picture && is_object($profile_picture))
-                        <img src="{{ $profile_picture->temporaryUrl() }}" alt="Preview" class="mt-2 w-20 h-20 object-cover rounded">
-                    @elseif ($profile && $profile->profile_picture)
-                        <img src="{{ asset('storage/' . $profile->profile_pictures) }}" alt="Current Profile" class="mt-2 w-20 h-20 object-cover rounded">
-                    @endif
-                    
-                    @error('profile_picture') 
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+
                 </div>
 
                 <!-- First Name -->
