@@ -12,12 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('childminder_profile_service', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('childminder_id')->constrained('childminder_profiles') 
-                ->onDelete('cascade') ->onUpdate('cascade');
-            $table->foreignId('service_id')->constrained('services') 
-                ->onDelete('cascade') ->onUpdate('cascade');
+ 
+            $table->primary(['childminder_profile_id', 'service_id']);
+            $table->bigInteger('childminder_profile_id')->unsigned(); 
+            $table->bigInteger('service_id')->unsigned(); 
             $table->timestamps();
+            $table->foreign('childminder_profile_id')->references('id')->on('childminder_profiles')
+            ->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('service_id')->references('id')->on('services')
+            ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -58,32 +58,17 @@
                             <p class="mt-2"><b>Postcode:</b> {{ $currentProfile->postcode ?? 'Not provided' }}</p>
                             
                             <p class="mt-2"><b>Service Scope:</b>
-                                @php
-                                    $serviceScope = json_decode($currentProfile->service_scope_description, true) ?? [];
-                                    $serviceScopeNames = [];
+    @if ($currentProfile->services->isNotEmpty())
+        @foreach ($currentProfile->services as $service)
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-2 py-1 rounded-full mr-2 mt-2">
+                {{ $service->name }}
+            </span>
+        @endforeach
+    @else
+        Not provided
+    @endif
+</p>
 
-                                    if ($serviceScope['childcare_services'] ?? false) {
-                                        $serviceScopeNames[] = 'Childcare Services';
-                                    }
-                                    if ($serviceScope['special_care'] ?? false) {
-                                        $serviceScopeNames[] = 'Special Care for Children with Disabilities or Medical Needs';
-                                    }
-                                    if ($serviceScope['meal_preparation'] ?? false) {
-                                        $serviceScopeNames[] = 'Meal Preparation and Nutrition';
-                                    }
-                                    if ($serviceScope['transportation'] ?? false) {
-                                        $serviceScopeNames[] = 'Transportation (pick-up and drop-off services)';
-                                    }
-                                    if ($serviceScope['educational_support'] ?? false) {
-                                        $serviceScopeNames[] = 'Educational and Developmental Support';
-                                    }
-                                    if ($serviceScope['sleep_support'] ?? false) {
-                                        $serviceScopeNames[] = 'Sleep and Routine Support';
-                                    }
-                                @endphp
-
-                                {{ !empty($serviceScopeNames) ? implode(', ', $serviceScopeNames) : 'Not provided' }}
-                            </p>
 
                             <p class="mt-2"><b>Geographical Area:</b> {{ $currentProfile->geographical_area ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Experience (Years):</b> {{ $currentProfile->experience_years ?? 'Not specified' }}</p>

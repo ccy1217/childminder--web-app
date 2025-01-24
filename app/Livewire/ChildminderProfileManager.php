@@ -3,10 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\ChildminderProfile;
+use App\Models\Service;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ChildminderProfileManager extends Component
 {
@@ -25,24 +25,17 @@ class ChildminderProfileManager extends Component
     public $my_document = [];
     public $profile_picture;
 
-    // Define service options
-    public $serviceOptions = [
-        'childcare_services' => 'Childcare Services',
-        'special_care' => 'Special Care',
-        'meal_preparation' => 'Meal Preparation',
-        'transportation' => 'Transportation (pick-up and drop-off services)',
-        'educational_support' => 'Educational and developmental support',
-        'sleep_support' => 'Sleep and routine support',
-    ];
-
-    // Dynamically handled service scope
-    public $service_scope = []; // This holds the selected options
+    public $serviceOptions = [];
+    public $service_scope = []; // Holds selected service IDs
 
     public $profile;
 
     public function mount()
     {
         $this->profile = Auth::user()->childminderProfile;
+
+        // Load all available service options
+        $this->serviceOptions = Service::pluck('name', 'id')->toArray();
 
         if ($this->profile) {
             $this->fill([
@@ -58,7 +51,7 @@ class ChildminderProfileManager extends Component
                 'age_group_fields' => json_decode($this->profile->age_groups, true) ?? [],
                 'my_document' => json_decode($this->profile->my_document, true) ?? [],
                 'profile_picture' => $this->profile->profile_picture,
-                'service_scope' => json_decode($this->profile->service_scope_description, true) ?? [],
+                'service_scope' => $this->profile->services->pluck('id')->toArray(), // Load associated services
             ]);
         }
     }
@@ -93,18 +86,12 @@ class ChildminderProfileManager extends Component
             'service_scope' => 'array',
         ]);
 
-        // Convert selected service scope options to an associative array
-        $serviceScope = [];
-        foreach ($this->service_scope as $service) {
-            $serviceScope[$service] = true;
-        }
-
-        // Profile Picture Handling
+        // Save profile picture if uploaded
         $profilePicturePath = $this->profile_picture 
             ? $this->profile_picture->store('profile_pictures', 'public') 
             : ($this->profile->profile_picture ?? null);
 
-        // Document Uploads
+        // Save documents if uploaded
         $uploadedDocuments = [];
         if ($this->my_document) {
             foreach ($this->my_document as $document) {
@@ -112,6 +99,7 @@ class ChildminderProfileManager extends Component
             }
         }
 
+        // Prepare the profile data
         $data = [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -125,23 +113,25 @@ class ChildminderProfileManager extends Component
             'age_groups' => json_encode($this->age_group_fields),
             'my_document' => json_encode($uploadedDocuments),
             'profile_picture' => $profilePicturePath,
-            'service_scope_description' => json_encode($serviceScope),
         ];
 
         if ($this->profile) {
             $this->profile->update($data);
+            // Sync selected services to the pivot table
+            $this->profile->services()->sync($this->service_scope);
         } else {
-            ChildminderProfile::create(array_merge($data, ['user_id' => Auth::id()]));
+            $profile = ChildminderProfile::create(array_merge($data, ['user_id' => Auth::id()]));
+            // Sync selected services to the pivot table
+            $profile->services()->sync($this->service_scope);
         }
 
         session()->flash('message', 'Profile saved successfully!');
     }
 
     public function render()
-{
-    return view('livewire.childminder-profile-manager', [
-        'service_scope_options' => $this->serviceOptions,
-    ])->layout('layouts.app');
-}
-
+    {
+        return view('livewire.childminder-profile-manager', [
+            'service_scope_options' => $this->serviceOptions,
+        ])->layout('layouts.app');
+    }
 }

@@ -19,7 +19,6 @@ class ChildminderProfile extends Model
         'town',
         'postcode',
         'hourly_rate',
-        'service_scope_description',
         'age_groups',
         'geographical_area',
         'experience_years',

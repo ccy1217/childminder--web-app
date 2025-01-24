@@ -15,10 +15,20 @@ class ServiceFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        return [
-            'name' => fake()->unique()->words(2, true), // Generates a unique two-word name
-            'description' => fake()->sentence(10), // Generates a random sentence for the description
-        ];
-    }
+{
+    $serviceOptions = [
+        'Childcare services',
+        'Special care',
+        'Meal preparation',
+        'Transportation (pick-up and drop-off services)',
+        'Educational and developmental support',
+        'Sleep and routine support',
+    ];
+
+    return [
+        'name' => fake()->unique()->randomElement($serviceOptions), // Ensures unique names
+        'description' => fake()->sentence(10), // Random description
+    ];
+}
+
 }

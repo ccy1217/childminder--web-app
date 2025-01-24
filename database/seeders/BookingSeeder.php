@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Booking;
+use App\Models\Service;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

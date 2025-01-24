@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('childminder_profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('user_id')->unsigned(); 
+            // Setting up the foreign key constraints
+            $table->foreign('user_id')->references('id')->on('users')
+                  ->onDelete('cascade')->onUpdate('cascade');
+
+            //$table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('profile_picture')->nullable();
@@ -22,7 +27,6 @@ return new class extends Migration
             $table->string('town')->nullable();
             $table->string('postcode')->nullable();
             $table->decimal('hourly_rate', 6, 2);
-            $table->json('service_scope');
             $table->json('age_groups')->nullable();
             $table->string('geographical_area')->nullable();
             $table->integer('experience_years')->nullable();
