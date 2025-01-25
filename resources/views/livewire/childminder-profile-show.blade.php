@@ -1,4 +1,34 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+        <!-- Filters Section -->
+        @if ($showFilters)
+        <div class="mb-4">
+            <label for="filter_city" class="block text-sm font-medium text-gray-700">Select City:</label>
+            <select wire:model="filter_city" id="filter_city" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <option value="">-- Choose a city --</option>
+                @foreach ($cities as $city)
+                    <option value="{{ $city }}">{{ $city }}</option>
+                @endforeach
+            </select>
+
+            <label for="filter_town" class="block text-sm font-medium text-gray-700 mt-4">Select Town:</label>
+            <select wire:model="filter_town" id="filter_town" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <option value="">-- Choose a town --</option>
+                @foreach ($towns as $town)
+                    <option value="{{ $town }}">{{ $town }}</option>
+                @endforeach
+            </select>
+            
+            <!-- Search Button -->
+            <div class="mt-4">
+                <button wire:click="searchProfiles" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Search
+                </button>
+            </div>
+        </div>
+        @endif
+    </div>
+
     <ul class="mt-4 space-y-6 bg-grey p-6 rounded-lg shadow-sm">
         @if ($viewMode === 'list')
             <!-- List of Childminder Profiles -->
@@ -56,6 +86,7 @@
                             <p class="text-sm text-gray-600 mt-2">Hourly Rate: £{{ $currentProfile->hourly_rate }}</p>
                             <p class="mt-4"><b>About Me:</b> {{ $currentProfile->about_me ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Postcode:</b> {{ $currentProfile->postcode ?? 'Not provided' }}</p>
+
                             <!-- Language Section -->
                             <p class="mt-2"><b>Languages:</b>
                                 @if ($currentProfile->languages->isNotEmpty())
@@ -68,6 +99,7 @@
                                     Not specified
                                 @endif
                             </p>
+
                             <p class="mt-2"><b>Service Scope:</b>
                                @if ($currentProfile->services->isNotEmpty())
                                     @foreach ($currentProfile->services as $service)
@@ -79,7 +111,6 @@
                                    Not provided
                                @endif
                            </p>
-
 
                             <p class="mt-2"><b>Geographical Area:</b> {{ $currentProfile->geographical_area ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Experience (Years):</b> {{ $currentProfile->experience_years ?? 'Not specified' }}</p>
