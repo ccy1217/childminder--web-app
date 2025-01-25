@@ -2,68 +2,78 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         <!-- Filters Section -->
         @if ($showFilters)
-        <div class="mb-4">
-            <label for="filter_city" class="block text-sm font-medium text-gray-700">Select City:</label>
-            <select wire:model="filter_city" id="filter_city" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                <option value="">-- Choose a city --</option>
-                @foreach ($cities as $city)
-                    <option value="{{ $city }}">{{ $city }}</option>
-                @endforeach
-            </select>
+            <div class="mb-4">
+                <label for="filter_city" class="block text-sm font-medium text-gray-700">Select City:</label>
+                <select wire:model="filter_city" id="filter_city" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">-- Choose a city --</option>
+                    @foreach ($cities as $city)
+                        <option value="{{ $city }}">{{ $city }}</option>
+                    @endforeach
+                </select>
 
-            <label for="filter_town" class="block text-sm font-medium text-gray-700 mt-4">Select Town:</label>
-            <select wire:model="filter_town" id="filter_town" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                <option value="">-- Choose a town --</option>
-                @foreach ($towns as $town)
-                    <option value="{{ $town }}">{{ $town }}</option>
-                @endforeach
-            </select>
-            
-            <!-- Search Button -->
-            <div class="mt-4">
-                <button wire:click="searchProfiles" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                    Search
-                </button>
+                <label for="filter_town" class="block text-sm font-medium text-gray-700 mt-4">Select Town:</label>
+                <select wire:model="filter_town" id="filter_town" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">-- Choose a town --</option>
+                    @foreach ($towns as $town)
+                        <option value="{{ $town }}">{{ $town }}</option>
+                    @endforeach
+                </select>
+
+                <!-- Search Button -->
+                <div class="mt-4">
+                    <button wire:click="searchProfiles" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Search
+                    </button>
+                </div>
             </div>
-        </div>
         @endif
     </div>
 
     <ul class="mt-4 space-y-6 bg-grey p-6 rounded-lg shadow-sm">
         @if ($viewMode === 'list')
             <!-- List of Childminder Profiles -->
-            @foreach ($profiles as $profile)
-                <li class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-start border border-gray-200">
-                    <!-- Left Section: Profile Image -->
-                    <div class="relative w-full" style="max-width: 200px; margin-right: 1.5rem;">
-                        <div class="aspect-ratio-box">
-                            @if ($profile->profile_picture && file_exists(storage_path('app/public/' . $profile->profile_picture)) && is_readable(storage_path('app/public/' . $profile->profile_picture)))
-                                <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full rounded-full p-2" />
-                            @else
-                                <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-32 h-32 border-2 border-blue-500 shadow-lg">
-                                    No Image
-                                </div>
-                            @endif
+            @if($profiles->isEmpty())
+                <!-- No results found -->
+                <div class="text-center">
+                    <p class="text-lg font-semibold text-gray-600">No results found. Please back to list and try other keywords.</p>
+                    <button wire:click="backToList" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Back to List
+                    </button>
+                </div>
+            @else
+                @foreach ($profiles as $profile)
+                    <li class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-start border border-gray-200">
+                        <!-- Left Section: Profile Image -->
+                        <div class="relative w-full" style="max-width: 200px; margin-right: 1.5rem;">
+                            <div class="aspect-ratio-box">
+                                @if ($profile->profile_picture && file_exists(storage_path('app/public/' . $profile->profile_picture)) && is_readable(storage_path('app/public/' . $profile->profile_picture)))
+                                    <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full rounded-full p-2" />
+                                @else
+                                    <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-32 h-32 border-2 border-blue-500 shadow-lg">
+                                        No Image
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Right Section: Profile Details -->
-                    <div class="flex-grow p-8">
-                        <h4 class="text-lg font-semibold">
-                            <a href="#" wire:click="showProfile({{ $profile->id }})" class="text-blue-500 font-bold">
-                                {{ $profile->first_name }} {{ $profile->last_name }}
-                            </a>
-                        </h4>
-                        <p class="text-sm text-gray-600 mt-1">Location: {{ $profile->city }}, {{ $profile->town ?? 'N/A' }}</p>
-                        <p class="text-sm text-gray-600 mt-1">Hourly Rate: £{{ $profile->hourly_rate }}</p>
-                    </div>
-                </li>
-            @endforeach
+                        <!-- Right Section: Profile Details -->
+                        <div class="flex-grow p-8">
+                            <h4 class="text-lg font-semibold">
+                                <a href="#" wire:click="showProfile({{ $profile->id }})" class="text-blue-500 font-bold">
+                                    {{ $profile->first_name }} {{ $profile->last_name }}
+                                </a>
+                            </h4>
+                            <p class="text-sm text-gray-600 mt-1">Location: {{ $profile->city }}, {{ $profile->town ?? 'N/A' }}</p>
+                            <p class="text-sm text-gray-600 mt-1">Hourly Rate: £{{ $profile->hourly_rate }}</p>
+                        </div>
+                    </li>
+                @endforeach
 
-            <!-- Pagination Links -->
-            <div class="mt-6">
-                {{ $profiles->links() }}
-            </div>
+                <!-- Pagination Links -->
+                <div class="mt-6">
+                    {{ $profiles->links() }}
+                </div>
+            @endif
         @elseif ($viewMode === 'show')
             <!-- Profile Detail View -->
             <div class="py-12">
