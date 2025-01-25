@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\ChildminderProfile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Service;
+use App\Models\language;
 use Illuminate\Database\Seeder;
 
 class ChildminderProfileSeeder extends Seeder
@@ -23,6 +24,10 @@ class ChildminderProfileSeeder extends Seeder
                 
                 // Attach the services to the profile (pivot table)
                 $profile->services()->attach($services);
+
+                // Randomly assign languages (you can adjust this number as needed)
+                $languages = Language::inRandomOrder()->take(2)->pluck('id'); // Assigning 2 languages, you can change this number
+                $profile->languages()->attach($languages); // Assuming the childminder_profile_languages pivot table
             });
     }
 }

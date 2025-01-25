@@ -16,12 +16,16 @@ class ClientProfile extends Model
 
     public function bookings()
     {
-    return $this->hasMany(Booking::class, 'client_id');
+    return $this->hasMany(Booking::class);
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'client_id');
+        return $this->hasMany(Comment::class);
+    }
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class);
     }
 
 }

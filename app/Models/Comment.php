@@ -14,7 +14,7 @@ class Comment extends Model
     /**
      * Relationship: A comment belongs to a client.
      */
-    public function clientProfile()
+    public function clientprofile()
     {
         return $this->belongsTo(ClientProfile::class);
     }
@@ -22,7 +22,7 @@ class Comment extends Model
     /**
      * Relationship: A comment belongs to a childminder.
      */
-    public function childminderProfile()
+    public function childminderprofile()
     {
         return $this->belongsTo(ChildminderProfile::class);
     }

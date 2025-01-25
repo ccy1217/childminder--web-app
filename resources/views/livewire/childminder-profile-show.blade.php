@@ -56,18 +56,29 @@
                             <p class="text-sm text-gray-600 mt-2">Hourly Rate: £{{ $currentProfile->hourly_rate }}</p>
                             <p class="mt-4"><b>About Me:</b> {{ $currentProfile->about_me ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Postcode:</b> {{ $currentProfile->postcode ?? 'Not provided' }}</p>
-                            
+                            <!-- Language Section -->
+                            <p class="mt-2"><b>Languages:</b>
+                                @if ($currentProfile->languages->isNotEmpty())
+                                    @foreach ($currentProfile->languages as $language)
+                                        <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-2 py-1 rounded-full mr-2 mt-2">
+                                            {{ $language->name }}
+                                        </span>
+                                    @endforeach
+                                @else
+                                    Not specified
+                                @endif
+                            </p>
                             <p class="mt-2"><b>Service Scope:</b>
-    @if ($currentProfile->services->isNotEmpty())
-        @foreach ($currentProfile->services as $service)
-            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-2 py-1 rounded-full mr-2 mt-2">
-                {{ $service->name }}
-            </span>
-        @endforeach
-    @else
-        Not provided
-    @endif
-</p>
+                               @if ($currentProfile->services->isNotEmpty())
+                                    @foreach ($currentProfile->services as $service)
+                                        <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-2 py-1 rounded-full mr-2 mt-2">
+                                            {{ $service->name }}
+                                        </span>
+                                    @endforeach
+                               @else
+                                   Not provided
+                               @endif
+                           </p>
 
 
                             <p class="mt-2"><b>Geographical Area:</b> {{ $currentProfile->geographical_area ?? 'Not provided' }}</p>

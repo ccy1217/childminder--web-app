@@ -80,7 +80,25 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+                <!-- Language Selection -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Languages</label>
+                    <div class="space-y-2">
+                        @foreach ($language_options as $key => $label)
+                            <div class="flex items-center">
+                                <input type="checkbox" id="language_{{ $key }}" wire:model="language_scope" value="{{ $key }}" class="h-5 w-5">
+                                <label for="language_{{ $key }}" class="ml-2 text-sm">{{ $label }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    @error('language_scope')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
 
+
+
+                
                 <!-- Service Scope -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Service Scope</label>

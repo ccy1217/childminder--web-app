@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(LanguageSeeder::class);
         $this->call(ChildminderProfileSeeder::class); 
         $this->call(ClientProfileSeeder::class);
-        //$this->call(ServiceSeeder::class);
         $this->call(BookingSeeder::class);
         $this->call(NotificationSeeder::class);
         $this->call(MessageSeeder::class);

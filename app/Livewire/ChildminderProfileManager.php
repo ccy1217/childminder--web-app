@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\ChildminderProfile;
 use App\Models\Service;
+use App\Models\Language; // Add the Language model
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
@@ -28,14 +29,21 @@ class ChildminderProfileManager extends Component
     public $serviceOptions = [];
     public $service_scope = []; // Holds selected service IDs
 
+    public $languageOptions = []; // Language options to display
+    public $language_scope = []; // Holds selected language IDs
+
     public $profile;
 
+    // Initialize the component, set default data, or process parameters.
     public function mount()
     {
         $this->profile = Auth::user()->childminderProfile;
 
         // Load all available service options
         $this->serviceOptions = Service::pluck('name', 'id')->toArray();
+
+        // Load all available language options
+        $this->languageOptions = Language::pluck('name', 'id')->toArray();
 
         if ($this->profile) {
             $this->fill([
@@ -52,6 +60,7 @@ class ChildminderProfileManager extends Component
                 'my_document' => json_decode($this->profile->my_document, true) ?? [],
                 'profile_picture' => $this->profile->profile_picture,
                 'service_scope' => $this->profile->services->pluck('id')->toArray(), // Load associated services
+                'language_scope' => $this->profile->languages->pluck('id')->toArray(), // Load associated languages
             ]);
         }
     }
@@ -84,11 +93,12 @@ class ChildminderProfileManager extends Component
             'my_document.*' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'service_scope' => 'array',
+            'language_scope' => 'array', // Validate the selected languages
         ]);
 
         // Save profile picture if uploaded
-        $profilePicturePath = $this->profile_picture 
-            ? $this->profile_picture->store('profile_pictures', 'public') 
+        $profilePicturePath = $this->profile_picture
+            ? $this->profile_picture->store('profile_pictures', 'public')
             : ($this->profile->profile_picture ?? null);
 
         // Save documents if uploaded
@@ -117,21 +127,25 @@ class ChildminderProfileManager extends Component
 
         if ($this->profile) {
             $this->profile->update($data);
-            // Sync selected services to the pivot table
+            // Sync selected services and languages to the pivot table
             $this->profile->services()->sync($this->service_scope);
+            $this->profile->languages()->sync($this->language_scope);
         } else {
             $profile = ChildminderProfile::create(array_merge($data, ['user_id' => Auth::id()]));
-            // Sync selected services to the pivot table
+            // Sync selected services and languages to the pivot table
             $profile->services()->sync($this->service_scope);
+            $profile->languages()->sync($this->language_scope);
         }
 
         session()->flash('message', 'Profile saved successfully!');
     }
 
+    // Build the view for the component.
     public function render()
     {
         return view('livewire.childminder-profile-manager', [
             'service_scope_options' => $this->serviceOptions,
+            'language_options' => $this->languageOptions,
         ])->layout('layouts.app');
     }
 }

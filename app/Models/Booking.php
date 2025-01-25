@@ -18,12 +18,12 @@ class Booking extends Model
         'status',
     ];
 
-    public function clientProfile()
+    public function clientprofile()
     {
         return $this->belongsTo(ClientProfile::class);
     }
 
-    public function childminderProfile()
+    public function childminderprofile()
     {
         return $this->belongsTo(ChildminderProfile::class);
     }
@@ -31,5 +31,9 @@ class Booking extends Model
     public function services()
     {
         return $this->belongsToMany(Service::class);
+    }
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class, 'booking_language');
     }
 }

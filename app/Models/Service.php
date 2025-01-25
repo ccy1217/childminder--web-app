@@ -13,7 +13,7 @@ class Service extends Model
     /**
      * Relationship: A service can be offered by many childminders.
      */
-    public function childminderProfiles()
+    public function childminderprofiles()
     {
         return $this->belongsToMany(ChildminderProfile::class);
     }

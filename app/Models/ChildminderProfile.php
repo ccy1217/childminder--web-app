@@ -52,4 +52,8 @@ class ChildminderProfile extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class);
+    }
 }

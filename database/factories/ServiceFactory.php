@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,8 +15,8 @@ class ServiceFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
-{
+    public function definition(): array   
+   {
     $serviceOptions = [
         'Childcare services',
         'Special care',
