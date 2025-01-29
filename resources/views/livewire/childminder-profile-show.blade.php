@@ -19,9 +19,31 @@
                     @endforeach
                 </select>
 
+                <label for="filter_service" class="block text-sm font-medium text-gray-700 mt-4">Preferred Service:</label>
+<select wire:model="filter_service" id="filter_service" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    <option value="">-- Choose a service --</option>
+    @foreach ($services as $id => $name)
+        <option value="{{ $id }}">{{ $name }}</option>
+    @endforeach
+</select>
+
+<label for="filter_language" class="block text-sm font-medium text-gray-700 mt-4">Preferred Language:</label>
+<select wire:model="filter_language" id="filter_language" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    <option value="">-- Choose a language --</option>
+    @foreach ($languages as $id => $name)
+        <option value="{{ $id }}">{{ $name }}</option>
+    @endforeach
+</select>
+
+
+
+
+
+
+
                 <!-- Search Button -->
                 <div class="mt-4">
-                    <button wire:click="searchProfiles" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    <button wire:click="searchProfiles" class="bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
                         Search
                     </button>
                 </div>

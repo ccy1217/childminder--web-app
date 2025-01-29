@@ -17,8 +17,6 @@ return new class extends Migration
             // Setting up the foreign key constraints
             $table->foreign('user_id')->references('id')->on('users')
                   ->onDelete('cascade')->onUpdate('cascade');
-
-            //$table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('profile_picture')->nullable();
@@ -33,8 +31,6 @@ return new class extends Migration
             $table->json('my_document')->nullable();
             $table->boolean('is_verified')->default(false);
              $table->timestamps();
-            // $table->index(['city', 'town', 'postcode']);
-            // $table->index(['first_name', 'last_name']);
         });
         
     }
