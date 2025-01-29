@@ -8,6 +8,14 @@ use App\Models\Language;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+namespace App\Livewire;
+
+use App\Models\ChildminderProfile;
+use App\Models\Service;
+use App\Models\Language;
+use Livewire\Component;
+use Livewire\WithPagination;
+
 class ChildminderProfileShow extends Component
 {
     use WithPagination;
@@ -16,11 +24,12 @@ class ChildminderProfileShow extends Component
     public $currentProfile;
     public $viewMode = 'list';
 
-    // Filters for cities, towns, services, and languages
+    // Filters for cities, towns, services, languages, and age group
     public $filter_city;
     public $filter_town;
     public $filter_service;
     public $filter_language;
+    public $filter_age_group;
     public $showFilters = true;
 
     protected $paginationTheme = 'tailwind';
@@ -31,6 +40,7 @@ class ChildminderProfileShow extends Component
         $this->filter_town = session()->get('filter_town', null);
         $this->filter_service = session()->get('filter_service', null);
         $this->filter_language = session()->get('filter_language', null);
+        $this->filter_age_group = session()->get('filter_age_group', null); // Initialize age group filter
     }
 
     public function updated($propertyName)
@@ -63,6 +73,7 @@ class ChildminderProfileShow extends Component
     {
         $query = ChildminderProfile::query();
 
+        // Apply filters
         if ($this->filter_city) {
             $query->where('city', $this->filter_city);
         }
@@ -83,12 +94,20 @@ class ChildminderProfileShow extends Component
             });
         }
 
+        // Filter by age group
+        if ($this->filter_age_group) {
+            $query->whereJsonContains('age_groups', $this->filter_age_group);
+        }
+
+        // Paginate the filtered results
         $profiles = $query->latest()->paginate(10);
 
+        // Prepare filter options
         $cities = ChildminderProfile::distinct()->pluck('city')->take(10);
         $towns = ChildminderProfile::distinct()->whereIn('city', $cities)->pluck('town', 'town')->take(10);
         $services = Service::pluck('name', 'id');
         $languages = Language::pluck('name', 'id');
+        $ageGroups = ['0-2', '3-5', '6-12', '13-18']; // Age group options
 
         return view('livewire.childminder-profile-show', [
             'profiles' => $profiles,
@@ -96,6 +115,7 @@ class ChildminderProfileShow extends Component
             'towns' => $towns,
             'services' => $services,
             'languages' => $languages,
+            'ageGroups' => $ageGroups, 
         ])->layout('layouts.app');
     }
 }

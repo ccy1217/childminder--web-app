@@ -20,22 +20,29 @@
                 </select>
 
                 <label for="filter_service" class="block text-sm font-medium text-gray-700 mt-4">Preferred Service:</label>
-<select wire:model="filter_service" id="filter_service" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-    <option value="">-- Choose a service --</option>
-    @foreach ($services as $id => $name)
-        <option value="{{ $id }}">{{ $name }}</option>
-    @endforeach
-</select>
+                <select wire:model="filter_service" id="filter_service" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">-- Choose a service --</option>
+                    @foreach ($services as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
 
-<label for="filter_language" class="block text-sm font-medium text-gray-700 mt-4">Preferred Language:</label>
-<select wire:model="filter_language" id="filter_language" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-    <option value="">-- Choose a language --</option>
-    @foreach ($languages as $id => $name)
-        <option value="{{ $id }}">{{ $name }}</option>
-    @endforeach
-</select>
+                <label for="filter_language" class="block text-sm font-medium text-gray-700 mt-4">Preferred Language:</label>
+                <select wire:model="filter_language" id="filter_language" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">-- Choose a language --</option>
+                    @foreach ($languages as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
 
-
+               <!-- Filter by Age Group -->
+               <label for="filter_age_group" class="block text-sm font-medium text-gray-700">Preferred Age Group</label>
+               <select wire:model="filter_age_group" id="filter_age_group" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">-- Choose an Age Group --</option>
+                    @foreach(['0-2', '3-5', '6-12', '13-18'] as $ageGroup)
+                    <option value="{{ $ageGroup }}">{{ $ageGroup }}</option>
+                    @endforeach
+               </select>
 
 
 

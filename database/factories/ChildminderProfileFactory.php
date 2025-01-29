@@ -31,7 +31,7 @@ class ChildminderProfileFactory extends Factory
             'town' => fake()->randomElement(['Springfield', 'Rivertown', 'Hill Valley', 'Sunnydale', 'Twin Peaks','N/A']),
             'postcode' => fake()->optional()->postcode(),
             'hourly_rate' => fake()->randomFloat(2, 5, 20), // Random hourly rate between 5 and 20 with 2 decimal places
-            'age_groups' => json_encode(fake()->optional()->randomElements(['0-2', '3-5', '6-12', '13-18'], 2)), // Convert the array to JSON
+            'age_groups' => fake()->optional()->randomElements(['0-2', '3-5', '6-12', '13-18'], 2), // Convert the array to JSON
             'geographical_area' => fake()->optional()->city(), // Optional geographical area
             'experience_years' => fake()->optional()->numberBetween(1, 20), // Optional years of experience
             'my_document' => json_encode(fake()->optional()->file(public_path('storage/documents'))),
