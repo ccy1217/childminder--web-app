@@ -26,7 +26,11 @@ class ChildminderProfileFactory extends Factory
             'first_name' => fake()->firstName(), // Random first name
             'last_name' => fake()->lastName(), // Random last name
             'profile_picture' => fake()->imageUrl(), // Random URL for profile picture
-            'about_me' => fake()->paragraph(), // Random "about me" text
+            'provider_urn' => fake()->randomElement([
+                fake()->numerify('######'),  // Generates a 6-digit number like '398776'
+                'EY' . fake()->numerify('######') // Generates 'EY' followed by 6 digits like 'EY222222'
+            ]),
+            'about_me' => fake()->paragraph(), 
             'city' => fake()->city(),
             'town' => fake()->randomElement(['Springfield', 'Rivertown', 'Hill Valley', 'Sunnydale', 'Twin Peaks','N/A']),
             'postcode' => fake()->optional()->postcode(),
@@ -35,7 +39,7 @@ class ChildminderProfileFactory extends Factory
             'geographical_area' => fake()->optional()->city(), // Optional geographical area
             'experience_years' => fake()->optional()->numberBetween(1, 20), // Optional years of experience
             'my_document' => json_encode(fake()->optional()->file(public_path('storage/documents'))),
-            'is_verified' => fake()->boolean(), // Randomly set verification status
+            
         ];
     }
 }

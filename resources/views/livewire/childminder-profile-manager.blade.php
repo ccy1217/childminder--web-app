@@ -36,6 +36,16 @@
                     @enderror
                 </div>
 
+                <!-- Provider URN -->
+                <div>
+                    <label for="provider_urn" class="block text-sm font-medium text-gray-700">Provider URN</label>
+                    <input type="text" id="provider_urn" wire:model="provider_urn" class="mt-1 p-2 block w-full border rounded-md" placeholder="e.g., 398776 or EY222222">
+                    @error('provider_urn')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
                 <!-- City -->
                 <div>
                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>

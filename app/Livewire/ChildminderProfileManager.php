@@ -25,6 +25,7 @@ class ChildminderProfileManager extends Component
     public $age_group_fields = [];
     public $my_document = [];
     public $profile_picture;
+    public $provider_urn; // Added provider_urn
 
     public $serviceOptions = [];
     public $service_scope = []; // Holds selected service IDs
@@ -61,6 +62,7 @@ class ChildminderProfileManager extends Component
                 'profile_picture' => $this->profile->profile_picture,
                 'service_scope' => $this->profile->services->pluck('id')->toArray(), // Load associated services
                 'language_scope' => $this->profile->languages->pluck('id')->toArray(), // Load associated languages
+                'provider_urn' => $this->profile->provider_urn, // Load existing provider_urn if available
             ]);
         }
     }
@@ -94,6 +96,7 @@ class ChildminderProfileManager extends Component
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'service_scope' => 'array',
             'language_scope' => 'array', // Validate the selected languages
+            'provider_urn' => 'nullable|regex:/^(EY\d{6}|\d{6})$/', // Validate URN format (6 digits or EY followed by 6 digits)
         ]);
 
         // Save profile picture if uploaded
@@ -123,6 +126,7 @@ class ChildminderProfileManager extends Component
             'age_groups' => json_encode($this->age_group_fields),
             'my_document' => json_encode($uploadedDocuments),
             'profile_picture' => $profilePicturePath,
+            'provider_urn' => $this->provider_urn, // Add provider_urn to the data
         ];
 
         if ($this->profile) {

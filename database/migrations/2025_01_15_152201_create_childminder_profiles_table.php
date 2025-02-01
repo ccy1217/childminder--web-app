@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('geographical_area')->nullable();
             $table->integer('experience_years')->nullable();
             $table->json('my_document')->nullable();
-            $table->boolean('is_verified')->default(false);
+            $table->string('provider_urn', 8)->unique(); // Max 8 chars to fit 'EY222222'
              $table->timestamps();
         });
         
