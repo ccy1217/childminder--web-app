@@ -2,6 +2,12 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <label for="user_type">Register As:</label>
+<select name="user_type" id="user_type" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+    <option value="client">Parent / Client</option>
+    <option value="childminder">Childminder</option>
+</select>
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
