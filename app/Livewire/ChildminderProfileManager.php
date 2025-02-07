@@ -8,6 +8,8 @@ use App\Models\Language; // Add the Language model
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class ChildminderProfileManager extends Component
 {
@@ -20,7 +22,6 @@ class ChildminderProfileManager extends Component
     public $hourly_rate;
     public $about_me;
     public $postcode;
-    public $geographical_area;
     public $experience_years;
     public $age_group_fields = [];
     public $my_document = [];
@@ -55,7 +56,6 @@ class ChildminderProfileManager extends Component
                 'hourly_rate' => $this->profile->hourly_rate,
                 'about_me' => $this->profile->about_me,
                 'postcode' => $this->profile->postcode,
-                'geographical_area' => $this->profile->geographical_area,
                 'experience_years' => $this->profile->experience_years,
                 'age_group_fields' => json_decode($this->profile->age_groups, true) ?? [],
                 'my_document' => json_decode($this->profile->my_document, true) ?? [],
@@ -88,7 +88,6 @@ class ChildminderProfileManager extends Component
             'hourly_rate' => 'required|numeric',
             'about_me' => 'nullable|string',
             'postcode' => 'nullable|string',
-            'geographical_area' => 'nullable|string',
             'experience_years' => 'nullable|integer',
             'age_group_fields' => 'nullable|array',
             'age_group_fields.*' => 'nullable|string',
@@ -96,9 +95,19 @@ class ChildminderProfileManager extends Component
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'service_scope' => 'array',
             'language_scope' => 'array', // Validate the selected languages
-            'provider_urn' => 'nullable|regex:/^(EY\d{6}|\d{6})$/', // Validate URN format (6 digits or EY followed by 6 digits)
+            'provider_urn' => ['nullable', 'regex:/^(EY\d{6}|\d{6}|\d{7})$/u'],// Validate URN format (6 digits or EY followed by 6 digits)
         ]);
 
+        $urnData = DB::table('URN_dataset')
+        ->where('urn', $this->provider_urn)
+        ->where('postcode', $this->postcode)
+        ->first();
+
+    if (!$urnData) {
+        session()->flash('error', 'Invalid URN: This URN does not exist in the system or does not match the provider postcode.');
+        return;
+    }
+        
         // Save profile picture if uploaded
         $profilePicturePath = $this->profile_picture
             ? $this->profile_picture->store('profile_pictures', 'public')
@@ -121,7 +130,6 @@ class ChildminderProfileManager extends Component
             'hourly_rate' => $this->hourly_rate,
             'about_me' => $this->about_me,
             'postcode' => $this->postcode,
-            'geographical_area' => $this->geographical_area,
             'experience_years' => $this->experience_years,
             'age_groups' => json_encode($this->age_group_fields),
             'my_document' => json_encode($uploadedDocuments),

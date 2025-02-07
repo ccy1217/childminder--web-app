@@ -20,10 +20,9 @@ class ChildminderProfile extends Model
         'postcode',
         'hourly_rate',
         'age_groups',
-        'geographical_area',
         'experience_years',
         'my_document',
-        'is_verified',
+        'provider_urn',
     ];
 
     // You can also use $casts if needed to cast the 'age_groups' and 'my_document' attributes

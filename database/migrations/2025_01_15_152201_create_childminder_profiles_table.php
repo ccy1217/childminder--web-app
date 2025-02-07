@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('postcode')->nullable();
             $table->decimal('hourly_rate', 6, 2);
             $table->json('age_groups')->nullable();
-            $table->string('geographical_area')->nullable();
             $table->integer('experience_years')->nullable();
             $table->json('my_document')->nullable();
             $table->string('provider_urn', 8)->unique(); // Max 8 chars to fit 'EY222222'

@@ -37,13 +37,31 @@
                 </div>
 
                 <!-- Provider URN -->
-                <div>
-                    <label for="provider_urn" class="block text-sm font-medium text-gray-700">Provider URN</label>
-                    <input type="text" id="provider_urn" wire:model="provider_urn" class="mt-1 p-2 block w-full border rounded-md" placeholder="e.g., 398776 or EY222222">
-                    @error('provider_urn')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
+<div>
+    <label for="provider_urn" class="block text-sm font-medium text-gray-700">
+        Provider URN
+    </label>
+
+    <input 
+        type="text" 
+        id="provider_urn" 
+        wire:model.lazy="provider_urn" 
+        class="mt-1 p-2 block w-full border rounded-md focus:ring focus:ring-blue-300 focus:border-blue-500" 
+        placeholder="Enter 6-7 digits (e.g., 398776 or EY222222)">
+
+    @error('provider_urn')
+        <span class="text-red-500 text-sm">{{ $message }}</span>
+    @enderror
+
+    @if (session()->has('error'))
+        <span class="text-red-500 text-sm">{{ session('error') }}</span>
+    @endif
+
+    @if (session()->has('message'))
+        <span class="text-green-500 text-sm">{{ session('message') }}</span>
+    @endif
+</div>
+
 
 
                 <!-- City -->
@@ -92,7 +110,7 @@
                 </div>
                 <!-- Language Selection -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Languages</label>
+                    <label class="block text-sm font-medium text-gray-700">Languages (allow to choose more than one options)</label>
                     <div class="space-y-2">
                         @foreach ($language_options as $key => $label)
                             <div class="flex items-center">
@@ -106,12 +124,10 @@
                     @enderror
                 </div>
 
-
-
                 
                 <!-- Service Scope -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Service Scope</label>
+                    <label class="block text-sm font-medium text-gray-700">Service Scope (allow to choose more than one options)</label>
                     <div class="space-y-2">
                         @foreach ($service_scope_options as $key => $label)
                             <div class="flex items-center">
@@ -124,17 +140,7 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-
-                <!-- Geographical Area -->
-                <div>
-                    <label for="geographical_area" class="block text-sm font-medium text-gray-700">Geographical Area</label>
-                    <input type="text" id="geographical_area" wire:model="geographical_area" class="mt-1 p-2 block w-full border rounded-md">
-                    @error('geographical_area')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <!-- Experience Years -->
+         <!-- Experience Years -->
                 <div>
                     <label for="experience_years" class="block text-sm font-medium text-gray-700">Experience (Years)</label>
                     <input type="number" id="experience_years" wire:model="experience_years" class="mt-1 p-2 block w-full border rounded-md">
@@ -145,7 +151,7 @@
 
                 <!-- Age Groups -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Age Groups</label>
+                    <label class="block text-sm font-medium text-gray-700">Age Groups (allow to choose more than one options)</label>
                     <div class="space-y-4">
                         @foreach ($age_group_fields as $index => $ageGroup)
                             <div class="flex items-center space-x-4">
