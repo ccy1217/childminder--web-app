@@ -13,9 +13,88 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles 
+
+        <!-- Livewire Styles -->
+        @livewireStyles
+
+        <style>
+            /* Main Layout */
+            .main-container {
+                display: flex;
+                justify-content: space-between;
+                gap: 30px; /* More spacing */
+                padding: 20px;
+            }
+
+            /* Main Content (Livewire Container) - Bigger Size */
+            .content {
+                flex: 3; /* Takes more space */
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Ads Section (Right Side) */
+            .ad-container {
+                flex: 1; /* Smaller than content */
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            /* Individual Ad Box */
+            .ad {
+                width: 220px; /* Slightly bigger */
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: center;
+                background: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 6px;
+                font-size: 12px;
+            }
+
+            /* Center the Image */
+            .ad img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                border-radius: 4px;
+            }
+
+            /* Ad Title - Bold & Blue */
+            .ad h2 {
+                font-size: 14px;
+                font-weight: bold;
+                color: #007bff;
+                margin-bottom: 4px;
+            }
+
+            /* Sponsor Text - Grey */
+            .ad p {
+                font-size: 12px;
+                color: #6c757d;
+                margin-bottom: 6px;
+            }
+
+            /* Button */
+            .ad a {
+                display: inline-block;
+                padding: 6px 10px;
+                background: #007bff;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+                font-size: 11px;
+            }
+
+            .ad a:hover {
+                background: #0056b3;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
+        
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -28,11 +107,53 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
+            <!-- Page Content with Flexbox Layout -->
             <main>
-                {{ $slot }}
+                <div class="main-container">
+                    <div class="content">
+                        <!-- Main Content (Larger Livewire Section) -->
+                        {{ $slot }}
+                    </div>
+
+                    <!-- Ads Section on the Right (Smaller) -->
+                    <div class="ad-container" id="ad-container"></div>
+                </div>
             </main>
-        </div>
+        </div> 
+
+        <!-- Livewire Scripts -->
         @livewireScripts
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                fetch("https://raw.githubusercontent.com/ccy1217/adsads/refs/heads/main/ads%20(1).json") // Fetch JSON from GitHub
+                    .then(response => response.json())
+                    .then(data => {
+                        displayRandomAds(data, 3); // Show 3 random ads
+                    })
+                    .catch(error => console.error("Error fetching ads:", error));
+            });
+
+            function displayRandomAds(ads, count) {
+                const adContainer = document.getElementById("ad-container");
+                adContainer.innerHTML = "";
+
+                // Shuffle ads and select random ones
+                const shuffledAds = ads.sort(() => 0.5 - Math.random()).slice(0, count);
+
+                shuffledAds.forEach(ad => {
+                    const adElement = document.createElement("div");
+                    adElement.classList.add("ad");
+                    adElement.innerHTML = `
+                        <h2>${ad.title}</h2>
+                        <p>${ad.sponsor || "Sponsored Ad"}</p>
+                        <img src="${ad.image}" alt="${ad.title}">
+                        <br>
+                        <a href="${ad.url}" target="_blank">Learn More</a>
+                    `;
+                    adContainer.appendChild(adElement);
+                });
+            }
+        </script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Http\Response;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app['request']->server->set('HTTPS', true);
         }
 
+        //for receptcha
         // Custom validation rule to prevent disposable emails
         Validator::extend('not_disposable_email', function ($attribute, $value, $parameters, $validator) {
             $disposableEmails = ['mailinator.com', '10minutemail.com', 'tempmail.com']; // Add more disposable email providers
