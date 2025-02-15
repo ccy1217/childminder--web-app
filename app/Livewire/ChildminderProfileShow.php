@@ -8,14 +8,6 @@ use App\Models\Language;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-namespace App\Livewire;
-
-use App\Models\ChildminderProfile;
-use App\Models\Service;
-use App\Models\Language;
-use Livewire\Component;
-use Livewire\WithPagination;
-
 class ChildminderProfileShow extends Component
 {
     use WithPagination;
@@ -60,13 +52,25 @@ class ChildminderProfileShow extends Component
 
     public function backToList()
     {
-        $this->viewMode = 'list';
+        $this->resetFilters();  // Clear filters
+        $this->viewMode = 'list';  // Switch back to list view
     }
 
     public function searchProfiles()
     {
-        $this->showFilters = false;
-        $this->resetPage();
+        $this->showFilters = false;  // Hide filters after search
+        $this->resetPage();  // Reset pagination so we can fetch fresh data
+    }
+
+    public function resetFilters()
+    {
+        $this->filter_city = null;
+        $this->filter_town = null;
+        $this->filter_service = null;
+        $this->filter_language = null;
+        $this->filter_age_group = null;
+        $this->showFilters = true;  // Show the filters when reset
+        $this->resetPage();  // Reset pagination
     }
 
     public function render()
@@ -107,7 +111,7 @@ class ChildminderProfileShow extends Component
         $towns = ChildminderProfile::distinct()->whereIn('city', $cities)->pluck('town', 'town')->take(10);
         $services = Service::pluck('name', 'id');
         $languages = Language::pluck('name', 'id');
-        $ageGroups = ['0-2', '3-5', '6-12', '13-18']; // Age group options
+        $ageGroups = ['0-2', '3-5', '6-12', '13-18'];  // Age group options
 
         return view('livewire.childminder-profile-show', [
             'profiles' => $profiles,

@@ -103,11 +103,11 @@ class ChildminderProfileManager extends Component
         ->where('postcode', $this->postcode)
         ->first();
 
-    if (!$urnData) {
-        session()->flash('error', 'Invalid URN: This URN does not exist in the system or does not match the provider postcode.');
-        return;
-    }
-        
+        if (!$urnData) {
+            session()->flash('error', 'Invalid URN: This URN does not exist in the system or does not match the provider postcode.');
+            return;
+        }
+
         // Save profile picture if uploaded
         $profilePicturePath = $this->profile_picture
             ? $this->profile_picture->store('profile_pictures', 'public')
@@ -131,8 +131,8 @@ class ChildminderProfileManager extends Component
             'about_me' => $this->about_me,
             'postcode' => $this->postcode,
             'experience_years' => $this->experience_years,
-            'age_groups' => json_encode($this->age_group_fields),
-            'my_document' => json_encode($uploadedDocuments),
+            'age_groups' => $this->age_group_fields,
+            'my_document' => json_encode(array_values($uploadedDocuments), JSON_UNESCAPED_SLASHES),
             'profile_picture' => $profilePicturePath,
             'provider_urn' => $this->provider_urn, // Add provider_urn to the data
         ];

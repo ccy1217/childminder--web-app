@@ -1,3 +1,9 @@
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Childminder Profiles') }}
+        </h2>
+    </x-slot>
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         <!-- Filters Section -->
@@ -35,18 +41,14 @@
                     @endforeach
                 </select>
 
-               <!-- Filter by Age Group -->
-               <label for="filter_age_group" class="block text-sm font-medium text-gray-700">Preferred Age Group</label>
-               <select wire:model="filter_age_group" id="filter_age_group" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <!-- Filter by Age Group -->
+                <label for="filter_age_group" class="block text-sm font-medium text-gray-700">Preferred Age Group</label>
+                <select wire:model="filter_age_group" id="filter_age_group" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     <option value="">-- Choose an Age Group --</option>
                     @foreach(['0-2', '3-5', '6-12', '13-18'] as $ageGroup)
                     <option value="{{ $ageGroup }}">{{ $ageGroup }}</option>
                     @endforeach
-               </select>
-
-
-
-
+                </select>
 
                 <!-- Search Button -->
                 <div class="mt-4">
@@ -58,48 +60,47 @@
         @endif
     </div>
 
-    <ul class="mt-4 space-y-6 bg-grey p-6 rounded-lg shadow-sm">
+    <!-- Childminder Profiles Section -->
+    <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @if ($viewMode === 'list')
             <!-- List of Childminder Profiles -->
             @if($profiles->isEmpty())
                 <!-- No results found -->
-                <div class="text-center">
-                    <p class="text-lg font-semibold text-gray-600">No results found. Please back to list and try other keywords.</p>
-                    <button wire:click="backToList" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <div class="text-center col-span-full">
+                    <p class="text-lg font-semibold text-gray-600">No results found. Please try other filters or keywords.</p>
+                    <button wire:click="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
                         Back to List
                     </button>
                 </div>
             @else
                 @foreach ($profiles as $profile)
-                    <li class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-start border border-gray-200">
-                        <!-- Left Section: Profile Image -->
-                        <div class="relative w-full" style="max-width: 200px; margin-right: 1.5rem;">
-                            <div class="aspect-ratio-box">
+                    <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center space-x-6">
+                            <!-- Profile Image (Left Side) -->
+                            <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-blue-500 p-4 mr-6">
                                 @if ($profile->profile_picture && file_exists(storage_path('app/public/' . $profile->profile_picture)) && is_readable(storage_path('app/public/' . $profile->profile_picture)))
-                                    <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full rounded-full p-2" />
+                                    <img src="{{ asset('storage/' . $profile->profile_picture) }}" class="object-cover w-full h-full" />
                                 @else
-                                    <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-32 h-32 border-2 border-blue-500 shadow-lg">
-                                        No Image
-                                    </div>
+                                    <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-full h-full">No Image</div>
                                 @endif
                             </div>
-                        </div>
 
-                        <!-- Right Section: Profile Details -->
-                        <div class="flex-grow p-8">
-                            <h4 class="text-lg font-semibold">
-                                <a href="#" wire:click="showProfile({{ $profile->id }})" class="text-blue-500 font-bold">
-                                    {{ $profile->first_name }} {{ $profile->last_name }}
-                                </a>
-                            </h4>
-                            <p class="text-sm text-gray-600 mt-1">Location: {{ $profile->city }}, {{ $profile->town ?? 'N/A' }}</p>
-                            <p class="text-sm text-gray-600 mt-1">Hourly Rate: £{{ $profile->hourly_rate }}</p>
+                            <!-- Profile Details (Right Side) -->
+                            <div class="flex-grow">
+                                <h4 class="text-lg font-semibold">
+                                    <a href="#" wire:click.prevent="showProfile({{ $profile->id }})" class="text-blue-500 font-bold hover:underline">
+                                        {{ $profile->first_name }} {{ $profile->last_name }}
+                                    </a>
+                                </h4>
+                                <p class="text-sm text-gray-600">Location: {{ $profile->city }}, {{ $profile->town ?? 'N/A' }}</p>
+                                <p class="text-sm text-gray-600">Hourly Rate: £{{ $profile->hourly_rate }}</p>
+                            </div>
                         </div>
                     </li>
                 @endforeach
 
                 <!-- Pagination Links -->
-                <div class="mt-6">
+                <div class="mt-6 col-span-full">
                     {{ $profiles->links() }}
                 </div>
             @endif
@@ -112,7 +113,7 @@
                             <h2 class="text-2xl font-bold text-blue-500">
                                 {{ $currentProfile->first_name }} {{ $currentProfile->last_name }}
                             </h2>
-                            <div class="mt-4">
+                            <div class="mt-4 flex items-center justify-center">
                                 @if ($currentProfile->profile_picture && file_exists(storage_path('app/public/' . $currentProfile->profile_picture)) && is_readable(storage_path('app/public/' . $currentProfile->profile_picture)))
                                     <img src="{{ asset('storage/' . $currentProfile->profile_picture) }}" alt="Profile Picture" class="object-cover w-32 h-32 rounded-full border-2 border-blue-500">
                                 @else
@@ -179,7 +180,7 @@
                                 @endif
                             </div>
 
-                            <button wire:click="backToList" class="mt-6 bg-gray-300 text-black px-4 py-2 rounded underline">
+                            <button wire:click.prevent="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
                                 Back to List
                             </button>
                         </div>

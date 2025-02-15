@@ -47,7 +47,7 @@
         id="provider_urn" 
         wire:model.lazy="provider_urn" 
         class="mt-1 p-2 block w-full border rounded-md focus:ring focus:ring-blue-300 focus:border-blue-500" 
-        placeholder="Enter 6-7 digits (e.g., 398776 or EY222222)">
+        placeholder="Enter 6-7 digits or 6 digits start with (EY) (e.g., 398776 or EY222222)">
 
     @error('provider_urn')
         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -156,7 +156,7 @@
                         @foreach ($age_group_fields as $index => $ageGroup)
                             <div class="flex items-center space-x-4">
                                 <select wire:model="age_group_fields.{{ $index }}" class="mt-1 p-2 block w-full border rounded-md">
-                                    <option value="" disabled>Select Age Group</option>
+                                    
                                     <option value="0-2">0-2</option>
                                     <option value="3-5">3-5</option>
                                     <option value="6-12">6-12</option>
