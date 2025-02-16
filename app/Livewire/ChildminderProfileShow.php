@@ -24,6 +24,9 @@ class ChildminderProfileShow extends Component
     public $filter_age_group;
     public $showFilters = true;
 
+    // Search term
+    public $searchTerm = '';
+
     protected $paginationTheme = 'tailwind';
 
     public function mount()
@@ -51,10 +54,11 @@ class ChildminderProfileShow extends Component
     }
 
     public function backToList()
-    {
-        $this->resetFilters();  // Clear filters
-        $this->viewMode = 'list';  // Switch back to list view
-    }
+{
+    $this->resetFilters();  // Clear filters
+    $this->searchTerm = '';  // Reset search term
+    $this->viewMode = 'list';  // Switch back to list view
+}
 
     public function searchProfiles()
     {
@@ -103,6 +107,19 @@ class ChildminderProfileShow extends Component
             $query->whereJsonContains('age_groups', $this->filter_age_group);
         }
 
+        // Add search term filtering
+        if ($this->searchTerm) {
+            $query->where(function($query) {
+                $query->where('first_name', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('last_name', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('city', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhere('town', 'like', '%' . $this->searchTerm . '%')
+                      ->orWhereHas('services', function ($q) {
+                          $q->where('name', 'like', '%' . $this->searchTerm . '%');
+                      });
+            });
+        }
+
         // Paginate the filtered results
         $profiles = $query->latest()->paginate(10);
 
@@ -123,3 +140,4 @@ class ChildminderProfileShow extends Component
         ])->layout('layouts.app');
     }
 }
+

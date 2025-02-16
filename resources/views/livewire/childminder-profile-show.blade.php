@@ -6,6 +6,13 @@
     </x-slot>
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+        <!-- Search Box -->
+        <div class="mb-4">
+            <label for="search" class="block text-sm font-medium text-gray-700">Search Profiles:</label>
+            <input type="text" wire:model.debounce.300ms="searchTerm" id="search" 
+                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                   placeholder="Search by name, location, or service">
+        </div>
         <!-- Filters Section -->
         @if ($showFilters)
             <div class="mb-4">
