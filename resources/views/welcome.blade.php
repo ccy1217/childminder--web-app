@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -24,6 +25,7 @@
             </style>
         @endif
         <!-- Include Axios CDN -->
+         
        
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">

@@ -60,4 +60,9 @@
             });
         });
     </script>
+
+
+
+
+    
 </x-guest-layout>

@@ -17,9 +17,20 @@
                     </x-nav-link>
 
                     <!-- Childminder Profile -->
-                    <x-nav-link :href="route('childminder-profile-show')" :active="request()->routeIs('childminder-profile-show')">
-                        {{ __('Childminder Profiles') }}
-                    </x-nav-link>
+                    @if(Auth::check() && Auth::user()->user_type === 'client')
+    <x-nav-link :href="route('childminder-profile-show-in-client')" 
+        :active="request()->routeIs('childminder-profile-show-in-client')">
+        {{ __('Find a childminder profile') }}
+    </x-nav-link>
+@elseif(Auth::check() && Auth::user()->user_type === 'childminder')
+    <x-nav-link :href="route('childminder-profile-show')" 
+        :active="request()->routeIs('childminder-profile-show')">
+        {{ __('Childminder profiles') }}
+    </x-nav-link>
+@endif
+
+
+
                 </div>
             </div>
 
@@ -64,9 +75,19 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('childminder-profile-show')" :active="request()->routeIs('childminder-profile-show')">
-                {{ __('Childminder Profiles') }}
-            </x-responsive-nav-link>
+            @if(Auth::check() && Auth::user()->user_type === 'client')
+        <x-responsive-nav-link :href="route('childminder-profile-show-in-client')" 
+            :active="request()->routeIs('childminder-profile-show-in-client')">
+            {{ __('Childminder Profiles') }}
+        </x-responsive-nav-link>
+    @elseif(Auth::check() && Auth::user()->user_type === 'childminder')
+        <x-responsive-nav-link :href="route('childminder-profile-show')" 
+            :active="request()->routeIs('childminder-profile-show')">
+            {{ __('Manage Your Profile') }}
+        </x-responsive-nav-link>
+    @endif
+
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -95,16 +116,4 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('childminder-profile-show')" :active="request()->routeIs('childminder-profile-show')">
-                {{ __('Childminder Profiles') }}
-            </x-responsive-nav-link>
-        </div>
-    </div>
 </nav>

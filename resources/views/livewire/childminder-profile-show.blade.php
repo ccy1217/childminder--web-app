@@ -186,6 +186,10 @@
                                     <p>Not provided</p>
                                 @endif
                             </div>
+                            <div class="mt-2">
+                            <livewire:comment-show :childminderId="$currentProfile->id" />
+                            </div>
+                            
 
                             <button wire:click.prevent="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
                                 Back to List
