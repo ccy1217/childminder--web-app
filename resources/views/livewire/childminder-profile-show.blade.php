@@ -4,7 +4,7 @@
             {{ __('Childminder Profiles') }}
         </h2>
     </x-slot>
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="mt-4 space-y-6">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         <!-- Search Box -->
         <div class="mb-4">
@@ -68,7 +68,7 @@
     </div>
 
     <!-- Childminder Profiles Section -->
-    <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <ul class="mt-4 space-y-6">
         @if ($viewMode === 'list')
             <!-- List of Childminder Profiles -->
             @if($profiles->isEmpty())

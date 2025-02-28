@@ -4,7 +4,7 @@
             {{ __('Childminder Profiles') }}
         </h2>
     </x-slot>
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="mt-4 space-y-6">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         <!-- Search Box -->
         <div class="mb-4">
@@ -68,7 +68,9 @@
     </div>
 
     <!-- Childminder Profiles Section -->
-    <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <ul class="mt-4 space-y-6">
+
+
         @if ($viewMode === 'list')
             <!-- List of Childminder Profiles -->
             @if($profiles->isEmpty())
@@ -81,7 +83,7 @@
                 </div>
             @else
                 @foreach ($profiles as $profile)
-                    <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-96 md:w-[400px] lg:w-[450px]">
                         <div class="flex items-center space-x-6">
                             <!-- Profile Image (Left Side) -->
                             <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-blue-500 p-4 mr-6">
@@ -105,9 +107,9 @@
                             <!-- Inside the profile loop, after profile details -->
                             <div class="mt-4">
                             <button wire:click.prevent="goToBookingForm({{ $profile->id }}, '{{ $profile->first_name }} {{ $profile->last_name }}')" 
-    class="bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
-    Book
-</button>
+                             class="custom-button">
+                            Book
+                            </button>
                             </div>
                         </div>
                     </li>
@@ -121,7 +123,7 @@
         @elseif ($viewMode === 'show')
             <!-- Profile Detail View -->
             <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 text-gray-900">
                             <h2 class="text-2xl font-bold text-blue-500">
@@ -130,7 +132,7 @@
                             <!-- Book Button -->
                 <!-- Inside the show profile view -->
 <div class="mt-4">
-<button wire:click.prevent="goToBookingForm({{ $profile->id }}, '{{ $profile->first_name }} {{ $profile->last_name }}')" 
+<button wire:click.prevent="goToBookingForm({{ $currentProfile->id }}, '{{ $currentProfile->first_name }} {{ $currentProfile->last_name }}')"  
     class="bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
     Book
 </button>

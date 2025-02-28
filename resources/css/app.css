@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-button {
+    background-color: #6B8E23;
+    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 6px;
+    border: 2px solid #3b82f6; /* Tailwind's blue-500 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-button:hover {
+    background-color: #2563eb; /* Tailwind's blue-600 */
+    color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
