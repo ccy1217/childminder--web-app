@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="ngrok-skip-browser-warning" content="true">
 
-        <div class="w-screen h-screen"> 
-    <img class="w-full h-full object-cover" src="{{ asset('storage/profile_pictures/banner.png') }}" alt="Profile Picture" />
-</div>
+         
+        <img class=""w-full h-auto object-cover" src="{{ asset('storage/profile_pictures/banner.png') }}" alt="Profile Picture" />
+
 
         <title>Laravel</title>
 
