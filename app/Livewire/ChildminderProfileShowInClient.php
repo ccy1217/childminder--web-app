@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 
+use Livewire\Component;
 use App\Models\ChildminderProfile;
 use App\Models\Service;
 use App\Models\Language;
-use Livewire\Component;
 use Livewire\WithPagination;
 
-class ChildminderProfileShow extends Component
+class ChildminderProfileShowInClient extends Component
 {
     use WithPagination;
 
@@ -76,6 +76,17 @@ class ChildminderProfileShow extends Component
         $this->showFilters = true;  // Show the filters when reset
         $this->resetPage();  // Reset pagination
     }
+    public function goToBookingForm($profileId, $profileName)
+{
+    return redirect()->route('booking-form', [
+        'childminderId' => $profileId,  // Fix this key
+        'childminderName' => $profileName
+    ]);
+}
+
+
+
+
 
     public function render()
     {
@@ -131,14 +142,14 @@ class ChildminderProfileShow extends Component
         $languages = Language::pluck('name', 'id');
         $ageGroups = ['0-2', '3-5', '6-12', '13-18'];  // Age group options
 
-        return view('livewire.childminder-profile-show', [
+        return view('livewire.childminder-profile-show-in-client', [
             'profiles' => $profiles,
             'cities' => $cities,
             'towns' => $towns,
             'services' => $services,
             'languages' => $languages,
             'ageGroups' => $ageGroups, 
-        ]);
+        ])->layout('layouts.app');
     }
-}
 
+}
