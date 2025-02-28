@@ -59,7 +59,7 @@
 
                 <!-- Search Button -->
                 <div class="mt-4">
-                    <button wire:click="searchProfiles" class="bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
+                    <button wire:click="searchProfiles" class="custom-button2">
                         Search
                     </button>
                 </div>
@@ -190,10 +190,14 @@
                             <livewire:comment-show :childminderId="$currentProfile->id" />
                             </div>
                             
-
-                            <button wire:click.prevent="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
+                            <!-- Book Button -->
+                            <!-- Inside the show profile view -->
+                            <div class="mt-4 flex justify-center ">
+    
+                               <button wire:click.prevent="backToList" class="custom-button2">
                                 Back to List
-                            </button>
+                               </button>
+                            </div>
                         </div>
                     </div>
                 </div>

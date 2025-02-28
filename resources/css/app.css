@@ -5,17 +5,34 @@
 .custom-button {
     background-color: #6B8E23;
     color: white;
-    text-decoration: underline;
+    text-decoration: none; /* Removed underline */
     font-weight: bold;
-    padding: 12px;
+    padding: 12px 24px; /* Increased horizontal padding (left and right) */
     border-radius: 6px;
-    border: 2px solid #3b82f6; /* Tailwind's blue-500 */
+    border: 2px solid #6B8E23;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 }
 
 .custom-button:hover {
-    background-color: #2563eb; /* Tailwind's blue-600 */
+    background-color: #1B4D3E; /* Changed hover background color */
+    color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-button2 {
+    background-color: #6082B6;
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px; /* Increased horizontal padding (left and right) */
+    border-radius: 6px;
+    border: 2px solid #6082B6; /* Tailwind's blue-500 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-button2:hover {
+    background-color: #0018A8; /* Tailwind's blue-600 */
     color: white;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }

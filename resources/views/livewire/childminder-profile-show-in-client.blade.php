@@ -4,7 +4,7 @@
             {{ __('Childminder Profiles') }}
         </h2>
     </x-slot>
-<div class="mt-4 space-y-6">
+    <div class="mt-4 space-y-6">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         <!-- Search Box -->
         <div class="mb-4">
@@ -59,7 +59,7 @@
 
                 <!-- Search Button -->
                 <div class="mt-4">
-                    <button wire:click="searchProfiles" class="bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
+                    <button wire:click="searchProfiles" class="custom-button2">
                         Search
                     </button>
                 </div>
@@ -83,7 +83,7 @@
                 </div>
             @else
                 @foreach ($profiles as $profile)
-                <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-96 md:w-[400px] lg:w-[450px]">
+                <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <div class="flex items-center space-x-6">
                             <!-- Profile Image (Left Side) -->
                             <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-blue-500 p-4 mr-6">
@@ -129,17 +129,6 @@
                             <h2 class="text-2xl font-bold text-blue-500">
                                 {{ $currentProfile->first_name }} {{ $currentProfile->last_name }}
                             </h2>
-                            <!-- Book Button -->
-                <!-- Inside the show profile view -->
-<div class="mt-4">
-<button wire:click.prevent="goToBookingForm({{ $currentProfile->id }}, '{{ $currentProfile->first_name }} {{ $currentProfile->last_name }}')"  
-    class="bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
-    Book
-</button>
-
-
-</div>
-
 
                             <div class="mt-4 flex items-center justify-center">
                                 @if ($currentProfile->profile_picture && file_exists(storage_path('app/public/' . $currentProfile->profile_picture)) && is_readable(storage_path('app/public/' . $currentProfile->profile_picture)))
@@ -212,10 +201,22 @@
                             <livewire:comment-show :childminderId="$currentProfile->id" />
                             </div>
 
-                            <button wire:click.prevent="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
-                                Back to List
-                            </button>
-                        </div>
+                            <!-- Book Button -->
+                            <!-- Inside the show profile view -->
+                            <div class="mt-4 flex justify-center space-x-8">
+    <button wire:click.prevent="goToBookingForm({{ $currentProfile->id }}, '{{ $currentProfile->first_name }} {{ $currentProfile->last_name }}')"  
+            class="custom-button">
+        Book
+    </button>
+    
+    <button wire:click.prevent="backToList" 
+            class="custom-button2">
+        Back to List
+    </button>
+</div>
+
+
+
                     </div>
                 </div>
             </div>

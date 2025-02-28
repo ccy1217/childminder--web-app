@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+<div class="mt-4">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900">
             <h2 class="text-2xl font-bold mb-4">Childminder Profile</h2>
@@ -62,8 +62,6 @@
     @endif
 </div>
 
-
-
                 <!-- City -->
                 <div>
                     <label for="city" class="block text-sm font-medium text-gray-700">City</label>
@@ -103,7 +101,11 @@
                 <!-- Postcode -->
                 <div>
                     <label for="postcode" class="block text-sm font-medium text-gray-700">Postcode</label>
-                    <input type="text" id="postcode" wire:model="postcode" class="mt-1 p-2 block w-full border rounded-md">
+                    <input type="text" 
+                    id="postcode" 
+                    wire:model="postcode" 
+                    class="mt-1 p-2 block w-full border rounded-md"
+                    placeholder="eg. SM1 3LE">
                     @error('postcode')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
@@ -189,8 +191,8 @@
                 </div>
 
                 <!-- Submit Button -->
-                <div>
-                    <button type="submit" class="mt-1 block w-full font-bold py-3 rounded-md border-2 border-blue-500 shadow-lg hover:bg-blue-500 hover:text-white hover:shadow-xl transition-all duration-200" style="background-color: #6B8E23; color: white;">
+                <div class="mt-4 flex justify-center space-x-8">
+                    <button type="submit" class="custom-button2">
                         Save Profile
                     </button>
                 </div>
