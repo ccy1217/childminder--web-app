@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type' => ['required', 'in:client,childminder'], // Ensure valid user type
+            'user_type' => $request->user_type, // Ensure valid user type
         ]);
 
         // Fire the Registered event
