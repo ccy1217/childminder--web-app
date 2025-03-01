@@ -9,6 +9,20 @@ class ClientProfile extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', // Ensure user_id is also mass assignable if necessary
+        'first_name',
+        'last_name',
+        'children_name',
+        'profile_picture',
+        'city',
+        'town',
+        'postcode',
+        'preferred_age_groups',
+        'specific_requirements',
+        
+    ];
+
     
     public function user(){
         return $this->belongsTo(User::class);

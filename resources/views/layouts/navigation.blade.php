@@ -18,16 +18,16 @@
 
                     <!-- Childminder Profile -->
                     @if(Auth::check() && Auth::user()->user_type === 'client')
-    <x-nav-link :href="route('childminder-profile-show-in-client')" 
-        :active="request()->routeIs('childminder-profile-show-in-client')">
-        {{ __('Find a childminder profile') }}
-    </x-nav-link>
-@elseif(Auth::check() && Auth::user()->user_type === 'childminder')
-    <x-nav-link :href="route('childminder-profile-show')" 
-        :active="request()->routeIs('childminder-profile-show')">
-        {{ __('Childminder profiles') }}
-    </x-nav-link>
-@endif
+                        <x-nav-link :href="route('childminder-profile-show-in-client')" 
+                        :active="request()->routeIs('childminder-profile-show-in-client')">
+                            {{ __('Find a childminder profile') }}
+                        </x-nav-link>
+                    @elseif(Auth::check() && Auth::user()->user_type === 'childminder')
+                        <x-nav-link :href="route('childminder-profile-show')" 
+                        :active="request()->routeIs('childminder-profile-show')">
+                             {{ __('Childminder profiles') }}
+                        </x-nav-link>
+                    @endif
 
 
 
@@ -53,9 +53,15 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Account details') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('childminder-profile-manage')">
-                            {{ __('Profile details') }}
-                        </x-dropdown-link>
+                        @if(Auth::check() && Auth::user()->user_type === 'childminder')
+                <x-dropdown-link :href="route('childminder-profile-manage')">
+                    {{ __('Manage Childminder Profile') }}
+                </x-dropdown-link>
+            @elseif(Auth::check() && Auth::user()->user_type === 'client')
+                <x-dropdown-link :href="route('client-profile-manager')">
+                    {{ __('Manage Client Profile') }}
+                </x-dropdown-link>
+            @endif
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -101,10 +107,15 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Account details') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('childminder-profile-manage')">
-                    {{ __('Profile details') }}
-                </x-responsive-nav-link>
-
+                @if(Auth::check() && Auth::user()->user_type === 'childminder')
+            <x-responsive-nav-link :href="route('childminder-profile-manage')">
+                {{ __('Manage Childminder Profile') }}
+            </x-responsive-nav-link>
+        @elseif(Auth::check() && Auth::user()->user_type === 'client')
+            <x-responsive-nav-link :href="route('client-profile-manager')">
+                {{ __('Manage Client Profile') }}
+            </x-responsive-nav-link>
+        @endif
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
     // Childminder Profile Routes
     Route::get('/childminder-profile', ChildminderProfileShow::class)->name('childminder-profile-show');
-    Route::get('/childminder-profile/manage', ChildminderProfileManager::class)->name('childminder-profile-manage');
+    Route::get('/childminder-profile/childminder-manage', ChildminderProfileManager::class)->name('childminder-profile-manage');
 
      // Client Profile  Route
     Route::get('/childminder-profiles', ChildminderProfileShowInClient::class)
@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     // Beacuse i wanna pass the childminderID and childminderName from 'childminder-profile' at the same time so i need the to include in the path for passing the data
     Route::get('/childminder-profiles/{childminderId}/{childminderName}', BookingForm::class)
     ->name('booking-form');
+    Route::get('/childminder-profiles/client-manage', ClientProfileManager::class)->name('client-profile-manager');
 
 
 });
