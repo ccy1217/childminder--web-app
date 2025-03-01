@@ -138,7 +138,7 @@ class ChildminderProfileShow extends Component
             'services' => $services,
             'languages' => $languages,
             'ageGroups' => $ageGroups, 
-        ]);
+        ])->layout('layouts.app');
     }
 }
 
