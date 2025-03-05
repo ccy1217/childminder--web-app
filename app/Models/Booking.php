@@ -25,7 +25,7 @@ class Booking extends Model
 
     public function childminderprofile()
     {
-        return $this->belongsTo(ChildminderProfile::class);
+        return $this->belongsTo(ChildminderProfile::class, 'childminder_id');
     }
 
     public function services()

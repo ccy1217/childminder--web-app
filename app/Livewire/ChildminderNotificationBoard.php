@@ -23,14 +23,14 @@ class ChildminderNotificationBoard extends Component
         if (Auth::check() && Auth::user()->childminderProfile) {
             $childminderProfile = Auth::user()->childminderProfile;
             $this->bookings = Booking::where('childminder_id', $childminderProfile->id)
-                                     ->where('status', 'Pending')
-                                     ->with('clientprofile') // Eager load the clientprofile
+                                     ->whereIn('status', ['Pending', 'Confirmed', 'Cancelled']) // Fetch all statuses
+                                     ->with('clientprofile') // Eager load the client profile
                                      ->get();
         } else {
             $this->bookings = collect();
         }
     }
-
+    
     // Accept a booking (change status to 'Confirmed')
     public function acceptBooking($bookingId)
     {
@@ -60,8 +60,14 @@ class ChildminderNotificationBoard extends Component
     }
 
     // Render the component
-    public function render()
-    {
-        return view('livewire.childminder-notification-board')->layout('layouts.app');
-    }
+    // Render the component with different statuses
+public function render()
+{
+    return view('livewire.childminder-notification-board', [
+        'pendingBookings' => $this->bookings->where('status', 'Pending'),
+        'confirmedBookings' => $this->bookings->where('status', 'Confirmed'),
+        'cancelledBookings' => $this->bookings->where('status', 'Cancelled'),
+    ])->layout('layouts.app');
+}
+
 }

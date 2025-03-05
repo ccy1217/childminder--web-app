@@ -38,7 +38,7 @@ class ChildminderProfile extends Model
 
     public function bookings()
     {
-    return $this->hasMany(Booking::class);
+    return $this->hasMany(Booking::class, 'childminder_id');
     }
 
     public function services()

@@ -1,43 +1,41 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Booking;
+use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class BookingActions extends Component
 {
-    public $booking; // Bind the booking object
-    public $status; // Track the current status
+    public $bookings; // Store the bookings to be displayed
 
-    protected $listeners = ['refreshComponent' => '$refresh']; // Allow other components to refresh this one
-
-    public function mount(Booking $booking)
+    // Load the bookings for the authenticated client
+    public function mount()
     {
-        $this->booking = $booking;
-        $this->status = $booking->status;
+        $this->loadBookings();
     }
 
-    public function acceptBooking()
-    {
-        $this->booking->update(['status' => 'Confirmed']);
-        $this->status = 'Confirmed';
+    // Load the bookings for the authenticated client
+    // In your BookingActions.php Livewire Component
 
-        session()->flash('message', 'Booking has been accepted.');
-        $this->emit('refreshComponent');
-    }
-
-    public function cancelBooking()
-    {
-        $this->booking->update(['status' => 'Cancelled']);
-        $this->status = 'Cancelled';
-
-        session()->flash('message', 'Booking has been cancelled.');
-        $this->emit('refreshComponent');
-    }
-
-    public function render()
-    {
-        return view('livewire.booking-actions');
+public function loadBookings()
+{
+    if (Auth::check()) {
+        $this->bookings = Booking::where('client_id', Auth::user()->clientprofile->id)
+                                 ->with('childminderprofile') // Eager load childminder profile
+                                 ->get();
+    } else {
+        $this->bookings = collect();
     }
 }
+
+
+    // Render the component
+    public function render()
+    {
+        return view('livewire.booking-actions')->layout('layouts.app');
+    }
+}
+
+
