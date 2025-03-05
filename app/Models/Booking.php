@@ -20,7 +20,7 @@ class Booking extends Model
 
     public function clientprofile()
     {
-        return $this->belongsTo(ClientProfile::class);
+        return $this->belongsTo(ClientProfile::class,  'client_id');
     }
 
     public function childminderprofile()

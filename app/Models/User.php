@@ -71,4 +71,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'receiver_id');
     }
+
+    // Check if the user is a childminder
+    // public function isChildminder()
+    // {
+    //     return $this->childminderProfile()->exists(); // Returns true if a childminder profile exists
+    // }
 }
