@@ -57,7 +57,7 @@ class ChildminderProfileManager extends Component
                 'about_me' => $this->profile->about_me,
                 'postcode' => $this->profile->postcode,
                 'experience_years' => $this->profile->experience_years,
-                'age_group_fields' => json_decode($this->profile->age_groups, true) ?? [],
+                'age_group_fields' => $this->profile->age_groups ?? [],
                 'my_document' => json_decode($this->profile->my_document, true) ?? [],
                 'profile_picture' => $this->profile->profile_picture,
                 'service_scope' => $this->profile->services->pluck('id')->toArray(), // Load associated services
