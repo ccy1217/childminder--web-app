@@ -30,7 +30,7 @@ class BookingFactory extends Factory
             'start_time' => $startTime, // Random start time
             'end_time' => $endTime, // Random end time
             'notes' => fake()->sentence(10), // Random note using fake()
-            'status' => fake()->randomElement(['Pending', 'Confirmed', 'Cancelled', 'Completed']), // Random status using fake()
+            'status' => fake()->randomElement(['Pending', 'Confirmed', 'Cancelled']), // Random status using fake()
         ];
     }
 }

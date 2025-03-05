@@ -25,7 +25,7 @@ return new class extends Migration
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->text('notes')->nullable(); // Additional information about the booking
-            $table->enum('status', ['Pending', 'Confirmed', 'Cancelled', 'Completed'])->default('Pending'); // Booking status
+            $table->enum('status', ['Pending', 'Confirmed', 'Cancelled'])->default('Pending'); // Booking status
             $table->index('status'); // Adding an index for status field
             $table->timestamps();
         });
