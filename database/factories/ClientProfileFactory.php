@@ -27,7 +27,7 @@ class ClientProfileFactory extends Factory
             'profile_picture' => fake()->imageUrl(), // Random URL for profile picture
             'city' => fake()->city(),
             'town' => fake()->optional()->randomElement(['Springfield', 'Rivertown', 'Hill Valley', 'Sunnydale', 'Twin Peaks']), // Optional town name
-            'postcode' => fake()->optional()->postcode(), // Optional postcode
+            'postcode' => fake()->postcode(), 
             'preferred_age_groups' => json_encode(fake()->optional()->randomElements(['0-2', '3-5', '6-12', '13-18'])),
             'specific_requirements' => fake()->optional()->paragraph(), // Random specific requirements
         ];

@@ -22,7 +22,7 @@ class CommentFactory extends Factory
         return [
             'childminder_id' => ChildminderProfile::inRandomOrder()->first()->id, // Randomly associate with an existing childminder
             'client_id' => ClientProfile::inRandomOrder()->first()->id, // Randomly associate with an existing client
-            'rating' => fake()->optional()->numberBetween(1, 5), // Random rating between 1 and 5 (nullable)
+            'rating' => fake()->numberBetween(1, 5), // Random rating between 1 and 5 (nullable)
             'comment' => fake()->optional()->sentence(10), // Optional comment
         ];
     }
