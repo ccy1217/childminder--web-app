@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <!-- <title>{{ config('app.name', 'Childminder booking Service') }}</title> -->
+        <title>Childminder Booking Service</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,8 +14,10 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css'])
-        <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+        <!-- @vite(['resources/css/app.css', 'resources/js/app.js'])  -->
 
+
+        <script type="module" src="{{ asset('js/googleMap.js') }}"></script>
 
         <!-- Livewire Styles -->
         @livewireStyles
@@ -96,7 +99,13 @@
         </style>
     </head>
     <body class="font-sans antialiased">
+
+        <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+                key: 'AIzaSyCVNvfgvK59rfEKplAJKVB9VJ-yLgrjkvE', v: "weekly", });</script>
+
+        <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}"> </script> -->
         
+
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -158,4 +167,5 @@
             }
         </script>
     </body>
+   
 </html>

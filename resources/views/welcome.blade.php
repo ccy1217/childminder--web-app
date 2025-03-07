@@ -10,7 +10,7 @@
         <img class=""w-full h-auto object-cover" src="{{ asset('storage/profile_pictures/banner.png') }}" alt="Profile Picture" />
 
 
-        <title>Laravel</title>
+        <title>Childminder Booking Service</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
