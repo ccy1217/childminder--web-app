@@ -204,47 +204,32 @@
                             <!-- Book Button -->
                             <!-- Inside the show profile view -->
                             <div class="mt-4 flex justify-center space-x-8">
-    <button wire:click.prevent="goToBookingForm({{ $currentProfile->id }}, '{{ $currentProfile->first_name }} {{ $currentProfile->last_name }}')"  
-            class="custom-button">
-        Book
-    </button>
+                                <button wire:click.prevent="goToBookingForm({{ $currentProfile->id }}, '{{ $currentProfile->first_name }} {{ $currentProfile->last_name }}')"  
+                                        class="custom-button">
+                                    Book
+                                </button>
     
-    <button wire:click.prevent="backToList" 
-            class="custom-button2">
-        Back to List
-    </button>
-    @php
-    $client = Auth::check() ? \App\Models\ClientProfile::where('user_id', Auth::id())->first() : null;
-    $clientPostcode = $client ? $client->postcode : null;
-@endphp
+                                <button wire:click.prevent="backToList" 
+                                        class="custom-button2">
+                                    Back to List
+                                </button>
+                                @php
+                                    $client = Auth::check() ? \App\Models\ClientProfile::where('user_id', Auth::id())->first() : null;
+                                    $clientPostcode = $client ? $client->postcode : null;
+                                @endphp
 
-<a href="{{ route('map.with-params', [
-    'childminderId' => $currentProfile->id,
-    'childminderName' => $currentProfile->first_name,
-    'childminderPostcode' => $currentProfile->postcode,
-    'clientPostcode' => $clientPostcode
-]) }}" class="custom-button3">
-    View on Map
-</a>
-
-</div>
-
+                                <a href="{{ route('map.with-params', [
+                                    'childminderId' => $currentProfile->id,
+                                    'childminderName' => $currentProfile->first_name,
+                                    'childminderPostcode' => $currentProfile->postcode,
+                                    'clientPostcode' => $clientPostcode
+                                ]) }}" class="custom-button3">
+                                    View on Map
+                                </a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-
-
-
-
-                <div class="container" style="aspect-ratio: 1/1; height: 50vh; background-color: aliceblue;">
-                    <div id="mapContainer" style="aspect-ratio: 1/1; height: 40vh; border: 1px dashed black; margin: auto"></div>
-                </div>
-                
-            </div>
-
-            
             </div>
         @endif
     </ul>

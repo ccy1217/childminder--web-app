@@ -7,14 +7,31 @@
         <ul class="space-y-4">
             @foreach ($comments as $comment)
                 <li class="p-4 border rounded-lg shadow-sm">
-                    <div class="flex items-center justify-between">
-                        <span class="font-semibold">Client #{{ $comment->client_id }}</span>
-                        <span class="text-sm text-gray-600">{{ $comment->created_at->diffForHumans() }}</span>
+                    <div class="flex items-start space-x-4">
+                        <!-- Profile Image with Circle Shape, Right Margin, and Border -->
+                        @if ($currentProfile && $currentProfile->profile_picture && file_exists(storage_path('app/public/' . $currentProfile->profile_picture)) && is_readable(storage_path('app/public/' . $currentProfile->profile_picture)))
+                            <img src="{{ asset('storage/' . $currentProfile->profile_picture) }}" alt="Profile Picture" class="object-cover w-16 h-16 rounded-full border-2 border-blue-500">
+                        @else
+                            <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-16 h-16 rounded-full border-2 border-blue-500">
+                                No Image
+                            </div>
+                        @endif
+
+                        <!-- Comment Content -->
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <span class="font-semibold">Client #{{ $comment->client_id }}</span>
+
+                                <span class="text-sm text-gray-600">
+                                    {{ $comment->created_at->diffForHumans() }}
+                                </span>
+                            </div>
+                            <p class="text-gray-700 mt-1">{{ $comment->comment }}</p>
+                            @if ($comment->rating)
+                                <p class="text-yellow-500 mt-1">Rating: ⭐{{ $comment->rating }}/5</p>
+                            @endif
+                        </div>
                     </div>
-                    <p class="text-gray-700">{{ $comment->comment }}</p>
-                    @if ($comment->rating)
-                        <p class="text-yellow-500">Rating: ⭐{{ $comment->rating }}/5</p>
-                    @endif
                 </li>
             @endforeach
         </ul>
@@ -24,7 +41,6 @@
         {{ $comments->links() }}
     </div>
 
-    <!-- Comment Form - Only for Authenticated Users with Booking -->
     @if ($canComment)
         <div class="mt-6 p-4 border rounded-lg shadow-md">
             <h3 class="text-lg font-bold mb-2">Leave a Comment</h3>

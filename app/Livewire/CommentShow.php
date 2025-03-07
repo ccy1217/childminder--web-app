@@ -19,13 +19,16 @@ class CommentShow extends Component
     public $canComment = false;
     protected $paginationTheme = 'tailwind';
 
+    public $currentProfile; // Add this property to store the current profile
+
     public function mount($childminderId)
     {
         $this->childminderId = $childminderId;
         $this->checkClientPermission();
+        $this->currentProfile = ClientProfile::where('user_id', Auth::id())->first(); // Get current profile
     }
 
-    public function checkClientPermission()
+    private function checkClientPermission()
     {
         if (!Auth::check()) {
             $this->canComment = false;
@@ -33,12 +36,13 @@ class CommentShow extends Component
         }
 
         $client = ClientProfile::where('user_id', Auth::id())->first();
+
         if ($client) {
             $hasConfirmedBooking = Booking::where('client_id', $client->id)
                 ->where('childminder_id', $this->childminderId)
-                ->where('status', 'confirmed') // Ensure booking status is 'confirmed'
+                ->where('status', 'confirmed') // Only confirmed bookings
                 ->exists();
-            
+
             $this->canComment = $hasConfirmedBooking;
         }
     }
@@ -71,12 +75,14 @@ class CommentShow extends Component
     public function render()
     {
         $comments = Comment::where('childminder_id', $this->childminderId)
+            ->with('clientProfile') // Eager load client profile for images
             ->latest()
             ->paginate(5);
 
         return view('livewire.comment-show', [
             'comments' => $comments,
-            'canComment' => $this->canComment
+            'canComment' => $this->canComment,
+            'currentProfile' => $this->currentProfile // Pass the current profile to the view
         ]);
     }
 }
