@@ -15,7 +15,7 @@
 }
 
 .custom-button:hover {
-    background-color: #1B4D3E; /* Changed hover background color */
+    background-color: #1B4D3D; /* Changed hover background color */
     color: white;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
@@ -35,4 +35,36 @@
     background-color: #0018A8; /* Tailwind's blue-600 */
     color: white;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+.custom-button3 {
+    background-color: #E9967A;
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px; /* Increased horizontal padding (left and right) */
+    border-radius: 6px;
+    border: 2px solid #E9967A; /* Tailwind's blue-500 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-button3:hover {
+    background-color: #DAA520; /* Tailwind's blue-600 */
+    color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+
+
+
+
+
+
+#map {
+    height: 500px;
+    width: 600px;
 }

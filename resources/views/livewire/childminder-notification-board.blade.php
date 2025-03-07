@@ -7,7 +7,7 @@
 
         <!-- Pending Bookings -->
         <h3 class="font-semibold text-lg mt-6 border-b-2 pb-2 mb-4 text-blue-500">Pending Bookings</h3>
-        <div class="space-y-2">
+        <div class="space-y-4">
             @forelse($pendingBookings as $booking)
                 <div class="border p-4 rounded-lg">
                     <h3 class="text-lg font-medium">
@@ -41,7 +41,7 @@
 
         <!-- Confirmed Bookings -->
         <h3 class="font-semibold text-lg mt-6 border-b-2 pb-2 mb-4 text-blue-500">Confirmed Bookings</h3>
-        <div class="space-y-2">
+        <div class="space-y-4">
             @forelse($confirmedBookings as $booking)
                 <div class="border p-4 rounded-lg">
                     <h3 class="text-lg font-medium">
@@ -61,7 +61,7 @@
 
         <!-- Cancelled Bookings -->
         <h3 class="font-semibold text-lg mt-6 border-b-2 pb-2 mb-4 text-blue-500">Cancelled Bookings</h3>
-        <div class="space-y-2">
+        <div class="space-y-4">
             @forelse($cancelledBookings as $booking)
                 <div class="border p-4 rounded-lg">
                     <h3 class="text-lg font-medium">

@@ -1,11 +1,11 @@
-<div class="p-4">
+<div class="p-3">
     @if ($bookings->isEmpty())
         <p>No bookings available.</p>
     @else
         <h2 class="font-semibold text-2xl mb-6 underline">Your Booking History</h2>
 
         <!-- Pending Bookings -->
-        <h3 class="font-semibold text-lg mt-6 border-b-2 pb-2 mb-4 text-blue-500">Pending Bookings</h3>
+        <h3 class="font-semibold text-lg mt- border-b-2 pb-2 mb-4 text-blue-500">Pending Bookings</h3>
         <div class="space-y-4">
             @foreach($bookings as $booking)
                 @if($booking->status == 'Pending')
@@ -24,7 +24,7 @@
         </div>
 
         <!-- Accepted Bookings -->
-        <h3 class="font-semibold text-lg mt-6 border-b-2 pb-2 mb-4 text-blue-500">Accepted Bookings</h3>
+        <h3 class="font-semibold text-lg mt-4 border-b-2 pb-2 mb-4 text-blue-500">Accepted Bookings</h3>
         <div class="space-y-4">
         @forelse($bookings->where('status', 'Confirmed') as $booking)
                 <div class="border p-4 rounded-lg">
@@ -44,7 +44,7 @@
         </div>
 
         <!-- Rejected Bookings -->
-        <h3 class="font-semibold text-lg mt-6 border-b-2 pb-2 mb-4 text-blue-500">Rejected Bookings</h3>
+        <h3 class="font-semibold text-lg mt-4 border-b-2 pb-2 mb-4 text-blue-500">Rejected Bookings</h3>
         <div class="space-y-4">
         @forelse($bookings->where('status', 'Cancelled') as $booking)
                 <div class="border p-4 rounded-lg">

@@ -6,7 +6,9 @@ use Livewire\Component;
 use App\Models\ChildminderProfile;
 use App\Models\Service;
 use App\Models\Language;
+use App\Models\ClientProfile;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class ChildminderProfileShowInClient extends Component
 {
@@ -83,7 +85,18 @@ class ChildminderProfileShowInClient extends Component
         'childminderName' => $profileName
     ]);
 }
+public function goToMap($profileId, $profileName, $profilePostcode)
+{
+    $client = Auth::check() ? ClientProfile::where('user_id', Auth::id())->first() : null;
+    $clientPostcode = $client ? $client->postcode : null;
 
+    return redirect()->route('map.with-params', [
+        'childminderId' => $profileId,
+        'childminderName' => $profileName,
+        'childminderPostcode' => $profilePostcode,
+        'clientPostcode' => $clientPostcode
+    ]);
+}
 
 
 
