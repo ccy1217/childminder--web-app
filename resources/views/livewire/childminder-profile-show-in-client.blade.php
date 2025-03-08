@@ -199,11 +199,12 @@
 
                             <!-- Include the ChildminderTimetable Component -->
                             <div class="mt-2">
-                            @livewire('childminder-timetable', ['childminderId' => $currentProfile->id])
+                                <h2 class="text-lg font-semibold mb-4">Childminder Schedule:</h2>
+                                @livewire('childminder-timetable', ['childminderId' => $currentProfile->id])
                             </div>
                             
                             <div class="mt-2">
-                            <livewire:comment-show :childminderId="$currentProfile->id" />
+                                <livewire:comment-show :childminderId="$currentProfile->id" />
                             </div>
 
                             <!-- Book Button -->

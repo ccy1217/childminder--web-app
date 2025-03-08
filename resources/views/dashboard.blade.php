@@ -12,6 +12,11 @@
                     
                     <!-- Display Notification Board for Childminders -->
                     @if (Auth::check() && Auth::user()->childminderProfile) <!-- Directly checking for childminderProfile -->
+                    <div class="mt-2">
+                        <h1 class="text-lg font-bold mb-4">My Schedule:</h1>
+                        @livewire('childminder-timetable', ['childminderId' => auth()->user()->childminderProfile->id ?? null])
+                    </div>
+
                         <!-- Include the Livewire Component for ChildminderNotificationBoard -->
                         @livewire('childminder-notification-board')
                     @endif

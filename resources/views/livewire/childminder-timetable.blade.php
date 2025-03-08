@@ -1,6 +1,4 @@
 <div class="p-4 rounded-lg"  style="background-color: #f0f8ff;">
-    <h2 class="text-lg font-semibold mb-4">Childminder Schedule:</h2>
-
     <!-- Month Navigation -->
     <div class="flex justify-between mb-4">
         <button wire:click="previousMonth" class="px-4 py-2 bg-gray-300 rounded">← Previous</button>
@@ -39,7 +37,7 @@
                         @if (($week === 0 && $dayOfWeek < $firstDayOfWeek) || $dayCounter > $totalDays)
                             <td class="border border-gray-300 p-4 bg-gray-100"></td>
                         @else
-                            <td class="border border-gray-300 p-4 align-top" style="background-color: #ffffff;>
+                            <td class="border border-gray-300 p-4 align-top" style="background-color: #ffffff;">
                                 <div class="font-bold">{{ $dayCounter }}</div>
                                 @if(isset($bookingsByDate[$date]))
                                     <ul class="mt-2 text-sm" >
