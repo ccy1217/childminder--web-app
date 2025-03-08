@@ -196,6 +196,11 @@
                                     <p>Not provided</p>
                                 @endif
                             </div>
+
+                            <!-- Include the ChildminderTimetable Component -->
+                            <div class="mt-2">
+                            @livewire('childminder-timetable', ['childminderId' => $currentProfile->id])
+                            </div>
                             
                             <div class="mt-2">
                             <livewire:comment-show :childminderId="$currentProfile->id" />

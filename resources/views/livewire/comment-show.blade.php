@@ -13,7 +13,7 @@
                             <img src="{{ asset('storage/' . $currentProfile->profile_picture) }}" alt="Profile Picture" class="object-cover w-16 h-16 rounded-full border-2 border-blue-500">
                         @else
                             <div class="bg-gray-200 text-gray-500 flex items-center justify-center w-16 h-16 rounded-full border-2 border-blue-500">
-                                No Image
+                                N/A
                             </div>
                         @endif
 
