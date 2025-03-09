@@ -44,37 +44,41 @@
         <div class="space-y-4">
             @forelse($confirmedBookings as $booking)
                 <div class="border p-4 rounded-lg">
-                    <h3 class="text-lg font-medium">
-                        Client: 
-                        {{ optional($booking->clientprofile)->first_name ?? 'Unknown' }} 
-                        {{ optional($booking->clientprofile)->last_name ?? 'Client' }}
-                    </h3>
-                    <p><strong>Start:</strong> {{ \Carbon\Carbon::parse($booking->start_time)->format('F j, Y, g:i a') }}</p>
-                    <p><strong>End:</strong> {{ \Carbon\Carbon::parse($booking->end_time)->format('F j, Y, g:i a') }}</p>
-                    <p><strong>Notes:</strong> {{ $booking->notes ?? 'No notes provided' }}</p>
-                    <span class="text-sm text-red-500">Booking confirmed.</span>
+                    <div class="flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium">
+                                Client: 
+                                {{ optional($booking->clientprofile)->first_name ?? 'Unknown' }} 
+                                {{ optional($booking->clientprofile)->last_name ?? 'Client' }}
+                            </h3>
+                            <p><strong>Start:</strong> {{ \Carbon\Carbon::parse($booking->start_time)->format('F j, Y, g:i a') }}</p>
+                            <p><strong>End:</strong> {{ \Carbon\Carbon::parse($booking->end_time)->format('F j, Y, g:i a') }}</p>
+                            <p><strong>Notes:</strong> {{ $booking->notes ?? 'No notes provided' }}</p>
+                            <span class="text-sm text-red-500">Booking confirmed.</span>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <button wire:click="openMessageBoard(
+                                {{ auth()->user()->id }},
+                                {{ $booking->client_id }},
+                                '{{ $booking->clientprofile->first_name ?? 'Unknown' }}',
+                                '{{ $booking->clientprofile->last_name ?? 'Unknown' }}',
+                                {{ $booking->childminder_id }},
+                                {{ $booking->childminderprofile->user_id ?? 'null' }},
+                                '{{ $booking->childminderprofile->first_name ?? 'Unknown' }}',
+                                '{{ $booking->childminderprofile->last_name ?? 'Unknown' }}',
+                                {{ $booking->clientprofile->user_id ?? 'null' }},
+                                '{{ auth()->user()->id == $booking->client_id ? 'client' : 'childminder' }}',
+                                '{{ $booking->client_id == $booking->clientprofile->user_id ? 'client' : 'childminder' }}'
+                            )" class="custom-button2">
+                                📩 Message
+                            </button>
+                        </div>
+                    </div>
                 </div>
             @empty
                 <p class="text-gray-500">No confirmed bookings.</p>
             @endforelse
-            <button wire:click="openMessageBoard(
-    {{ auth()->user()->id }},
-    {{ $booking->client_id }},
-    '{{ $booking->clientprofile->first_name ?? 'Unknown' }}',
-    '{{ $booking->clientprofile->last_name ?? 'Unknown' }}',
-    {{ $booking->childminder_id }},
-    {{ $booking->childminderprofile->user_id ?? 'null' }},
-    '{{ $booking->childminderprofile->first_name ?? 'Unknown' }}',
-    '{{ $booking->childminderprofile->last_name ?? 'Unknown' }}',
-    {{ $booking->clientprofile->user_id ?? 'null' }},
-    '{{ auth()->user()->id == $booking->client_id ? 'client' : 'childminder' }}',
-    '{{ $booking->client_id == $booking->clientprofile->user_id ? 'client' : 'childminder' }}'
-)"
-class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-600">
-    Message
-</button>
-
-
         </div>
 
         <!-- Cancelled Bookings -->

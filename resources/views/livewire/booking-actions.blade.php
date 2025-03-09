@@ -1,4 +1,4 @@
-<div class="p-3">
+<div class="p-4">
     @if ($bookings->isEmpty())
         <p>No bookings available.</p>
     @else
@@ -56,8 +56,8 @@
                             '{{ auth()->user()->id == $booking->client_id ? 'client' : 'childminder' }}', 
                             '{{ auth()->user()->id == $booking->client_id ? 'childminder' : 'client' }}'  <!-- Correct logic for receiver -->
                         )"
-                        class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-600">
-                            Message
+                        class="custom-button">
+                            📩 Message
                         </button>
                     </div>
                 </div>
@@ -84,7 +84,6 @@
             @empty
                 <p class="text-gray-500">No cancelled bookings.</p>
             @endforelse
-        </div>
         </div>
     @endif
 </div>
