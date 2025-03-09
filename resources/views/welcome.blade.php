@@ -82,6 +82,9 @@
                     </div>
                 </div>
             </div>
+            <footer class="py-12 text-center text-sm text-blue-500 dark:text-white/70">
+                This website is created by @JOANNE CHAN ╰(*°▽°*)╯
+            </footer>
         </div>
     </body>
 </html>
