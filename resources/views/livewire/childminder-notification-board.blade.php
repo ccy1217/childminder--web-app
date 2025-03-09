@@ -57,6 +57,24 @@
             @empty
                 <p class="text-gray-500">No confirmed bookings.</p>
             @endforelse
+            <button wire:click="openMessageBoard(
+    {{ auth()->user()->id }},
+    {{ $booking->client_id }},
+    '{{ $booking->clientprofile->first_name ?? 'Unknown' }}',
+    '{{ $booking->clientprofile->last_name ?? 'Unknown' }}',
+    {{ $booking->childminder_id }},
+    {{ $booking->childminderprofile->user_id ?? 'null' }},
+    '{{ $booking->childminderprofile->first_name ?? 'Unknown' }}',
+    '{{ $booking->childminderprofile->last_name ?? 'Unknown' }}',
+    {{ $booking->clientprofile->user_id ?? 'null' }},
+    '{{ auth()->user()->id == $booking->client_id ? 'client' : 'childminder' }}',
+    '{{ $booking->client_id == $booking->clientprofile->user_id ? 'client' : 'childminder' }}'
+)"
+class="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-600">
+    Message
+</button>
+
+
         </div>
 
         <!-- Cancelled Bookings -->

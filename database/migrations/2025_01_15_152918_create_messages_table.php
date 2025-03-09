@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            //this is the same as --> $table->foreignId('sender_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade'); // Foreign key to 'users' table for the sender
-            $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade'); // Foreign key to 'users' table for the receiver
-            $table->text('message'); // Message content
-            $table->boolean('is_read')->default(false); // Whether the message has been read
-            $table->timestamps(); // Created at and Updated at timestamps
+            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('sender_user_type', ['client', 'childminder']); // Store sender's user type
+            $table->enum('receiver_user_type', ['client', 'childminder']); // Store receiver's user type
+            $table->text('message');
+            $table->boolean('is_read')->default(false);
+            $table->timestamps();
         });
     }
 

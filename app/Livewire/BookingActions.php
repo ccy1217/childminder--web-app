@@ -19,16 +19,39 @@ class BookingActions extends Component
     // Load the bookings for the authenticated client
     // In your BookingActions.php Livewire Component
 
-public function loadBookings()
-{
-    if (Auth::check()) {
-        $this->bookings = Booking::where('client_id', Auth::user()->clientprofile->id)
-                                 ->with('childminderprofile') // Eager load childminder profile
-                                 ->get();
-    } else {
-        $this->bookings = collect();
+    public function loadBookings()
+    {
+        if (Auth::check()) {
+            $this->bookings = Booking::where('client_id', Auth::user()->clientprofile->id)
+                                    ->with('childminderprofile') // Eager load childminder profile
+                                    ->get();
+        } else {
+            $this->bookings = collect();
+        }
     }
-}
+
+    public function openMessageBoard(
+        $sender_id, $client_id, $client_first_name, $client_last_name, 
+        $childminder_id, $childminder_user_id, $childminder_first_name, $childminder_last_name, 
+        $receiver_id, $sender_user_type, $receiver_user_type
+    ) {
+        return redirect()->route('message-board', [
+            'sender_id' => $sender_id,
+            'client_id' => $client_id,
+            'client_first_name' => $client_first_name,
+            'client_last_name' => $client_last_name,
+            'childminder_id' => $childminder_id,
+            'childminder_user_id' => $childminder_user_id,
+            'childminder_first_name' => $childminder_first_name,
+            'childminder_last_name' => $childminder_last_name,
+            'receiver_id' => $receiver_id,
+            'sender_user_type' => $sender_user_type,
+            'receiver_user_type' => $receiver_user_type,
+        ]);
+    }
+    
+    
+
 
 
     // Render the component

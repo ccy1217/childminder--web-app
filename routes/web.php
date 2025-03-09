@@ -9,13 +9,7 @@ use App\Livewire\ClientProfileManager;
 use App\Livewire\BookingForm;
 use App\Models\ClientProfile;
 use Illuminate\Support\Facades\Auth;
-//use App\Http\Livewire\BookingActions;
-
-//@livewire('booking-actions', ['booking' => $booking])
-
-//Route::get('/booking/{booking}', BookingActions::class)->name('booking.actions');
-// routes/web.php
-
+use App\Livewire\MessageBoard;
 
 Route::get('/', function () {
    return view('welcome');
@@ -25,22 +19,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/map', function () {
-//     return response()->file(resource_path('views/maps/map.html'));
-// });
-
-
-// use App\Models\Service;
-
-// Route::get('/dashboard', function () {
-//     $services = Service::all(); // Retrieve all services
-//     return view('dashboard', compact('services'));
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
 
 // Authenticated User Routes
 Route::middleware('auth')->group(function () {
+
+    // Route::get('dashboard/message-board/{sender_id}/{client_id}/{client_first_name}/{client_last_name}/{childminder_id}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}', 
+    // MessageBoard::class)->name('message-board');
+
+    Route::get('dashboard/message-board/{sender_id}/{client_id}/{client_first_name}/{client_last_name}/{childminder_id}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}/{sender_user_type}/{receiver_user_type}', 
+    MessageBoard::class)->name('message-board');
+
     // Profile Edit Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -54,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/childminder-profiles', ChildminderProfileShowInClient::class)
     ->name('childminder-profile-show-in-client');
 
+    //Showing distance and travelling time between current account's client and childminder
     Route::get('/map/{childminderId}/{childminderName}/{childminderPostcode}', function ($childminderId, $childminderName, $childminderPostcode) {
         $client = ClientProfile::where('user_id', Auth::id())->first(); // Get current client's profile
         

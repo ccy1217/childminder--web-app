@@ -59,15 +59,38 @@ class ChildminderNotificationBoard extends Component
         }
     }
 
-    // Render the component
+    public function openMessageBoard(
+        $sender_id, $client_id, $client_first_name, $client_last_name, 
+        $childminder_id, $childminder_user_id, $childminder_first_name, $childminder_last_name, 
+        $receiver_id
+    ) {
+        // Determine user types based on IDs
+        $sender_user_type = ($sender_id == $client_id) ? 'client' : 'childminder';
+        $receiver_user_type = ($receiver_id == $client_id) ? 'client' : 'childminder';
+    
+        return redirect()->route('message-board', [
+            'sender_id' => $sender_id,
+            'sender_user_type' => $sender_user_type,
+            'client_id' => $client_id,
+            'client_first_name' => $client_first_name,
+            'client_last_name' => $client_last_name,
+            'childminder_id' => $childminder_id,
+            'childminder_user_id' => $childminder_user_id,
+            'childminder_first_name' => $childminder_first_name,
+            'childminder_last_name' => $childminder_last_name,
+            'receiver_id' => $receiver_id,
+            'receiver_user_type' => $receiver_user_type,
+        ]);
+    }
+    
     // Render the component with different statuses
-public function render()
-{
-    return view('livewire.childminder-notification-board', [
-        'pendingBookings' => $this->bookings->where('status', 'Pending'),
-        'confirmedBookings' => $this->bookings->where('status', 'Confirmed'),
-        'cancelledBookings' => $this->bookings->where('status', 'Cancelled'),
-    ])->layout('layouts.app');
+    public function render()
+    {
+        return view('livewire.childminder-notification-board', [
+            'pendingBookings' => $this->bookings->where('status', 'Pending'),
+            'confirmedBookings' => $this->bookings->where('status', 'Confirmed'),
+            'cancelledBookings' => $this->bookings->where('status', 'Cancelled'),
+        ])->layout('layouts.app');
+    }
 }
 
-}
