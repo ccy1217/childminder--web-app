@@ -70,7 +70,7 @@
                                 {{ $booking->clientprofile->user_id ?? 'null' }},
                                 '{{ auth()->user()->id == $booking->client_id ? 'client' : 'childminder' }}',
                                 '{{ $booking->client_id == $booking->clientprofile->user_id ? 'client' : 'childminder' }}'
-                            )" class="custom-button2">
+                            )" class="custom-button">
                                 📩 Message
                             </button>
                         </div>
