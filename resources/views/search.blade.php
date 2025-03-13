@@ -18,12 +18,43 @@
         }
         </style>
 
-        <!-- Main title font type -->
+         <!-- Main title font type -->
         <style>
-            .font-cinzel {
-                font-family: 'Cinzel Decorative', serif;
-                letter-spacing: 1px;
-            }
+        .font-cinzel {
+            font-family: 'Cinzel Decorative', serif;
+            letter-spacing: 1px;
+            position: relative;
+            padding-top: 10px; /* Space for the top underline */
+            padding-bottom: 10px; /* Space for the bottom underline */
+            display: inline-block;
+            
+            /* Gradient Text */
+            background: linear-gradient(90deg, blue, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .font-cinzel::before,
+        .font-cinzel::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 5px; /* Thickness of the wavy line */
+            background: repeating-linear-gradient(
+                -45deg,
+                orange 0px, orangered 3px,
+                transparent 3px, transparent 6px
+            ); /* Creates a wavy effect */
+        }
+
+        .font-cinzel::before {
+            top: 0; /* Position at the top */
+        }
+
+        .font-cinzel::after {
+            bottom: 0; /* Position at the bottom */
+        }
         </style>
 
         <!-- Smooth Scroll CSS -->
@@ -134,7 +165,7 @@
 
             <div class="hidden md:flex space-x-6 pl-6">
                 <a href="{{ url('/') }}" class="hover:text-indigo-600 transition duration-300">Home</a>
-                <a href="{{ url('/#service') }}" class="hover:text-indigo-600 transition duration-300">Services</a>
+                <a href="{{ url('/search') }}" class="hover:text-indigo-600 transition duration-300">Search</a>
                 <a href="{{ url('/about') }}" class="hover:text-indigo-600 transition duration-300">About</a>
                 <a href="{{ url('/contact') }}" class="hover:text-indigo-600 transition duration-300">Contact</a>
             </div>
@@ -162,7 +193,9 @@
     <header id="hero" class="relative w-full min-h-[50vh] flex items-center text-white"> 
     <div class="container mx-auto px-4 py-8">
         <div class="text-center">
-            <h1 class="text-7xl font-bold text-white">Search a Childminder</h1>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight " data-aos="fade-up">
+                Search a Childminder
+            </h1>
             <p class="text-lg text-white mt-2 small-caps">Find experienced and loving childminders around you.</p>
         </div>
     </div>

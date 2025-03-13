@@ -21,7 +21,41 @@
         .font-cinzel {
             font-family: 'Cinzel Decorative', serif;
             letter-spacing: 1px;
+            position: relative;
+            padding-top: 10px; /* Space for the top underline */
+            padding-bottom: 10px; /* Space for the bottom underline */
+            display: inline-block;
+            
+            /* Gradient Text */
+            background: linear-gradient(90deg, blue, red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
+        .font-cinzel::before,
+        .font-cinzel::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 5px; /* Thickness of the wavy line */
+            background: repeating-linear-gradient(
+                -45deg,
+                orange 0px, orangered 3px,
+                transparent 3px, transparent 6px
+            ); /* Creates a wavy effect */
+        }
+
+        .font-cinzel::before {
+            top: 0; /* Position at the top */
+        }
+
+        .font-cinzel::after {
+            bottom: 0; /* Position at the bottom */
+        }
+
+
+
     </style>
 
 
@@ -104,109 +138,130 @@
             background-size: cover;
         }
     </style>
+
     <!--image scoller (i use this one )-->
-            <style>
-                    
-                    .container {
-                    border-radius: 5px;
-                    margin: 0 auto;
-                    position: relative;
-                    }
-                    .slideshow {
-                        position: relative;
-                        width: 60%;
-                        margin: auto;
-                        &:after {
-                            content: '';
-                            display: block;
-                            padding-bottom: calc((100% / 6) * 4);
-                        }
-                        &:hover a {
-                            opacity: 1;
-                        }
-                        a {
-                        opacity: 0;
-                        position: relative;
-                        text-decoration: none;
-                        transition: opacity 0.5s;
-                    
-                        &:after {
-                            border-color: #FFF #FFF transparent transparent; /* Default color */
-                            border-style: solid;
-                            border-width: 2px;
-                            display: block;
-                            height: 10px;
-                            position: absolute;
-                            top: calc(50% - 5px);
-                            width: 10px;
-                            content: ''; /* Ensure content is set */
-                        }
-                    
-                        &:first-child:after {
-                            border-color: orange orange transparent transparent; /* Change arrow to red */
-                            left: 10px;
-                            transform: rotate(-135deg);
-                        }
-                    
-                        &:nth-child(2):after {
-                            border-color: orange orange transparent transparent; /* Keep next arrow white */
-                            right: 10px;
-                            transform: rotate(45deg);
-                        }
-                    }
-                    
-                        .slide {
-                            background-color: #FFF;
-                            box-sizing: border-box;
-                            display: none;
-                            height: 100%;
-                            position: absolute;
-                            width: 100%;
-                            &:first-child,
-                            &:target {
-                                display: block;
-                            }
-                            a {
-                                display: block;
-                                height: 100%;
-                                position: absolute;
-                                width: 50%;
-                                &:nth-child(2) {
-                                    left: 50%;
-                                }
-                            }
-                            img {
-                                border-radius: 5px;
-                                width: 100%;
-                            }
-                        }
-                    }
-                    .pagination {
-                    display: flex;
-                    bottom: 10px;
-                    justify-content: center;
-                    position: absolute;
-                    width: 100%;
-                    a {
-                        background: orange;
-                        border-radius: 50%;
-                        display: block;
-                        height: 10px;
-                        width: 10px;
-                        &:not(:last-child) {
-                        margin-right: 5px;
-                        }
-                        span {
-                        display: none;
-                        }
-                    }
-                    }
-                    
-                    a:target {
-                        color: yellow;
-                        background: orange;
-                    }
-            </style>
+    <style>
+    .container {
+        border-radius: 5px;
+        margin: 10px auto;
+        position: relative;
+        background-color: transparent;
+        height: 450px; /* Set a smaller height for the container */
+    }
+
+    .slideshow {
+        position: relative;
+        width: 60%;
+        margin: auto;
+    }
+
+    .slideshow:after {
+        content: '';
+        display: block;
+        padding-bottom: calc((100% / 6) * 4);
+    }
+
+    .slideshow:hover a {
+        opacity: 1;
+    }
+
+    .slideshow a {
+        opacity: 0;
+        position: relative;
+        text-decoration: none;
+        transition: opacity 0.5s;
+        font-weight: bolder; /* Increase the boldness */
+    }
+
+    .slideshow a:after {
+        border-color: #FFF #FFF transparent transparent;
+        border-style: solid;
+        border-width: 4px; /* Increase border width to make the arrow bigger */
+        display: block;
+        height: 20px; /* Make the arrow taller */
+        position: absolute;
+        top: calc(50% - 10px);
+        width: 20px; /* Make the arrow wider */
+        content: '';
+    }
+
+    .slideshow a:first-child:after {
+        border-color: orangered orangered transparent transparent;
+        left: 10px;
+        transform: rotate(-135deg);
+    }
+
+    .slideshow a:nth-child(2):after {
+        border-color: orangered orangered transparent transparent;
+        right: 10px;
+        transform: rotate(45deg);
+    }
+
+    .slide {
+        background-color: transparent;
+        box-sizing: border-box;
+        display: none;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+
+    .slide:first-child,
+    .slide:target {
+        display: block;
+    }
+
+    .slide a {
+        display: block;
+        height: 55%;
+        position: absolute;
+        width: 50%;
+    }
+
+    .slide a:nth-child(2) {
+        left: 50%;
+    }
+
+    .slide img {
+        border-radius: 5px;
+        width: 100%;
+        padding-left: 50px; /* Increased left padding */
+        padding-right: 50px; /* Increased right padding */
+        background-color: transparent; /* Ensure the image has a transparent background */
+        padding-top:0px;
+        padding-bottom: 0px;/*Removed any bottom padding */
+    }
+
+    .pagination {
+        display: flex;
+        bottom: 6px;
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+    }
+
+    .pagination a {
+        background: orangered;
+        border-radius: 50%;
+        display: block;
+        height: 10px;
+        width: 10px;
+    }
+
+    .pagination a:not(:last-child) {
+        margin-right: 5px;
+    }
+
+    .pagination a span {
+        display: none;
+    }
+
+    a:target {
+        color: yellow;
+        background: orangered;
+    }
+</style>
+
 
 </head>
 
@@ -255,7 +310,10 @@
     <!-- Hero Section -->
     <header id="hero" class="relative w-full min-h-screen text-white overflow-y-auto">
         <div class="relative z-10 text-center px-6 py-24">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight" data-aos="fade-up">Find the Perfect Childminder</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight pt-10" data-aos="fade-up">
+    Find the Perfect Childminder
+</h1>
+
             <p class="text-lg mt-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="300">Book trusted and professional childminders for your little ones with ease.</p>
             <button class="mt-6 mb-8 px-10 py-4 text-lg bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 text-white font-semibold rounded-lg shadow-lg hover:from-orange-500 hover:via-orange-600 hover:to-orange-700 transition duration-300">
                 <a href="{{ route('register') }}">Let's register an account!</a>
@@ -285,7 +343,8 @@
                     <div id="slide-3" class="slide">
                         <a href="#slide-2"></a>
                         <a href="#slide-4"></a>
-                        <img src="{{ asset('storage/profile_pictures/GSDQ5jkGJnxd0C4j1kifofOlwYdtmTOvZNKMmLBx.png') }}" alt="Safe & Trusted">
+                        <img src="{{ asset('storage/profile_pictures/GSDQ5jkGJnxd0C4j1kifofOlwYdtmTOvZNKMmLBx.png') }}" 
+                        alt="Safe & Trusted">
                     </div>
                     <div id="slide-4" class="slide">
                         <a href="#slide-3"></a>
@@ -293,7 +352,7 @@
                         <img src="{{ asset('storage/profile_pictures/img1.png') }}" alt="Safe & Trusted">
                     </div>
                 </div>
-            <div class="pagination">
+                <div class="pagination">
                 <a href="#slide-1"><span>1</span></a>
                 <a href="#slide-2"><span>2</span></a>
                 <a href="#slide-3"><span>3</span></a>
@@ -402,6 +461,22 @@
             once: true
         });
     </script>
+    <!--fix the page goes up when i click the arrow button-->
+        <script>
+            document.querySelectorAll('.slideshow a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetSlide = document.querySelector(this.getAttribute('href'));
+                    
+                    document.querySelectorAll('.slide').forEach(slide => {
+                        slide.style.display = 'none';
+                    });
+                    
+                    targetSlide.style.display = 'block';
+                });
+            });
+        </script>
 
 </body>
 
