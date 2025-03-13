@@ -1,19 +1,19 @@
 <x-app-layout>
-    <x-slot name="header">
+    <!-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-    </x-slot>
+    </x-slot> -->
 
     <!-- Important Notice at the Top -->
-    <div style="background-color: #00CED1;" class="text-white p-6 rounded-md shadow-md mx-6 mt-6">
+    <div style="background-color:rgba(180, 243, 103, 0.36) ;" class="text-black p-6 rounded-md shadow-md mx-6 mt-6">
     ⚠️⚠️ <strong>Important Notice:</strong> This platform facilitates the booking of childminder services but does not handle any financial transactions. Payments must be arranged directly between parents and childminders. Please ensure you discuss and agree on payment terms independently.
 </div>
 
 
-    <div class="mt-4 p-6">  <!-- Increased Padding -->
+    <div class="mt-4 p-6"> 
         <div class="max-w-7xl mx-auto sm:px-8 lg:px-10 ">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">  <!-- Added Padding Here -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg "> 
                 <p class="text-gray-900">
                     
                     <!-- Display Notification Board for Childminders -->

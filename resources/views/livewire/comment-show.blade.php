@@ -57,7 +57,7 @@
                 <textarea wire:model="commentText" class="w-full border rounded-lg p-2" placeholder="Write your comment..." required></textarea>
                 
                 <div class="mt-2">
-                    <label class="block font-semibold">Rating (Optional):</label>
+                    <label class="block font-semibold">Rating:</label>
                     <select wire:model="rating" class="border p-2 rounded-lg">
                         <option value="">No rating</option>
                         <option value="1">⭐ 1</option>

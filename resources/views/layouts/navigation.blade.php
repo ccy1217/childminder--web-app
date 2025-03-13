@@ -1,6 +1,24 @@
+<style>
+.wavy-line {
+    position: relative;
+    width: 100%;
+    height: 5px; /* Thickness of the wavy line */
+    background: repeating-linear-gradient(
+        -45deg,
+        orange 0px, orangered 3px,
+        transparent 3px, transparent 6px
+    ); /* Creates a wavy effect */
+    z-index: 1; /* Ensure the wave is below the dropdown */
+}
+
+nav {
+    position: relative; /* Ensure the nav bar is relative so other elements inside can position accordingly */
+}
+
+</style>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -29,11 +47,10 @@
                         </x-nav-link>
                     @endif
 
-
-
                 </div>
             </div>
 
+            
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -54,14 +71,14 @@
                             {{ __('Account details') }}
                         </x-dropdown-link>
                         @if(Auth::check() && Auth::user()->user_type === 'childminder')
-                <x-dropdown-link :href="route('childminder-profile-manage')">
-                    {{ __('Manage Childminder Profile') }}
-                </x-dropdown-link>
-            @elseif(Auth::check() && Auth::user()->user_type === 'client')
-                <x-dropdown-link :href="route('client-profile-manager')">
-                    {{ __('Manage Client Profile') }}
-                </x-dropdown-link>
-            @endif
+                            <x-dropdown-link :href="route('childminder-profile-manage')">
+                                {{ __('Manage Childminder Profile') }}
+                            </x-dropdown-link>
+                        @elseif(Auth::check() && Auth::user()->user_type === 'client')
+                            <x-dropdown-link :href="route('client-profile-manager')">
+                                {{ __('Manage Client Profile') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -75,6 +92,9 @@
         </div>
     </div>
 
+    <!-- Add the wavy line at the bottom -->
+    <div class="wavy-line"></div>
+
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -82,18 +102,16 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if(Auth::check() && Auth::user()->user_type === 'client')
-        <x-responsive-nav-link :href="route('childminder-profile-show-in-client')" 
-            :active="request()->routeIs('childminder-profile-show-in-client')">
-            {{ __('Childminder Profiles') }}
-        </x-responsive-nav-link>
-    @elseif(Auth::check() && Auth::user()->user_type === 'childminder')
-        <x-responsive-nav-link :href="route('childminder-profile-show')" 
-            :active="request()->routeIs('childminder-profile-show')">
-            {{ __('Manage Your Profile') }}
-        </x-responsive-nav-link>
-    @endif
-
-
+                <x-responsive-nav-link :href="route('childminder-profile-show-in-client')" 
+                    :active="request()->routeIs('childminder-profile-show-in-client')">
+                    {{ __('Childminder Profiles') }}
+                </x-responsive-nav-link>
+            @elseif(Auth::check() && Auth::user()->user_type === 'childminder')
+                <x-responsive-nav-link :href="route('childminder-profile-show')" 
+                    :active="request()->routeIs('childminder-profile-show')">
+                    {{ __('Manage Your Profile') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -108,14 +126,14 @@
                     {{ __('Account details') }}
                 </x-responsive-nav-link>
                 @if(Auth::check() && Auth::user()->user_type === 'childminder')
-            <x-responsive-nav-link :href="route('childminder-profile-manage')">
-                {{ __('Manage Childminder Profile') }}
-            </x-responsive-nav-link>
-        @elseif(Auth::check() && Auth::user()->user_type === 'client')
-            <x-responsive-nav-link :href="route('client-profile-manager')">
-                {{ __('Manage Client Profile') }}
-            </x-responsive-nav-link>
-        @endif
+                    <x-responsive-nav-link :href="route('childminder-profile-manage')">
+                        {{ __('Manage Childminder Profile') }}
+                    </x-responsive-nav-link>
+                @elseif(Auth::check() && Auth::user()->user_type === 'client')
+                    <x-responsive-nav-link :href="route('client-profile-manager')">
+                        {{ __('Manage Client Profile') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -126,5 +144,4 @@
             </div>
         </div>
     </div>
-
 </nav>

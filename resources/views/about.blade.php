@@ -32,19 +32,19 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .font-cinzel::before,
+        /* .font-cinzel::before,
         .font-cinzel::after {
             content: "";
             position: absolute;
             left: 0;
             width: 100%;
-            height: 5px; /* Thickness of the wavy line */
+            height: 5px;
             background: repeating-linear-gradient(
                 -45deg,
                 orange 0px, orangered 3px,
                 transparent 3px, transparent 6px
-            ); /* Creates a wavy effect */
-        }
+            ); 
+        } */
 
         .font-cinzel::before {
             top: 0; /* Position at the top */
@@ -62,7 +62,7 @@
             }
 
             .scrollable-background {
-                background-image: url('{{ asset('storage/profile_pictures/bg (2).png') }}');
+                background-image: url("{{ asset('storage/profile_pictures/bg (2).png') }}");
                 background-attachment: fixed;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -83,7 +83,7 @@
     <!-- Navbar -->
     <nav class="bg-[rgba(245,245,220,0.6)] rounded-full shadow-md fixed top-0 left-0 z-50 backdrop-blur-md mt-4 ml-4 mr-24 w-[98%]">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="{{ url('/') }}" class="text-2xl font-bold text-black ml-2 font-cinzel">Childminder Booking Service</a>
+        <a href="{{ url('/') }}" class="text-2xl font-bold text-black ml-2 font-cinzel">💫Childminder Service</a>
 
             <div class="hidden md:flex space-x-6 pl-6">
                 <a href="{{ url('/') }}" class="hover:text-indigo-600 transition duration-300">Home</a>
@@ -144,7 +144,7 @@
 
     </div>
     <!-- Footer -->
-    <footer id="contact" class="bg-[#FF7F50] text-white py-6 relative z-20">
+    <footer id="contact" class="bg-[#00CED1] text-white py-6 relative z-20">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <p>&copy; 2025 Childminder Booking Service. All Rights Reserved.</p>
             <p>This website is created by @JOANNE CHAN ╰(*°▽°*)╯</p>

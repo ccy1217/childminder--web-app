@@ -22,14 +22,43 @@
 
         <!-- Livewire Styles -->
         @livewireStyles
+        
 
         <style>
+            .wavy-line {
+    position: relative;
+    width: 100%;
+    height: 5px; /* Thickness of the wavy line */
+    background: repeating-linear-gradient(
+        -45deg,
+        orange 0px, orangered 3px,
+        transparent 3px, transparent 6px
+    ); /* Creates a wavy effect */
+    z-index: 1; /* Ensure the wave is below the dropdown */
+}
+
+nav {
+    position: relative; /* Ensure the nav bar is relative so other elements inside can position accordingly */
+}
+            /* header like notes*/
+            header.bg-white {
+              background-color:rgba(143, 185, 173, 0.49);
+                border-bottom-left-radius: 12px;
+                border-bottom-right-radius: 12px;
+                overflow: hidden;
+                max-width: 18%; /* Adjust width as needed */
+                margin-left: 40px; /* Align it towards the left */
+            }
+
+
+
             /* Main Layout */
             .main-container {
                 display: flex;
                 justify-content: space-between;
                 gap: 30px; /* More spacing */
                 padding: 20px;
+
             }
 
             /* Main Content (Livewire Container) - Bigger Size */
@@ -37,6 +66,7 @@
                 flex: 3; /* Takes more space */
                 display: flex;
                 flex-direction: column;
+                background:transparent;
             }
 
             /* Ads Section (Right Side) */
@@ -98,8 +128,28 @@
                 background: #0056b3;
             }
         </style>
+
+
+    <!-- Smooth Scroll CSS -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Set up the background with proper image */
+    .scrollable-background {
+        background-image: url("{{ asset('storage/profile_pictures/bg-yellow.png') }}");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    </style>
     </head>
-    <body class="font-sans antialiased">
+    <body class="bg-gray-100 text-gray-900 font-sans scrollable-background relative">
+
+<!-- Page Content -->
+<div class="relative z-20">
 
         <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
                 key: 'AIzaSyCVNvfgvK59rfEKplAJKVB9VJ-yLgrjkvE', v: "weekly", });</script>
@@ -107,9 +157,8 @@
         <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}"> </script> -->
         
 
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
 
+            @include('layouts.navigation')
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
@@ -118,27 +167,28 @@
                     </div>
                 </header>
             @endisset
-
             <!-- Page Content with Flexbox Layout -->
             <main>
                 <div class="main-container">
                     <div class="content">
                         <!-- Main Content (Larger Livewire Section) -->
                         {{ $slot }}
-                        
                     </div>
 
                     <!-- Ads Section on the Right (Smaller) -->
                     <div class="ad-container" id="ad-container"></div>
                 </div>
-                <footer class="py-12 text-center text-sm text-blue-500 dark:text-white/70">
-                This website is created by @JOANNE CHAN ╰(*°▽°*)╯
-            </footer>
             </main>
-        </div> 
+            <div class="wavy-line"></div>
+            <footer class="py-10 text-center text-sm text-white dark:text-white/70" style="background: #00CED1;">
+    <p>&copy; 2025 Childminder Booking Service. All Rights Reserved.</p>
+    <p>This website is created by @JOANNE CHAN ╰(*°▽°*)╯</p>
+</footer>
 
-        <!-- Livewire Scripts -->
+            </div>
+            <!-- Livewire Scripts -->
         @livewireScripts
+            </body>
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {
@@ -171,7 +221,12 @@
                 });
             }
         </script>
-        
-    </body>
-   
+         <!-- AOS Animation JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
 </html>
