@@ -159,7 +159,6 @@
                                @endif
                            </p>
 
-                            <p class="mt-2"><b>Geographical Area:</b> {{ $currentProfile->geographical_area ?? 'Not provided' }}</p>
                             <p class="mt-2"><b>Experience (Years):</b> {{ $currentProfile->experience_years ?? 'Not specified' }}</p>
 
                             <p class="mt-2"><b>Age Groups:</b>

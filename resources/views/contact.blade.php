@@ -12,6 +12,20 @@
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         
+        <!-- wayv line to separate the content and footer-->
+        <style>
+            .wavy-line {
+                    position: relative;
+                    width: 100%;
+                    height: 5px; /* Thickness of the wavy line */
+                    background: repeating-linear-gradient(
+                            -45deg,
+                            orange 0px, orangered 3px,
+                            transparent 3px, transparent 6px
+                        ); /* Creates a wavy effect */
+                        z-index: 1; /* Ensure the wave is below the dropdown */
+                }
+        </style>
         
         <!-- Main title font type -->
         <style>
@@ -129,7 +143,7 @@
     </div>
 </header>
 
-
+<div class="wavy-line"></div>
 
     </div>
 

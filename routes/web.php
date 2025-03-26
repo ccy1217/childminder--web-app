@@ -34,8 +34,9 @@ Route::get('/dashboard', function () {
 // Authenticated User Routes
 Route::middleware('auth')->group(function () {
 
-    // Route::get('dashboard/message-board/{sender_id}/{client_id}/{client_first_name}/{client_last_name}/{childminder_id}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}', 
-    // MessageBoard::class)->name('message-board');
+    //Admin
+    Route::get('/admin/manage-clients', [UserManagementController::class, 'manageClients'])->name('admin.manage-clients');
+    Route::get('/admin/manage-childminders', [UserManagementController::class, 'manageChildminders'])->name('admin.manage-childminders');
 
     Route::get('dashboard/message-board/{sender_id}/{client_id}/{client_first_name}/{client_last_name}/{childminder_id}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}/{sender_user_type}/{receiver_user_type}', 
     MessageBoard::class)->name('message-board');

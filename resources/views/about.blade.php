@@ -16,6 +16,21 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- wayv line to separate the content and footer-->
+    <style>
+        .wavy-line {
+                position: relative;
+                width: 100%;
+                height: 5px; /* Thickness of the wavy line */
+                background: repeating-linear-gradient(
+                        -45deg,
+                        orange 0px, orangered 3px,
+                        transparent 3px, transparent 6px
+                    ); /* Creates a wavy effect */
+                    z-index: 1; /* Ensure the wave is below the dropdown */
+            }
+    </style>
+
     <!-- Main title font type -->
     <style>
         .font-cinzel {
@@ -80,69 +95,70 @@
     <!-- Page Content -->
     <div class="relative z-20">
 
-    <!-- Navbar -->
+    <!-- Navigation bar -->
     <nav class="bg-[rgba(245,245,220,0.6)] rounded-full shadow-md fixed top-0 left-0 z-50 backdrop-blur-md mt-4 ml-4 mr-24 w-[98%]">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="{{ url('/') }}" class="text-2xl font-bold text-black ml-2 font-cinzel">💫Childminder Service</a>
+            <!-- back to home page -->
+            <a href="{{ url('/') }}" class="text-2xl font-bold text-black ml-2 font-cinzel">💫Childminder Service</a>
 
-            <div class="hidden md:flex space-x-6 pl-6">
-                <a href="{{ url('/') }}" class="hover:text-indigo-600 transition duration-300">Home</a>
-                <a href="{{ url('/search') }}" class="hover:text-indigo-600 transition duration-300">Search</a>
-                <a href="{{ url('/about') }}" class="hover:text-indigo-600 transition duration-300">About</a>
-                <a href="{{ url('/contact') }}" class="hover:text-indigo-600 transition duration-300">Contact</a>
-            </div>
-
-            @if (Route::has('login'))
-                <div class="-mx-3 flex flex-1 justify-end">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Log in
-                        </a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
+                <div class="hidden md:flex space-x-6 pl-6">
+                    <a href="{{ url('/') }}" class="hover:text-indigo-600 transition duration-300">Home</a>
+                    <a href="{{ url('/search') }}" class="hover:text-indigo-600 transition duration-300">Search</a>
+                    <a href="{{ url('/about') }}" class="hover:text-indigo-600 transition duration-300">About</a>
+                    <a href="{{ url('/contact') }}" class="hover:text-indigo-600 transition duration-300">Contact</a>
                 </div>
-            @endif
+
+                @if (Route::has('login'))
+                    <div class="-mx-3 flex flex-1 justify-end">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                Log in
+                            </a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                    Register
+                                </a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
         </div>
     </nav>
 
     <header id="hero" class="relative w-full min-h-[50vh] flex items-center text-white"> 
-    <div class="container mx-auto px-4 py-8">
-        <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight " data-aos="fade-up">
-            About Us</h1>
-        <p class="text-lg text-white mt-2 small-caps">Caring for Your Little Ones Like Our Own</p>
-    </div>
-    </div>
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight " data-aos="fade-up">
+                    About Us</h1>
+                <p class="text-lg text-white mt-2 small-caps">Caring for Your Little Ones Like Our Own</p>
+            </div>
+        </div>
     </header>
 
     <div class="grid md:grid-cols-2 gap-8 items-center mt-10">
-    <div class="ml-10"> <!-- Added left margin here -->
-        <img src="https://images.squarespace-cdn.com/content/v1/59b30dbcf14aa14c97a44114/5d843d20-dc73-4c2f-9785-bb77041aebe1/nanny+vs.+babysitter.jpg?format=2500w" alt="Nanny with children" class="rounded-lg shadow-lg">
+        <div class="ml-10"> <!-- Added left margin here -->
+            <img src="https://images.squarespace-cdn.com/content/v1/59b30dbcf14aa14c97a44114/5d843d20-dc73-4c2f-9785-bb77041aebe1/nanny+vs.+babysitter.jpg?format=2500w" alt="Nanny with children" class="rounded-lg shadow-lg">
+        </div>
+        <div class="text-center">
+            <h1 class="text-5xl font-semibold text-white">Our Mission</h1>
+            <p class="text-white mt-10 text-3xl">
+                At <strong>Trusted Childminder Services</strong>, our mission is to provide a safe, nurturing, and enriching environment for children. We believe that every child deserves compassionate and professional care, helping them grow and thrive in a loving setting.
+            </p>
+        </div>
     </div>
-    <div class="text-center">
-        <h1 class="text-5xl font-semibold text-white">Our Mission</h1>
-        <p class="text-white mt-10 text-3xl">
-            At <strong>Trusted Childminder Services</strong>, our mission is to provide a safe, nurturing, and enriching environment for children. We believe that every child deserves compassionate and professional care, helping them grow and thrive in a loving setting.
-        </p>
-    </div>
-</div>
 
     <div class="mt-12 text-center text-white">
                 <h2 class="text-2xl font-semibold">Get in Touch</h2>
-                <p class="mt-4">Looking for a reliable nanny service? Contact us today to learn more about our services.</p>
+                <p class="mt-4">Looking for a reliable childminder service? Contact us today to learn more about our services.</p>
                 <a href="{{ url('contact') }}" class="mt-4 inline-block bg-blue-500 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-600 mb-8">Contact Us</a>
-            </div>
-        </div>
-
     </div>
+    <div class="wavy-line"></div>
+</div>
+</div>
     <!-- Footer -->
     <footer id="contact" class="bg-[#00CED1] text-white py-6 relative z-20">
         <div class="max-w-7xl mx-auto px-6 text-center">

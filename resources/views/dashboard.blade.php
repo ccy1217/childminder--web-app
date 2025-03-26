@@ -6,15 +6,27 @@
     </x-slot> -->
 
     <!-- Important Notice at the Top -->
-    <div style="background-color:rgba(180, 243, 103, 0.36) ;" class="text-black p-6 rounded-md shadow-md mx-6 mt-6">
+    <div style="background-color:rgba(245, 240, 182, 0.83) ;" class="text-black p-6 rounded-md shadow-md mx-6 mt-6">
     ⚠️⚠️ <strong>Important Notice:</strong> This platform facilitates the booking of childminder services but does not handle any financial transactions. Payments must be arranged directly between parents and childminders. Please ensure you discuss and agree on payment terms independently.
-</div>
+    </div>
 
 
     <div class="mt-4 p-6"> 
         <div class="max-w-7xl mx-auto sm:px-8 lg:px-10 ">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg "> 
                 <p class="text-gray-900">
+                    
+                   <!-- Admin Panel (Visible Only to Admins) -->
+                    @if(Auth::check() && Auth::user()->user_type === 'admin')
+                        <div class="flex justify-between mb-6">
+                            <a href="{{ route('admin.manage-clients') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
+                                Manage Client Users
+                            </a>
+                            <a href="{{ route('admin.manage-childminders') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">
+                                Manage Childminder Users
+                            </a>
+                        </div>
+                    @endif
                     
                     <!-- Display Notification Board for Childminders -->
                     @if (Auth::check() && Auth::user()->childminderProfile) 

@@ -12,11 +12,90 @@
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
         
-        <style>
-        .small-caps {
-            font-variant: small-caps;
-        }
-        </style>
+        
+        @vite(['resources/css/app.css'])
+
+            <!-- wayv line to separate the content and footer-->
+            <style>
+                .wavy-line {
+                        position: relative;
+                        width: 100%;
+                        height: 5px; /* Thickness of the wavy line */
+                        background: repeating-linear-gradient(
+                                -45deg,
+                                orange 0px, orangered 3px,
+                                transparent 3px, transparent 6px
+                            ); /* Creates a wavy effect */
+                            z-index: 1; /* Ensure the wave is below the dropdown */
+                    }
+            </style>
+
+            <style>
+                .custom-button {
+                background-color: #6B8E23;
+                color: white;
+                text-decoration: none; /* Removed underline */
+                font-weight: bold;
+                padding: 12px 24px; /* Increased horizontal padding (left and right) */
+                border-radius: 6px;
+                border: 2px solid #6B8E23;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s ease-in-out;
+                }
+
+                .custom-button:hover {
+                    background-color: #1B4D3D; /* Changed hover background color */
+                    color: white;
+                    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+                }
+
+                .custom-button2 {
+                    background-color: #6082B6;
+                    color: white;
+                    font-weight: bold;
+                    padding: 12px 24px; /* Increased horizontal padding (left and right) */
+                    border-radius: 6px;
+                    border: 2px solid #6082B6; /* Tailwind's blue-500 */
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    transition: all 0.2s ease-in-out;
+                }
+
+                .custom-button2:hover {
+                    background-color: #0018A8; /* Tailwind's blue-600 */
+                    color: white;
+                    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+                }
+
+
+                .custom-button3 {
+                    background-color: #E9967A;
+                    color: white;
+                    font-weight: bold;
+                    padding: 12px 24px; /* Increased horizontal padding (left and right) */
+                    border-radius: 6px;
+                    border: 2px solid #E9967A; /* Tailwind's blue-500 */
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    transition: all 0.2s ease-in-out;
+                }
+
+                .custom-button3:hover {
+                    background-color: #DAA520; /* Tailwind's blue-600 */
+                    color: white;
+                    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+                }
+            </style>
+
+
+
+
+
+
+                <!-- sub headers font-->
+            <style>
+                .small-caps {
+                         font-variant: small-caps;
+                 }
+            </style>
 
          <!-- Main title font type -->
         <style>
@@ -211,6 +290,7 @@
             <div class="ad-container" id="ad-container"></div>
         </div>
     </main>
+    <div class="wavy-line"></div>
     </div>
 
     <!-- Footer -->

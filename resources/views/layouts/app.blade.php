@@ -17,32 +17,29 @@
         @vite(['resources/css/app.css'])
         <!-- @vite(['resources/css/app.css', 'resources/js/app.js'])  -->
 
-
-        <script type="module" src="{{ asset('js/googleMap.js') }}"></script>
-
-        <!-- Livewire Styles -->
         @livewireStyles
         
 
         <style>
             .wavy-line {
-    position: relative;
-    width: 100%;
-    height: 5px; /* Thickness of the wavy line */
-    background: repeating-linear-gradient(
-        -45deg,
-        orange 0px, orangered 3px,
-        transparent 3px, transparent 6px
-    ); /* Creates a wavy effect */
-    z-index: 1; /* Ensure the wave is below the dropdown */
-}
+                position: relative;
+                width: 100%;
+                height: 5px; /* Thickness of the wavy line */
+                background: repeating-linear-gradient(
+                        -45deg,
+                        orange 0px, orangered 3px,
+                        transparent 3px, transparent 6px
+                    ); /* Creates a wavy effect */
+                    z-index: 1; /* Ensure the wave is below the dropdown */
+            }
 
-nav {
-    position: relative; /* Ensure the nav bar is relative so other elements inside can position accordingly */
-}
+            nav {
+                position: relative; /* Ensure the nav bar is relative so other elements inside can position accordingly */
+            }
+            
             /* header like notes*/
             header.bg-white {
-              background-color:rgba(143, 185, 173, 0.49);
+              background-color:rgba(136, 178, 185, 0.53);
                 border-bottom-left-radius: 12px;
                 border-bottom-right-radius: 12px;
                 overflow: hidden;
@@ -138,7 +135,7 @@ nav {
 
         /* Set up the background with proper image */
     .scrollable-background {
-        background-image: url("{{ asset('storage/profile_pictures/bg-yellow.png') }}");
+        background-image: url("{{ asset('storage/profile_pictures/bg-kid-playing.png') }}");
         background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;

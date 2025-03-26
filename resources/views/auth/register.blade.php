@@ -7,6 +7,7 @@
         <select name="user_type" id="user_type" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
             <option value="client">Parent / Client</option>
             <option value="childminder">Childminder</option>
+            <option value="admin">Admin</option>
         </select>
 
         <!-- Name -->
@@ -14,6 +15,13 @@
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Company ID (Only for checking Admin role) -->
+        <div id="company_id_field" class="mt-4 hidden">
+            <x-input-label for="company_id" :value="__('Company ID')" />
+            <x-text-input id="company_id" class="block mt-1 w-full" type="text" name="company_id" :value="old('company_id')" autocomplete="organization" />
+            <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -58,6 +66,16 @@
             grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', { action: 'register' }).then(function(token) {
                 document.getElementById('recaptcha-response').value = token;
             });
+        });
+
+         // Toggle Company ID Field Based on User Type Selection
+         document.getElementById("user_type").addEventListener("change", function() {
+            const companyField = document.getElementById("company_id_field");
+            if (this.value === "admin") {
+                companyField.classList.remove("hidden");
+            } else {
+                companyField.classList.add("hidden");
+            }
         });
     </script>
 

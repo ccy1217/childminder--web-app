@@ -30,23 +30,26 @@ nav {
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <!-- Dashboard Link (Everyone has access to dashboard) -->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <!-- Childminder Profile -->
+                    <!-- For Clients: 'Find a childminder profile' -->
                     @if(Auth::check() && Auth::user()->user_type === 'client')
                         <x-nav-link :href="route('childminder-profile-show-in-client')" 
                         :active="request()->routeIs('childminder-profile-show-in-client')">
                             {{ __('Find a childminder profile') }}
                         </x-nav-link>
-                    @elseif(Auth::check() && Auth::user()->user_type === 'childminder')
-                        <x-nav-link :href="route('childminder-profile-show')" 
-                        :active="request()->routeIs('childminder-profile-show')">
-                             {{ __('Childminder profiles') }}
-                        </x-nav-link>
                     @endif
 
+                    <!-- For Childminders: 'Childminder profiles' -->
+                    @if(Auth::check() && Auth::user()->user_type === 'childminder')
+                        <x-nav-link :href="route('childminder-profile-show')" 
+                        :active="request()->routeIs('childminder-profile-show')">
+                            {{ __('Childminder profiles') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

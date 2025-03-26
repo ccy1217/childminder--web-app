@@ -37,7 +37,7 @@ class ChildminderProfileShowInClient extends Component
         $this->filter_town = session()->get('filter_town', null);
         $this->filter_service = session()->get('filter_service', null);
         $this->filter_language = session()->get('filter_language', null);
-        $this->filter_age_group = session()->get('filter_age_group', null); // Initialize age group filter
+        $this->filter_age_group = session()->get('filter_age_group', null);
     }
 
     public function updated($propertyName)
