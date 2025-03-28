@@ -26,6 +26,11 @@ class ChildminderProfileShowInClient extends Component
     public $filter_age_group;
     public $showFilters = true;
 
+    public $filter_min_hourly_rate = 0; // Default minimum hourly rate
+    public $filter_max_hourly_rate = 100; // Default maximum hourly rate
+
+
+
     // Search term
     public $searchTerm = '';
 
@@ -38,6 +43,7 @@ class ChildminderProfileShowInClient extends Component
         $this->filter_service = session()->get('filter_service', null);
         $this->filter_language = session()->get('filter_language', null);
         $this->filter_age_group = session()->get('filter_age_group', null);
+
     }
 
     public function updated($propertyName)
@@ -45,6 +51,7 @@ class ChildminderProfileShowInClient extends Component
         if (str_starts_with($propertyName, 'filter_')) {
             session()->put($propertyName, $this->{$propertyName});
         }
+
         $this->resetPage();
     }
 
@@ -61,6 +68,7 @@ class ChildminderProfileShowInClient extends Component
     $this->searchTerm = '';  // Reset search term
     $this->viewMode = 'list';  // Switch back to list view
 }
+
 
     public function searchProfiles()
     {
@@ -145,6 +153,16 @@ public function goToMap($profileId, $profileName, $profilePostcode)
             });
         }
 
+        // Add Hourly Rate Filter
+if ($this->filter_min_hourly_rate && $this->filter_max_hourly_rate) {
+    $query->whereBetween('hourly_rate', [$this->filter_min_hourly_rate, $this->filter_max_hourly_rate]);
+} elseif ($this->filter_min_hourly_rate) {
+    $query->where('hourly_rate', '>=', $this->filter_min_hourly_rate);
+} elseif ($this->filter_max_hourly_rate) {
+    $query->where('hourly_rate', '<=', $this->filter_max_hourly_rate);
+}
+
+
         // Paginate the filtered results
         $profiles = $query->latest()->paginate(10);
 
@@ -154,6 +172,7 @@ public function goToMap($profileId, $profileName, $profilePostcode)
         $services = Service::pluck('name', 'id');
         $languages = Language::pluck('name', 'id');
         $ageGroups = ['0-2', '3-5', '6-12', '13-18'];  // Age group options
+
 
         return view('livewire.childminder-profile-show-in-client', [
             'profiles' => $profiles,

@@ -19,15 +19,15 @@
                    <!-- Admin Panel (Visible Only to Admins) -->
                     @if(Auth::check() && Auth::user()->user_type === 'admin')
                         <div class="flex justify-between mb-6">
-                            <a href="{{ route('admin.manage-clients') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
+                            <a href="{{ route('client-list-in-admin') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
                                 Manage Client Users
                             </a>
-                            <a href="{{ route('admin.manage-childminders') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">
+                            <a href="{{ route('childminder-list-in-admin') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">
                                 Manage Childminder Users
                             </a>
                         </div>
                     @endif
-                    
+
                     <!-- Display Notification Board for Childminders -->
                     @if (Auth::check() && Auth::user()->childminderProfile) 
                     

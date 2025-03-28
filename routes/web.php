@@ -7,6 +7,8 @@ use App\Livewire\ChildminderProfileManager;
 use App\Livewire\ChildminderProfileShowInClient;
 use App\Livewire\ClientProfileManager;
 use App\Livewire\BookingForm;
+use App\Livewire\ChildminderListInAdmin;
+use App\Livewire\ClientListInAdmin;
 use App\Models\ClientProfile;
 use Illuminate\Support\Facades\Auth;
 use App\Livewire\MessageBoard;
@@ -35,8 +37,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     //Admin
-    Route::get('/admin/manage-clients', [UserManagementController::class, 'manageClients'])->name('admin.manage-clients');
-    Route::get('/admin/manage-childminders', [UserManagementController::class, 'manageChildminders'])->name('admin.manage-childminders');
+    Route::get('/admin/manage-clients', ClientListInAdmin::class)->name('client-list-in-admin');
+    Route::get('/admin/manage-childminders', ChildminderListInAdmin::class)->name('childminder-list-in-admin');
 
     Route::get('dashboard/message-board/{sender_id}/{client_id}/{client_first_name}/{client_last_name}/{childminder_id}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}/{sender_user_type}/{receiver_user_type}', 
     MessageBoard::class)->name('message-board');

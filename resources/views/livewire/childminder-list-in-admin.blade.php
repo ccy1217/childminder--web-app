@@ -1,127 +1,34 @@
-
-<!-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Childminder Profiles') }}
-        </h2>
-    </x-slot> -->
-    <div class="mt-4 space-y-6">
+<div class="mt-4 space-y-6">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
         <!-- Search Box -->
         <div class="mb-4">
             <label for="search" class="block text-sm font-medium text-gray-700">Search Profiles:</label>
             <input type="text" wire:model.debounce.300ms="searchTerm" id="search" 
-                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
-                   placeholder="Search by name, location, or service">
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                placeholder="Search by name or childminder id">
         </div>
-        <!-- Filters Section -->
-        @if ($showFilters)
-            <div class="mb-4">
-                <label for="filter_city" class="block text-sm font-medium text-gray-700">Select City:</label>
-                <select wire:model="filter_city" id="filter_city" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">-- Choose a city --</option>
-                    @foreach ($cities as $city)
-                        <option value="{{ $city }}">{{ $city }}</option>
-                    @endforeach
-                </select>
-
-                <label for="filter_town" class="block text-sm font-medium text-gray-700 mt-4">Select Town:</label>
-                <select wire:model="filter_town" id="filter_town" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">-- Choose a town --</option>
-                    @foreach ($towns as $town)
-                        <option value="{{ $town }}">{{ $town }}</option>
-                    @endforeach
-                </select>
-
-                <label for="filter_service" class="block text-sm font-medium text-gray-700 mt-4">Preferred Service:</label>
-                <select wire:model="filter_service" id="filter_service" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">-- Choose a service --</option>
-                    @foreach ($services as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                    @endforeach
-                </select>
-
-                <label for="filter_language" class="block text-sm font-medium text-gray-700 mt-4">Preferred Language:</label>
-                <select wire:model="filter_language" id="filter_language" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">-- Choose a language --</option>
-                    @foreach ($languages as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                    @endforeach
-                </select>
-
-                <!-- Filter by Age Group -->
-                <label for="filter_age_group" class="block text-sm font-medium text-gray-700">Preferred Age Group</label>
-                <select wire:model="filter_age_group" id="filter_age_group" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">-- Choose an Age Group --</option>
-                    @foreach(['0-2', '3-5', '6-12', '13-18'] as $ageGroup)
-                    <option value="{{ $ageGroup }}">{{ $ageGroup }}</option>
-                    @endforeach
-                </select>
-
-
-
-                <div class="mb-4">
-    <!-- Label for Hourly Rate Range -->
-    <label for="filter_hourly_rate_range" class="block text-sm font-medium text-gray-700">Hourly Rate Range:</label>
-
-    <!-- Min and Max Input Boxes for Hourly Rate -->
-    <div class="flex space-x-4">
-        <!-- Min Rate Input -->
-        <input 
-            type="number" 
-            wire:model="filter_min_hourly_rate" 
-            min="0" 
-            max="100" 
-            step="1" 
-            class="mt-2 w-full border rounded p-2" 
-            placeholder="Min Rate" 
-        />
-        
-        <!-- Max Rate Input -->
-        <input 
-            type="number" 
-            wire:model="filter_max_hourly_rate" 
-            min="0" 
-            max="100" 
-            step="1" 
-            class="mt-2 w-full border rounded p-2" 
-            placeholder="Max Rate" 
-        />
+        <!-- Search Button -->
+        <div class="mt-4">
+            <button wire:click="searchProfiles" class="custom-button2">
+                Search
+            </button>
+        </div>
     </div>
-</div>
-
-
-
-
-
-
-
-                <!-- Search Button -->
-                <div class="mt-4">
-                    <button wire:click="searchProfiles" class="custom-button2">
-                        Search
-                    </button>
-                </div>
-            </div>
-        @endif
-    </div>
-
     <!-- Childminder Profiles Section -->
     <ul class="mt-4 space-y-6">
-
-
         @if ($viewMode === 'list')
             <!-- List of Childminder Profiles -->
             @if($profiles->isEmpty())
                 <!-- No results found -->
                 <div class="text-center col-span-full">
-                    <p class="text-lg font-semibold text-gray-600">No results found. Please try other filters or keywords.</p>
+                    <p class="text-lg font-semibold text-gray-600">No results found. Please try other keywords.</p>
                     <button wire:click="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
                         Back to List
                     </button>
                 </div>
             @else
                 @foreach ($profiles as $profile)
-                <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <li wire:key="profile-{{ $profile->id }}" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <div class="flex items-center space-x-6">
                             <!-- Profile Image (Left Side) -->
                             <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-blue-500 p-4 mr-6">
@@ -142,12 +49,13 @@
                                 <p class="text-sm text-gray-600">Location: {{ $profile->city }}, {{ $profile->town ?? 'N/A' }}</p>
                                 <p class="text-sm text-gray-600">Hourly Rate: £{{ $profile->hourly_rate }}</p>
                             </div>
-                            <!-- Inside the profile loop, after profile details -->
+
+                            <!-- Delete Button -->
                             <div class="mt-4">
-                            <button wire:click.prevent="goToBookingForm({{ $profile->id }}, '{{ $profile->first_name }} {{ $profile->last_name }}')" 
-                             class="custom-button">
-                            Book
+                            <button wire:click.prevent="deleteProfile({{ $profile->id }})" class="custom-button bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+                                Delete
                             </button>
+
                             </div>
                         </div>
                     </li>
@@ -177,6 +85,8 @@
                                     </div>
                                 @endif
                             </div>
+                             <!-- Childminder ID -->
+                            <p class="text-sm text-gray-600 mt-2"><b>Childminder ID:</b> {{ $currentProfile->id }}</p>
                             <p class="text-sm text-gray-600 mt-2">Location: {{ $currentProfile->city }}, {{ $currentProfile->town ?? 'N/A' }}</p>
                             <p class="text-sm text-gray-600 mt-2">Hourly Rate: £{{ $currentProfile->hourly_rate }}</p>
                             <p class="mt-4"><b>About Me:</b> {{ $currentProfile->about_me ?? 'Not provided' }}</p>
@@ -245,35 +155,15 @@
                                 <livewire:comment-show :childminderId="$currentProfile->id" />
                             </div>
 
-                            <!-- Book Button -->
-                            <!-- Inside the show profile view -->
-                            <div class="mt-4 flex justify-center space-x-8">
-                                <button wire:click.prevent="goToBookingForm({{ $currentProfile->id }}, '{{ $currentProfile->first_name }} {{ $currentProfile->last_name }}')"  
-                                        class="custom-button">
-                                    Book
-                                </button>
-    
-                                <button wire:click.prevent="backToList" 
-                                        class="custom-button2">
+                            <!-- Back to List Button -->
+                            <div class="mt-4">
+                                <button wire:click.prevent="backToList" class="custom-button2">
                                     Back to List
                                 </button>
-                                @php
-                                    $client = Auth::check() ? \App\Models\ClientProfile::where('user_id', Auth::id())->first() : null;
-                                    $clientPostcode = $client ? $client->postcode : null;
-                                @endphp
-
-                                <a href="{{ route('map.with-params', [
-                                    'childminderId' => $currentProfile->id,
-                                    'childminderName' => $currentProfile->first_name,
-                                    'childminderPostcode' => $currentProfile->postcode,
-                                    'clientPostcode' => $clientPostcode
-                                ]) }}" class="custom-button3">
-                                    View on Map
-                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         @endif
     </ul>
