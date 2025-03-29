@@ -87,26 +87,24 @@ class ChildminderProfileShowInClient extends Component
         $this->resetPage();  // Reset pagination
     }
     public function goToBookingForm($profileId, $profileName)
-{
-    return redirect()->route('booking-form', [
-        'childminderId' => $profileId,  // Fix this key
-        'childminderName' => $profileName
-    ]);
-}
-public function goToMap($profileId, $profileName, $profilePostcode)
-{
-    $client = Auth::check() ? ClientProfile::where('user_id', Auth::id())->first() : null;
-    $clientPostcode = $client ? $client->postcode : null;
+    {
+        return redirect()->route('booking-form', [
+            'childminderId' => $profileId,  // Fix this key
+            'childminderName' => $profileName
+        ]);
+    }
+    public function goToMap($profileId, $profileName, $profilePostcode)
+    {
+        $client = Auth::check() ? ClientProfile::where('user_id', Auth::id())->first() : null;
+        $clientPostcode = $client ? $client->postcode : null;
 
-    return redirect()->route('map.with-params', [
-        'childminderId' => $profileId,
-        'childminderName' => $profileName,
-        'childminderPostcode' => $profilePostcode,
-        'clientPostcode' => $clientPostcode
-    ]);
-}
-
-
+        return redirect()->route('map.with-params', [
+            'childminderId' => $profileId,
+            'childminderName' => $profileName,
+            'childminderPostcode' => $profilePostcode,
+            'clientPostcode' => $clientPostcode
+        ]);
+    }
 
 
     public function render()
@@ -154,13 +152,13 @@ public function goToMap($profileId, $profileName, $profilePostcode)
         }
 
         // Add Hourly Rate Filter
-if ($this->filter_min_hourly_rate && $this->filter_max_hourly_rate) {
-    $query->whereBetween('hourly_rate', [$this->filter_min_hourly_rate, $this->filter_max_hourly_rate]);
-} elseif ($this->filter_min_hourly_rate) {
-    $query->where('hourly_rate', '>=', $this->filter_min_hourly_rate);
-} elseif ($this->filter_max_hourly_rate) {
-    $query->where('hourly_rate', '<=', $this->filter_max_hourly_rate);
-}
+        if ($this->filter_min_hourly_rate && $this->filter_max_hourly_rate) {
+            $query->whereBetween('hourly_rate', [$this->filter_min_hourly_rate, $this->filter_max_hourly_rate]);
+        } elseif ($this->filter_min_hourly_rate) {
+            $query->where('hourly_rate', '>=', $this->filter_min_hourly_rate);
+        } elseif ($this->filter_max_hourly_rate) {
+            $query->where('hourly_rate', '<=', $this->filter_max_hourly_rate);
+        }
 
 
         // Paginate the filtered results
