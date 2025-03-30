@@ -24,7 +24,7 @@
                 <!-- No results found -->
                 <div class="text-center col-span-full">
                     <p class="text-lg font-semibold text-gray-600">No results found. Please try other keywords.</p>
-                    <button wire:click="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
+                    <button wire:click="backToList" class="custom-button2">
                         Back to List
                     </button>
                 </div>
@@ -54,7 +54,7 @@
 
                             <!-- Delete Button -->
                             <div class="mt-4">
-                                <button wire:click.prevent="deleteProfile({{ $profile->id }})" class="custom-button bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+                                <button wire:click.prevent="deleteProfile({{ $profile->id }})" class="custom-button4">
                                     Delete
                                 </button>
                             </div>
@@ -93,9 +93,6 @@
                             <p class="text-sm text-gray-600 mt-2"><b>Location:</b> {{ $currentProfile->city }}, {{ $currentProfile->town ?? 'N/A' }}</p>
                             <p class="text-sm text-gray-600 mt-2"><b>Postcode:</b> {{ $currentProfile->postcode ?? 'Not provided' }}</p>
 
-                            <!-- Preferences and Requirements -->
-                            <p class="mt-4"><b>Specific Requirements:</b> {{ $currentProfile->specific_requirements ?? 'Not provided' }}</p>
-
                             <!-- Preferred Age Groups -->
                             <p class="mt-2"><b>Preferred Age Groups:</b>
                                 @php
@@ -104,10 +101,13 @@
                                 {{ is_array($ageGroups) && !empty($ageGroups) ? implode(', ', $ageGroups) : 'Not specified' }}
                             </p>
 
+                            <!-- Preferences and Requirements -->
+                            <p class="mt-4"><b>Specific Requirements:</b> {{ $currentProfile->specific_requirements ?? 'Not provided' }}</p>
+
                             <!-- Buttons (Delete and Back to List) -->
                             <div class="mt-6 flex justify-center space-x-4">
                                 <!-- Delete Button -->
-                                <button wire:click.prevent="deleteProfile({{ $currentProfile->id }})" class="custom-button bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+                                <button wire:click.prevent="deleteProfile({{ $currentProfile->id }})" class="custom-button4">
                                     Delete
                                 </button>
 

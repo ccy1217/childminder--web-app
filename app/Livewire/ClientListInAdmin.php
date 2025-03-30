@@ -42,13 +42,22 @@ class ClientListInAdmin extends Component
 
     public function deleteProfile($profileId)
     {
-        // Delete the profile after checking it exists
-        $profile = ClientProfile::findOrFail($profileId);
-        $profile->delete();
-
-        session()->flash('message', 'Profile deleted successfully!');
-        $this->backToList(); // Return to list view
+        // Try to find and delete the profile
+        $profile = ClientProfile::find($profileId); // Use find() instead of findOrFail to avoid 404 error
+        if ($profile) {
+            $profile->delete();
+            session()->flash('message', 'Profile deleted successfully!');
+        } else {
+            session()->flash('error', 'Profile not found.');
+        }
+    
+        // Reset current profile to avoid showing deleted profile
+        $this->currentProfile = null;
+    
+        // Go back to list view after deletion
+        $this->backToList();
     }
+    
 
     // Search method is simplified - no need to call render() explicitly
     public function searchProfiles()
@@ -64,9 +73,9 @@ class ClientListInAdmin extends Component
         if ($this->searchTerm) {
             $query->where(function($query) {
                 $query->where('id', 'like', '%' . $this->searchTerm . '%')  // Search by client profile ID
-                      ->orWhere('first_name', 'like', '%' . $this->searchTerm . '%')  // Search by first name
-                      ->orWhere('last_name', 'like', '%' . $this->searchTerm . '%')   // Search by last name
-                      ->orWhere('children_name', 'like', '%' . $this->searchTerm . '%');  // Search by child's name
+                    ->orWhere('first_name', 'like', '%' . $this->searchTerm . '%')  // Search by first name
+                    ->orWhere('last_name', 'like', '%' . $this->searchTerm . '%')   // Search by last name
+                    ->orWhere('children_name', 'like', '%' . $this->searchTerm . '%');  // Search by child's name
             });
         }
 
@@ -77,4 +86,5 @@ class ClientListInAdmin extends Component
             'profiles' => $profiles,
         ])->layout('layouts.app');
     }
+
 }

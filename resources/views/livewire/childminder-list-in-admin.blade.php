@@ -21,8 +21,8 @@
             @if($profiles->isEmpty())
                 <!-- No results found -->
                 <div class="text-center col-span-full">
-                    <p class="text-lg font-semibold text-gray-600">No results found. Please try other keywords.</p>
-                    <button wire:click="backToList" class="mt-4 bg-blue-500 text-black px-4 py-2 rounded-md hover:bg-blue-600">
+                    <p class="text-lg font-semibold text-black-600">No results found. Please try other keywords.</p>
+                    <button wire:click="backToList" class="custom-button2">
                         Back to List
                     </button>
                 </div>
@@ -155,8 +155,12 @@
                                 <livewire:comment-show :childminderId="$currentProfile->id" />
                             </div>
 
-                            <!-- Back to List Button -->
-                            <div class="mt-4">
+                            <div class="mt-6 flex justify-center space-x-4">
+                                <!-- Delete Button-->
+                                <button wire:click.prevent="deleteProfile({{ $currentProfile->id }})" class="custom-button4">
+                                    Delete
+                                </button>
+                                <!-- Back to List Button -->
                                 <button wire:click.prevent="backToList" class="custom-button2">
                                     Back to List
                                 </button>

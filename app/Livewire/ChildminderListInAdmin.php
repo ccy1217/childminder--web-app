@@ -44,13 +44,22 @@ class ChildminderListInAdmin extends Component
     public function deleteProfile($profileId)
     {
         // Check if profile exists and delete it
-        $profile = ChildminderProfile::findOrFail($profileId);
-        $profile->delete();
+        $profile = ChildminderProfile::find($profileId); // Using find() instead of findOrFail to prevent 404 if not found
 
-        // After deletion, go back to list view
-        session()->flash('message', 'Profile deleted successfully!');
+        if ($profile) {
+            $profile->delete();
+            session()->flash('message', 'Profile deleted successfully!');
+        } else {
+            session()->flash('error', 'Profile not found.');
+        }
+
+        // Reset currentProfile to avoid showing deleted profile in the show view
+        $this->currentProfile = null;
+
+        // Go back to list view
         $this->backToList();
     }
+
 
     public function searchProfiles()
     {
@@ -68,8 +77,8 @@ class ChildminderListInAdmin extends Component
         if ($this->searchTerm) {
             $query->where(function($query) {
                 $query->where('id', 'like', '%' . $this->searchTerm . '%')  // Search by childminder ID
-                      ->orWhere('first_name', 'like', '%' . $this->searchTerm . '%')  // Search by first name
-                      ->orWhere('last_name', 'like', '%' . $this->searchTerm . '%');  // Search by last name
+                    ->orWhere('first_name', 'like', '%' . $this->searchTerm . '%')  // Search by first name
+                    ->orWhere('last_name', 'like', '%' . $this->searchTerm . '%');  // Search by last name
             });
         }
 
@@ -80,4 +89,5 @@ class ChildminderListInAdmin extends Component
             'profiles' => $profiles,
         ])->layout('layouts.app');
     }
+
 }
