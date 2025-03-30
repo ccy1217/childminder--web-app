@@ -17,8 +17,6 @@ class CommentShow extends Component
     public $commentText;
     public $rating;
     public $canComment = false;
-    protected $paginationTheme = 'tailwind';
-
     public $currentProfile; // Add this property to store the current profile
 
     public function mount($childminderId)
@@ -72,12 +70,29 @@ class CommentShow extends Component
         $this->reset(['commentText', 'rating']);
     }
 
+
+    public function deleteComment($commentId)
+{
+    if (Auth::user()->user_type !== 'admin') {
+        session()->flash('error', 'You do not have permission to delete comments.');
+        return;
+    }
+
+    $comment = Comment::find($commentId);
+    
+    if ($comment) {
+        $comment->delete();
+        session()->flash('success', 'Comment deleted successfully.');
+    } else {
+        session()->flash('error', 'Comment not found.');
+    }
+}
     public function render()
     {
         $comments = Comment::where('childminder_id', $this->childminderId)
             ->with('clientProfile') // Eager load client profile for images
             ->latest()
-            ->paginate(5);
+            ->get();
 
         return view('livewire.comment-show', [
             'comments' => $comments,
@@ -86,3 +101,5 @@ class CommentShow extends Component
         ]);
     }
 }
+
+

@@ -44,14 +44,30 @@
     font-weight: bold;
     padding: 12px 24px; /* Increased horizontal padding (left and right) */
     border-radius: 6px;
-    border: 2px solid #E9967A; /* Tailwind's blue-500 */
+    border: 2px solid #E9967A; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 }
 
 .custom-button3:hover {
-    background-color: #DAA520; /* Tailwind's blue-600 */
+    background-color: #DAA520; 
     color: white;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
+.custom-button4 {
+    background-color: #DB7093;
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 6px;
+    border: 2px solid #DB7093;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-button4:hover {
+    background-color: #DC143C;
+    color: white;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}

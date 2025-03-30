@@ -17,6 +17,7 @@
         "vite": "^6.0"
     },
     "dependencies": {
+        "build": "^0.1.4",
         "leaflet-routing-machine": "^3.2.12"
     }
 }

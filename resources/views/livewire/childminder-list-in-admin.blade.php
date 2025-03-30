@@ -52,7 +52,7 @@
 
                             <!-- Delete Button -->
                             <div class="mt-4">
-                            <button wire:click.prevent="deleteProfile({{ $profile->id }})" class="custom-button bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+                            <button wire:click.prevent="deleteProfile({{ $profile->id }})" class="custom-button4">
                                 Delete
                             </button>
 

@@ -18,28 +18,35 @@
                         @endif
 
                         <!-- Comment Content -->
-                    <div class="flex-1">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">Client #{{ $comment->client_id }}</span>
+                        <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div> <!-- Left side content -->
+                                <span class="font-semibold">Client #{{ $comment->client_id }}</span>
+                                <p class="text-yellow-500 mt-1">⭐ {{ $comment->rating }}/5</p>
+                                <p class="text-gray-700 mt-1">{{ $comment->comment }}</p>
+                            </div>
 
-                                <span class="text-sm text-gray-600">
+                            <div class="flex flex-col items-end"> <!-- Right side: Timestamp + Delete button -->
+                                <span class="text-sm text-gray-600 mb-1">
                                     {{ $comment->created_at->diffForHumans() }}
                                 </span>
+
+                                @if (Auth::check() && Auth::user()->user_type === 'admin')
+                                    <button wire:click="deleteComment({{ $comment->id }})"
+                                            class="custom-button4">
+                                        Delete
+                                    </button>
+                                @endif
                             </div>
-                            <p class="text-gray-700 mt-1">{{ $comment->comment }}</p>
-                            @if ($comment->rating)
-                                <p class="text-yellow-500 mt-1">Rating: ⭐{{ $comment->rating }}/5</p>
-                            @endif
                         </div>
+                    </div>
                     </div>
                 </li>
             @endforeach
         </ul>
+        
     @endif
 
-    <div class="mt-4">
-        {{ $comments->links() }}
-    </div>
 
     @if ($canComment)
         <div class="mt-6 p-4 border rounded-lg shadow-md">
@@ -75,3 +82,6 @@
         <p class="mt-4 text-gray-500">Only clients who have booked this childminder can leave a comment.</p>
     @endif
 </div>
+
+
+
