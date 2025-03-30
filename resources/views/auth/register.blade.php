@@ -63,13 +63,13 @@
     <script src="https://www.google.com/recaptcha/api.js?render={{ env('RECAPTCHA_SITE_KEY') }}"></script>
     <script>
         grecaptcha.ready(function() {
-            grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', { action: 'register' }).then(function(token) {
+            grecaptcha.execute("{{ env('RECAPTCHA_SITE_KEY') }}", { action: 'register' }).then(function(token) {
                 document.getElementById('recaptcha-response').value = token;
             });
         });
 
-         // Toggle Company ID Field Based on User Type Selection
-         document.getElementById("user_type").addEventListener("change", function() {
+        // Toggle Company ID Field Based on User Type Selection
+        document.getElementById("user_type").addEventListener("change", function() {
             const companyField = document.getElementById("company_id_field");
             if (this.value === "admin") {
                 companyField.classList.remove("hidden");
@@ -78,9 +78,5 @@
             }
         });
     </script>
-
-
-
-
     
 </x-guest-layout>

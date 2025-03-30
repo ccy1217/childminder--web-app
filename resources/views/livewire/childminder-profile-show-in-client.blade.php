@@ -54,34 +54,34 @@
 
 
                 <div class="mb-4">
-    <!-- Label for Hourly Rate Range -->
-    <label for="filter_hourly_rate_range" class="block text-sm font-medium text-gray-700">Hourly Rate Range:</label>
+                    <!-- Label for Hourly Rate Range -->
+                    <label for="filter_hourly_rate_range" class="block text-sm font-medium text-gray-700">Hourly Rate Range:</label>
 
-    <!-- Min and Max Input Boxes for Hourly Rate -->
-    <div class="flex space-x-4">
-        <!-- Min Rate Input -->
-        <input 
-            type="number" 
-            wire:model="filter_min_hourly_rate" 
-            min="0" 
-            max="100" 
-            step="1" 
-            class="mt-2 w-full border rounded p-2" 
-            placeholder="Min Rate" 
-        />
-        
-        <!-- Max Rate Input -->
-        <input 
-            type="number" 
-            wire:model="filter_max_hourly_rate" 
-            min="0" 
-            max="100" 
-            step="1" 
-            class="mt-2 w-full border rounded p-2" 
-            placeholder="Max Rate" 
-        />
-    </div>
-</div>
+                    <!-- Min and Max Input Boxes for Hourly Rate -->
+                    <div class="flex space-x-4">
+                        <!-- Min Rate Input -->
+                        <input 
+                            type="number" 
+                            wire:model="filter_min_hourly_rate" 
+                            min="0" 
+                            max="100" 
+                            step="1" 
+                            class="mt-2 w-full border border-gray-300 rounded p-2" 
+                            placeholder="Min Rate" 
+                        />
+                        
+                        <!-- Max Rate Input -->
+                        <input 
+                            type="number" 
+                            wire:model="filter_max_hourly_rate" 
+                            min="0" 
+                            max="100" 
+                            step="1" 
+                            class="mt-2 w-full border border-gray-300 rounded p-2" 
+                            placeholder="Max Rate" 
+                        />
+                    </div>
+                </div>
 
                 <!-- Search Button -->
                 <div class="mt-4">
