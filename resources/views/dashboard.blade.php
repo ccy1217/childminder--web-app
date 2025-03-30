@@ -16,13 +16,16 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg "> 
                 <p class="text-gray-900">
                     
-                   <!-- Admin Panel (Visible Only to Admins) -->
+                    <!-- Admin Panel (Visible Only to Admins) -->
                     @if(Auth::check() && Auth::user()->user_type === 'admin')
-                        <div class="flex justify-between mb-6">
-                            <a href="{{ route('client-list-in-admin') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
+                        <div class="flex flex-col justify-between h-full mb-6 mx-6 mt-6">
+                            <!-- Button 1: Manage Client Users (Top) -->
+                            <a href="{{ route('client-list-in-admin') }}" class="custom-button mt-6 mb-6 ml-6 mr-6 text-center">
                                 Manage Client Users
                             </a>
-                            <a href="{{ route('childminder-list-in-admin') }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">
+
+                            <!-- Button 2: Manage Childminder Users (Bottom) -->
+                            <a href="{{ route('childminder-list-in-admin') }}" class="custom-button2 ml-6 mr-6 mb-6 text-center">
                                 Manage Childminder Users
                             </a>
                         </div>
