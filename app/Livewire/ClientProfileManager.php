@@ -6,6 +6,7 @@ use App\Models\ClientProfile;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ClientProfileManager extends Component
 {
@@ -22,10 +23,8 @@ class ClientProfileManager extends Component
     public $age_group_options = [];
     public $specific_requirements;
 
-    // Removed $my_document property
-    // public $my_document = [];
-
     public $profile;
+    public $is_postcode_valid = true; // Add a flag to handle postcode validation
 
     public function mount()
     {
@@ -50,7 +49,6 @@ class ClientProfileManager extends Component
                 'profile_picture' => $this->profile->profile_picture,
                 'preferred_age_groups' => json_decode($this->profile->preferred_age_groups, true) ?? [],
                 'specific_requirements' => $this->profile->specific_requirements,
-                // Removed document fields
             ]);
         }
     }
@@ -66,6 +64,19 @@ class ClientProfileManager extends Component
         $this->preferred_age_groups = array_values($this->preferred_age_groups);
     }
 
+    public function validatePostcode($postcode)
+    {
+        // Make API request to postcodes.io to validate postcode
+        $response = Http::get("https://api.postcodes.io/postcodes/{$postcode}/validate");
+
+        // Check if the response is successful and return validation result
+        if ($response->successful()) {
+            return $response->json()['result']; // true if valid, false if invalid
+        }
+
+        return false; // Return false if API fails
+    }
+
     public function saveProfile()
     {
         $this->validate([
@@ -79,8 +90,14 @@ class ClientProfileManager extends Component
             'preferred_age_groups' => 'nullable|array',
             'preferred_age_groups.*' => 'nullable|string',
             'specific_requirements' => 'nullable|string',
-            // Removed validation for my_document
         ]);
+
+        // Validate the postcode
+        if ($this->postcode && !$this->validatePostcode($this->postcode)) {
+            $this->is_postcode_valid = false; // Set flag to false if postcode is invalid
+            session()->flash('error', 'The postcode is not valid.');
+            return;
+        }
 
         // Save profile picture
         $profilePicturePath = $this->profile_picture
@@ -98,13 +115,12 @@ class ClientProfileManager extends Component
             'profile_picture' => $profilePicturePath,
             'preferred_age_groups' => json_encode(array_values($this->preferred_age_groups), JSON_UNESCAPED_SLASHES),
             'specific_requirements' => $this->specific_requirements,
-            // Removed documents field
         ];
 
         if ($this->profile) {
             $this->profile->update($data);
         } else {
-            $profile = ClientProfile::create(array_merge($data, ['user_id' => Auth::id()]));
+            ClientProfile::create(array_merge($data, ['user_id' => Auth::id()]));
         }
 
         session()->flash('message', 'Profile saved successfully!');
@@ -115,4 +131,3 @@ class ClientProfileManager extends Component
         return view('livewire.client-profile-manager')->layout('layouts.app');
     }
 }
-

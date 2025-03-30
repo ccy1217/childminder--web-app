@@ -66,11 +66,19 @@
                 <!-- Postcode -->
                 <div>
                     <label for="postcode" class="block text-sm font-medium text-gray-700">Postcode</label>
-                    <input type="text" id="postcode" wire:model="postcode" class="mt-1 p-2 block w-full border rounded-md" placeholder="e.g., SM1 3LE">
-                    @error('postcode')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+                    <input type="text" 
+                        id="postcode" 
+                        wire:model="postcode" 
+                        class="mt-1 p-2 block w-full border rounded-md"
+                        placeholder="eg. SM1 3LE">
+                        <!-- Error Message -->
+                        @if (session()->has('error'))
+                            <div class="text-red-500 text-sm">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                 </div>
+
 
                 <!-- Preferred Age Groups -->
                 <div>
