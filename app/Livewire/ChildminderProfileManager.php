@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\ChildminderProfile;
 use App\Models\Service;
-use App\Models\Language; // Add the Language model
+use App\Models\Language;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;

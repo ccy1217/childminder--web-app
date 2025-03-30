@@ -23,7 +23,10 @@ class ChildminderProfileShow extends Component
     public $filter_language;
     public $filter_age_group;
     public $showFilters = true;
-
+    
+    public $filter_min_hourly_rate = 0; // Default minimum hourly rate
+    public $filter_max_hourly_rate = 100; // Default maximum hourly rate
+    
     // Search term
     public $searchTerm = '';
 
@@ -54,17 +57,18 @@ class ChildminderProfileShow extends Component
     }
 
     public function backToList()
-{
+    {
     $this->resetFilters();  // Clear filters
     $this->searchTerm = '';  // Reset search term
     $this->viewMode = 'list';  // Switch back to list view
-}
+    }
 
     public function searchProfiles()
     {
-        $this->showFilters = false;  // Hide filters after search
-        $this->resetPage();  // Reset pagination so we can fetch fresh data
+        $this->resetPage(); // Reset pagination when a new search is performed
+        $this->viewMode = 'list'; // Ensure it switches back to list view
     }
+
 
     public function resetFilters()
     {
@@ -119,6 +123,15 @@ class ChildminderProfileShow extends Component
                           $q->where('name', 'like', '%' . $this->searchTerm . '%');
                       });
             });
+        }
+
+        // Add Hourly Rate Filter
+        if ($this->filter_min_hourly_rate && $this->filter_max_hourly_rate) {
+            $query->whereBetween('hourly_rate', [$this->filter_min_hourly_rate, $this->filter_max_hourly_rate]);
+        } elseif ($this->filter_min_hourly_rate) {
+            $query->where('hourly_rate', '>=', $this->filter_min_hourly_rate);
+        } elseif ($this->filter_max_hourly_rate) {
+            $query->where('hourly_rate', '<=', $this->filter_max_hourly_rate);
         }
 
         // Paginate the filtered results

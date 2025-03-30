@@ -63,18 +63,19 @@ class ChildminderProfileShowInClient extends Component
     }
 
     public function backToList()
-{
-    $this->resetFilters();  // Clear filters
-    $this->searchTerm = '';  // Reset search term
-    $this->viewMode = 'list';  // Switch back to list view
-}
+    {
+        $this->resetFilters();  // Clear filters
+        $this->searchTerm = '';  // Reset search term
+        $this->viewMode = 'list';  // Switch back to list view
+    }
 
 
     public function searchProfiles()
     {
-        $this->showFilters = false;  // Hide filters after search
-        $this->resetPage();  // Reset pagination so we can fetch fresh data
+        $this->resetPage(); // Reset pagination when a new search is performed
+        $this->viewMode = 'list'; // Ensure it switches back to list view
     }
+
 
     public function resetFilters()
     {

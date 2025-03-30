@@ -63,6 +63,7 @@ class ClientListInAdmin extends Component
     public function searchProfiles()
     {
         $this->resetPage(); // Reset pagination when a new search is performed
+        $this->viewMode = 'list'; // Ensure it switches back to list view
     }
 
     public function render()

@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ChildminderProfileSeeder::class); 
         $this->call(ClientProfileSeeder::class);
         $this->call(BookingSeeder::class);
-        $this->call(NotificationSeeder::class);
         $this->call(MessageSeeder::class);
         $this->call(CommentSeeder::class);
     }
