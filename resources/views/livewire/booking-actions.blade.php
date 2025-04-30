@@ -34,6 +34,10 @@
                             Childminder ID: {{ $booking->childminder_id }} -  
                             {{ optional($booking->childminderprofile)->first_name ?? 'Unknown' }} 
                             {{ optional($booking->childminderprofile)->last_name ?? 'Childminder' }}
+                            @if (in_array($booking->childminderprofile->user_id, $unreadMessageUserIds))
+                                🔔
+                            @endif
+
                         </h3>
                         <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($booking->start_time)->format('F j, Y, g:i a') }}</p>
                         <p><strong>End Time:</strong> {{ \Carbon\Carbon::parse($booking->end_time)->format('F j, Y, g:i a') }}</p>

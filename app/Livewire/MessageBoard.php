@@ -5,7 +5,6 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class MessageBoard extends Component
 {
@@ -17,11 +16,19 @@ class MessageBoard extends Component
     public $messages = []; 
     public $sender_name, $receiver_name;
 
+    public function markMessagesAsRead()
+    {
+        Message::where('sender_id', $this->receiver_id) 
+            ->where('receiver_id', $this->sender_id)   
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+    }
+
+
     public function mount(
         $sender_id, $client_id, $client_first_name, $client_last_name, 
         $childminder_id, $childminder_user_id, $childminder_first_name, $childminder_last_name, 
-        $receiver_id, $sender_user_type, $receiver_user_type
-    ) {
+        $receiver_id, $sender_user_type, $receiver_user_type) {
         $this->sender_id = $sender_id;
         $this->receiver_id = $receiver_id;
         $this->client_id = $client_id;
@@ -35,6 +42,7 @@ class MessageBoard extends Component
         $this->receiver_user_type = $receiver_user_type;
 
         $this->loadMessages();
+        $this->markMessagesAsRead();  //mark them read when board is opened
         $this->loadSenderReceiverNames();
     }
 
