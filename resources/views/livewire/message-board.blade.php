@@ -26,13 +26,15 @@
             <div class="border p-4 rounded-lg bg-gray-50 {{ $message->is_read ? 'bg-gray-100' : 'bg-blue-50' }}">
                 <!-- Message Sender Label (Childminder or Client) -->
                 <p class="font-medium {{ $message->sender_id == $sender_id ? 'text-blue-500' : 'text-red-500' }}">
-                    @if($message->sender_id == $sender_id)
-                        <!-- Display Client's Name with ID -->
+                <p class="font-medium {{ $message->sender_id == $sender_id ? 'text-blue-500' : 'text-red-500' }}">
+                    @if ($message->sender && $message->sender->user_type === 'client')
                         Client: {{ $client_first_name }} {{ $client_last_name }} (ID: {{ $client_id }})
                     @else
-                        <!-- Display Childminder's Name with ID -->
                         Childminder: {{ $childminder_first_name }} {{ $childminder_last_name }} (ID: {{ $childminder_id }})
                     @endif
+
+
+
                 </p>
                 <!-- Message Content -->
                 <p class="mt-2 text-gray-800">{{ $message->message }}</p>

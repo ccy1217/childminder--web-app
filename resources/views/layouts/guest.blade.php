@@ -67,7 +67,7 @@
             </div>
         </div>
         <!-- Footer -->
-        <footer id="contact" class="bg-[#00CED1] text-white py-6 relative z-20">
+        <footer id="contact" class="bg-[#FFFFFF] text-white py-6 relative z-20">
                     <div class="max-w-7xl mx-auto px-6 text-center">
                         <p>&copy; 2025 Childminder Booking Service. All Rights Reserved.</p>
                         <p>This website is created by @JOANNE CHAN ╰(*°▽°*)╯</p>

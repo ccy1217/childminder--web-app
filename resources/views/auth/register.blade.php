@@ -78,5 +78,8 @@
             }
         });
     </script>
+
+
+
     
 </x-guest-layout>

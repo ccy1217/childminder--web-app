@@ -37,17 +37,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'user_type' => ['required', 'in:client,childminder,admin'],
             'company_id' => [
-    'nullable', 
-    'required_if:user_type,admin', 
-    'string', 
-    'max:255', 
-    function ($_, $value, $fail) { // Use $_ to ignore unused parameter
-        if ($value !== 'childminder2025') {
-            $fail('Invalid Company ID.');
-        }
-    }
-],
- // Require company ID for admins
+                            'nullable', 
+                            'required_if:user_type,admin', 
+                            'string', 
+                            'max:255', 
+                            function ($_, $value, $fail) { // Use $_ to ignore unused parameter
+                            // Require company ID for admins
+                            if ($value !== 'childminder2025') {
+                                $fail('Invalid Company ID.');
+                            }
+            }
+        ],
             'g-recaptcha-response' => 'required', // Validate reCAPTCHA response
         ]);
 
@@ -64,11 +64,6 @@ class RegisteredUserController extends Controller
         if (!$data['success'] || $data['score'] < 0.5) {
             return back()->withErrors(['captcha' => 'reCAPTCHA verification failed.']);
         }
-
-        // // Validate Company ID for Admin Registration
-        // if ($request->user_type === 'admin' && $request->company_id !== 'childminder2025') {
-        //     return back()->withErrors(['company_id' => 'Invalid Company ID.']);
-        // }
 
         // Create the new user
         $user = User::create([
