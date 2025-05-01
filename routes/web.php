@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/manage-clients', ClientListInAdmin::class)->name('client-list-in-admin');
     Route::get('/admin/manage-childminders', ChildminderListInAdmin::class)->name('childminder-list-in-admin');
 
-    Route::get('dashboard/message-board/{sender_id}/{client_id}/{client_first_name}/{client_last_name}/{childminder_id}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}/{sender_user_type}/{receiver_user_type}', 
+    Route::get('dashboard/message-board/{sender_id}/{client_first_name}/{client_last_name}/{childminder_user_id}/{childminder_first_name}/{childminder_last_name}/{receiver_id}/{sender_user_type}/{receiver_user_type}', 
     MessageBoard::class)->name('message-board');
 
     // Profile Edit Routes

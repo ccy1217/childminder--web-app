@@ -17,6 +17,21 @@
                         </h3>
                         <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($booking->start_time)->format('F j, Y, g:i a') }}</p>
                         <p><strong>End Time:</strong> {{ \Carbon\Carbon::parse($booking->end_time)->format('F j, Y, g:i a') }}</p>
+                        
+                        <!-- Show selected services -->
+                        @if ($booking->services->isNotEmpty())
+                            <p><strong>Selected services:</strong> 
+                                {{ $booking->services->pluck('name')->join(', ') }}
+                            </p>
+                        @endif
+
+                        <!-- Show selected languages -->
+                        @if ($booking->languages->isNotEmpty())
+                            <p><strong>Selected languages:</strong> 
+                                {{ $booking->languages->pluck('name')->join(', ') }}
+                            </p>
+                        @endif
+
                         <p><strong>Notes:</strong> {{ $booking->notes ?? 'No notes provided' }}</p>
                     </div>
                 @endif
@@ -41,6 +56,21 @@
                         </h3>
                         <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($booking->start_time)->format('F j, Y, g:i a') }}</p>
                         <p><strong>End Time:</strong> {{ \Carbon\Carbon::parse($booking->end_time)->format('F j, Y, g:i a') }}</p>
+                        
+                        <!-- Show selected services -->
+                        @if ($booking->services->isNotEmpty())
+                            <p><strong>Selected services:</strong> 
+                                {{ $booking->services->pluck('name')->join(', ') }}
+                            </p>
+                        @endif
+
+                        <!-- Show selected languages -->
+                        @if ($booking->languages->isNotEmpty())
+                            <p><strong>Selected languages:</strong> 
+                                {{ $booking->languages->pluck('name')->join(', ') }}
+                            </p>
+                        @endif
+
                         <p><strong>Notes:</strong> {{ $booking->notes ?? 'No notes provided' }}</p>
                         <span class="text-sm text-red-500">Booking confirmed.</span>
                     </div>
@@ -82,6 +112,21 @@
                     </h3>
                     <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($booking->start_time)->format('F j, Y, g:i a') }}</p>
                     <p><strong>End Time:</strong> {{ \Carbon\Carbon::parse($booking->end_time)->format('F j, Y, g:i a') }}</p>
+
+                    <!-- Show selected services -->
+                    @if ($booking->services->isNotEmpty())
+                        <p><strong>Selected services:</strong> 
+                            {{ $booking->services->pluck('name')->join(', ') }}
+                        </p>
+                    @endif
+
+                    <!-- Show selected languages -->
+                    @if ($booking->languages->isNotEmpty())
+                        <p><strong>Selected languages:</strong> 
+                            {{ $booking->languages->pluck('name')->join(', ') }}
+                        </p>
+                    @endif
+
                     <p><strong>Notes:</strong> {{ $booking->notes ?? 'No notes provided' }}</p>
                     <span class="text-sm text-red-500">This booking was cancelled.</span>
                 </div>

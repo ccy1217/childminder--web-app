@@ -26,7 +26,7 @@ class BookingActions extends Component
     {
         if (Auth::check()) {
             $this->bookings = Booking::where('client_id', Auth::user()->clientprofile->id)
-                                     ->with('childminderprofile')
+                                     ->with(['childminderprofile', 'services', 'languages'])
                                      ->get();
     
             // Gather all childminder user IDs

@@ -28,9 +28,9 @@
                 <p class="font-medium {{ $message->sender_id == $sender_id ? 'text-blue-500' : 'text-red-500' }}">
                 <p class="font-medium {{ $message->sender_id == $sender_id ? 'text-blue-500' : 'text-red-500' }}">
                     @if ($message->sender && $message->sender->user_type === 'client')
-                        Client: {{ $client_first_name }} {{ $client_last_name }} (ID: {{ $client_id }})
+                        Client: {{ $client_first_name }} {{ $client_last_name }} (User ID: {{ $message->sender->id }})
                     @else
-                        Childminder: {{ $childminder_first_name }} {{ $childminder_last_name }} (ID: {{ $childminder_id }})
+                        Childminder: {{ $childminder_first_name }} {{ $childminder_last_name }} (User ID: {{ $message->sender->id }})
                     @endif
 
 

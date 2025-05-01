@@ -10,8 +10,8 @@ class MessageBoard extends Component
 {
     public $sender_id, $receiver_id;
     public $sender_user_type, $receiver_user_type;
-    public $client_id, $client_first_name, $client_last_name;
-    public $childminder_id, $childminder_user_id, $childminder_first_name, $childminder_last_name;
+    public $client_first_name, $client_last_name;
+    public $childminder_first_name, $childminder_last_name;
     public $message;
     public $messages = []; 
     public $sender_name, $receiver_name;
@@ -26,16 +26,13 @@ class MessageBoard extends Component
 
 
     public function mount(
-        $sender_id, $client_id, $client_first_name, $client_last_name, 
-        $childminder_id, $childminder_user_id, $childminder_first_name, $childminder_last_name, 
+        $sender_id, $client_first_name, $client_last_name, 
+        $childminder_first_name, $childminder_last_name, 
         $receiver_id, $sender_user_type, $receiver_user_type) {
         $this->sender_id = $sender_id;
         $this->receiver_id = $receiver_id;
-        $this->client_id = $client_id;
         $this->client_first_name = $client_first_name;
         $this->client_last_name = $client_last_name;
-        $this->childminder_id = $childminder_id;
-        $this->childminder_user_id = $childminder_user_id;
         $this->childminder_first_name = $childminder_first_name;
         $this->childminder_last_name = $childminder_last_name;
         $this->sender_user_type = $sender_user_type;
